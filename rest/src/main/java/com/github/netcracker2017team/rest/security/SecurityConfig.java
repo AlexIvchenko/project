@@ -1,6 +1,5 @@
-package com.github.netcracker2017team.rest.spring;
+package com.github.netcracker2017team.rest.security;
 
-import com.github.netcracker2017team.rest.security.DatabaseUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -49,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/signUp").permitAll()
+                .antMatchers(HttpMethod.GET, "/auth").authenticated()
                 .antMatchers("/user/{username}/**")
                 .access("@userAuthService.isAuthorized(authentication, #username)")
                 .anyRequest().denyAll()

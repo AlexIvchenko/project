@@ -1,6 +1,6 @@
 package com.github.netcracker2017team.rest.service;
 
-import com.github.netcracker2017team.rest.controller.Credentials;
+import com.github.netcracker2017team.model.Credentials;
 import com.github.netcracker2017team.rest.model.User;
 import com.github.netcracker2017team.rest.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;

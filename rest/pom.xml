@@ -25,6 +25,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.github.netcracker-2017-team</groupId>
+            <artifactId>model</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <!-- DB -->
         <dependency>
             <groupId>org.postgresql</groupId>
