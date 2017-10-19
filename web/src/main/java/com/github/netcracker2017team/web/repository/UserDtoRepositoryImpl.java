@@ -2,7 +2,7 @@ package com.github.netcracker2017team.web.repository;
 
 import com.github.netcracker2017team.model.Credentials;
 import com.github.netcracker2017team.model.UserDto;
-import com.github.netcracker2017team.web.rest.api.RestApi;
+import com.github.netcracker2017team.restapi.api.RestApi;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

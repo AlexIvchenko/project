@@ -1,6 +1,4 @@
-package com.github.netcracker2017team.web.rest.api;
-
-import com.github.netcracker2017team.web.security.BasicAuthToken;
+package com.github.netcracker2017team.restapi.api;
 
 /**
  * @author Alex Ivchenko

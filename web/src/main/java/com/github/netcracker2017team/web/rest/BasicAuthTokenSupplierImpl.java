@@ -1,7 +1,7 @@
 package com.github.netcracker2017team.web.rest;
 
-import com.github.netcracker2017team.web.rest.api.BasicAuthTokenSupplier;
-import com.github.netcracker2017team.web.security.BasicAuthToken;
+import com.github.netcracker2017team.restapi.api.BasicAuthTokenSupplier;
+import com.github.netcracker2017team.restapi.api.BasicAuthToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 

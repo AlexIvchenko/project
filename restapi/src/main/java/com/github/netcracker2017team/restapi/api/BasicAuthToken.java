@@ -1,4 +1,4 @@
-package com.github.netcracker2017team.web.security;
+package com.github.netcracker2017team.restapi.api;
 
 /**
  * @author Alex Ivchenko

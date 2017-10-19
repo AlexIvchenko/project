@@ -1,4 +1,4 @@
-package com.github.netcracker2017team.web.rest.api;
+package com.github.netcracker2017team.restapi.api;
 
 import org.springframework.web.client.RestTemplate;
 
@@ -9,4 +9,6 @@ public interface RestTemplates {
     RestTemplate noAuth();
 
     RestTemplate basicAuth();
+
+    RestTemplate basicAuth(String username, String password);
 }

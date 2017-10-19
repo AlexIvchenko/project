@@ -1,7 +1,7 @@
-package com.github.netcracker2017team.web.rest.impl;
+package com.github.netcracker2017team.restapi.impl;
 
-import com.github.netcracker2017team.web.rest.api.RestApi;
-import com.github.netcracker2017team.web.rest.api.UserRestApi;
+import com.github.netcracker2017team.restapi.api.RestApi;
+import com.github.netcracker2017team.restapi.api.UserRestApi;
 
 /**
  * @author Alex Ivchenko

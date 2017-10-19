@@ -1,6 +1,6 @@
 package com.github.netcracker2017team.web.security;
 
-import com.github.netcracker2017team.web.rest.api.RestApi;
+import com.github.netcracker2017team.restapi.api.RestApi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.rcp.RemoteAuthenticationException;
