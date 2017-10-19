@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * @author Alex Ivchenko
  */
-@RestController("/api")
+@RestController
 public class UserController {
     private UserService userService;
 
