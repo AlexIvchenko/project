@@ -1,7 +1,8 @@
 package com.github.netcracker2017team.web.rest.impl;
 
+import com.github.netcracker2017team.web.rest.api.BasicAuthTokenSupplier;
 import com.github.netcracker2017team.web.rest.api.RestTemplates;
-import org.springframework.beans.factory.annotation.Value;
+import com.github.netcracker2017team.web.security.BasicAuthToken;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.web.client.RestTemplate;
 
@@ -9,8 +10,13 @@ import org.springframework.web.client.RestTemplate;
  * @author Alex Ivchenko
  */
 public class RestTemplatesImpl implements RestTemplates {
-    @Value("${REST_ROOT}")
-    private String rest;
+    private final String rest;
+    private final BasicAuthTokenSupplier tokenSupplier;
+
+    public RestTemplatesImpl(String rest, BasicAuthTokenSupplier tokenSupplier) {
+        this.rest = rest;
+        this.tokenSupplier = tokenSupplier;
+    }
 
     @Override
     public RestTemplate noAuth() {
@@ -20,9 +26,10 @@ public class RestTemplatesImpl implements RestTemplates {
     }
 
     @Override
-    public RestTemplate basicAuth(String username, String password) {
+    public RestTemplate basicAuth() {
+        BasicAuthToken token = tokenSupplier.get();
         return new RestTemplateBuilder()
-                .basicAuthorization(username, password)
+                .basicAuthorization(token.username(), token.password())
                 .rootUri(rest)
                 .build();
     }

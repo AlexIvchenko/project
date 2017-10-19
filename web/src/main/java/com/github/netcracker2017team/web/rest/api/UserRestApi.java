@@ -8,6 +8,8 @@ import com.github.netcracker2017team.model.UserDto;
  */
 public interface UserRestApi {
     UserDto signUp(Credentials credentials);
+
     UserDto get(String username);
-    boolean auth(String username, String passwor);
+
+    boolean auth(String username, String password);
 }

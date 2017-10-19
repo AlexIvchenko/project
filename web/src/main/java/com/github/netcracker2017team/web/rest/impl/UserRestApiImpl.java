@@ -4,10 +4,7 @@ import com.github.netcracker2017team.model.Credentials;
 import com.github.netcracker2017team.model.UserDto;
 import com.github.netcracker2017team.web.rest.api.RestTemplates;
 import com.github.netcracker2017team.web.rest.api.UserRestApi;
-import com.github.netcracker2017team.web.security.BasicAuthToken;
-import com.github.netcracker2017team.web.security.BasicAuthTokenRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
 /**
@@ -15,16 +12,9 @@ import org.springframework.http.ResponseEntity;
  */
 @Slf4j
 public class UserRestApiImpl implements UserRestApi {
-    private RestTemplates templates;
-    private BasicAuthTokenRepository basicAuthTokenRepository;
+    private final RestTemplates templates;
 
-    @Autowired
-    public void setBasicAuthTokenRepository(BasicAuthTokenRepository basicAuthTokenRepository) {
-        this.basicAuthTokenRepository = basicAuthTokenRepository;
-    }
-
-    @Autowired
-    public void setTemplates(RestTemplates templates) {
+    public UserRestApiImpl(RestTemplates templates) {
         this.templates = templates;
     }
 
@@ -37,15 +27,14 @@ public class UserRestApiImpl implements UserRestApi {
 
     @Override
     public UserDto get(String username) {
-        BasicAuthToken token = basicAuthTokenRepository.findOne(username);
-        ResponseEntity<UserDto> response = templates.basicAuth(token.getUsername(), token.getPassword())
+        ResponseEntity<UserDto> response = templates.basicAuth()
                 .getForEntity(getUserUrl(username), UserDto.class);
         return response.getBody();
     }
 
     @Override
     public boolean auth(String username, String password) {
-        ResponseEntity<Boolean> response = templates.basicAuth(username, password)
+        ResponseEntity<Boolean> response = templates.basicAuth()
                 .getForEntity(authUrl(), Boolean.class);
         return response.getBody();
     }

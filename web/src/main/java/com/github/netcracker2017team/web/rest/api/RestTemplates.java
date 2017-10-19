@@ -8,5 +8,5 @@ import org.springframework.web.client.RestTemplate;
 public interface RestTemplates {
     RestTemplate noAuth();
 
-    RestTemplate basicAuth(String username, String password);
+    RestTemplate basicAuth();
 }

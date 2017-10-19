@@ -6,6 +6,7 @@ import com.github.netcracker2017team.web.rest.api.UserRestApi;
 import com.github.netcracker2017team.web.rest.impl.RestApiImpl;
 import com.github.netcracker2017team.web.rest.impl.RestTemplatesImpl;
 import com.github.netcracker2017team.web.rest.impl.UserRestApiImpl;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,18 +15,21 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class RestConfig {
+    @Value("${REST_ROOT}")
+    private String rest;
+
     @Bean
     public RestApi restApi() {
-        return new RestApiImpl();
+        return new RestApiImpl(userRestApi());
     }
 
     @Bean
     public UserRestApi userRestApi() {
-        return new UserRestApiImpl();
+        return new UserRestApiImpl(restTemplates());
     }
 
     @Bean
     public RestTemplates restTemplates() {
-        return new RestTemplatesImpl();
+        return new RestTemplatesImpl(rest, new BasicAuthTokenSupplierImpl());
     }
 }
