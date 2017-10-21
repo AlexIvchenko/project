@@ -8,6 +8,7 @@
     <modules>
         <module>model</module>
         <module>restapi</module>
+        <module>service</module>
     </modules>
     <name>project</name>
     <url>http://maven.apache.org</url>
