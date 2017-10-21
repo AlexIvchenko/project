@@ -1,6 +1,6 @@
-package com.github.netcracker2017team.restapi.impl;
+package com.github.netcracker2017team.project.restapi.impl.uri;
 
-import com.github.netcracker2017team.restapi.api.UserUriBuilder;
+import com.github.netcracker2017team.project.restapi.api.uri.UserUriBuilder;
 
 /**
  * @author Alex Ivchenko

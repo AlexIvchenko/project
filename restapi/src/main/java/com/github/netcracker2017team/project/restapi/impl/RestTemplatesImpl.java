@@ -1,8 +1,8 @@
-package com.github.netcracker2017team.restapi.impl;
+package com.github.netcracker2017team.project.restapi.impl;
 
-import com.github.netcracker2017team.restapi.api.BasicAuthToken;
-import com.github.netcracker2017team.restapi.api.BasicAuthTokenSupplier;
-import com.github.netcracker2017team.restapi.api.RestTemplates;
+import com.github.netcracker2017team.project.restapi.api.BasicAuthToken;
+import com.github.netcracker2017team.project.restapi.api.BasicAuthTokenSupplier;
+import com.github.netcracker2017team.project.restapi.api.RestTemplates;
 import org.springframework.http.client.support.BasicAuthorizationInterceptor;
 import org.springframework.web.client.RestTemplate;
 

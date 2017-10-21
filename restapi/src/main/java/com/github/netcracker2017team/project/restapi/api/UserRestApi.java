@@ -1,4 +1,4 @@
-package com.github.netcracker2017team.restapi.api;
+package com.github.netcracker2017team.project.restapi.api;
 
 import com.github.netcracker2017team.model.Credentials;
 import com.github.netcracker2017team.model.UserDto;

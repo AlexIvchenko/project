@@ -1,9 +1,10 @@
-package com.github.netcracker2017team.restapi.impl;
+package com.github.netcracker2017team.project.restapi.impl;
 
 import com.github.netcracker2017team.model.Credentials;
 import com.github.netcracker2017team.model.UserDto;
-import com.github.netcracker2017team.restapi.api.RestTemplates;
-import com.github.netcracker2017team.restapi.api.UserRestApi;
+import com.github.netcracker2017team.project.restapi.api.RestTemplates;
+import com.github.netcracker2017team.project.restapi.api.UserRestApi;
+import com.github.netcracker2017team.project.restapi.impl.uri.UriBuilderImpl;
 import org.springframework.http.ResponseEntity;
 
 /**
@@ -11,9 +12,9 @@ import org.springframework.http.ResponseEntity;
  */
 public class UserRestApiImpl implements UserRestApi {
     private final RestTemplates templates;
-    private final UriBuilder uriBuilder;
+    private final UriBuilderImpl uriBuilder;
 
-    public UserRestApiImpl(RestTemplates templates, UriBuilder uriBuilder) {
+    public UserRestApiImpl(RestTemplates templates, UriBuilderImpl uriBuilder) {
         this.templates = templates;
         this.uriBuilder = uriBuilder;
     }
