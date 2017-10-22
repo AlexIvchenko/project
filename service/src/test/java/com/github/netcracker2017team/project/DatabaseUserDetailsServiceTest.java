@@ -15,7 +15,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 /**
  * @author Alex Ivchenko
@@ -31,7 +32,7 @@ public class DatabaseUserDetailsServiceTest {
     }
 
     @Autowired
-    private UserDetailsService detailsService;
+    private UserDetailsService userDetailsService;
 
     @MockBean
     private UserRepository userRepository;
@@ -47,7 +48,7 @@ public class DatabaseUserDetailsServiceTest {
 
     @Test
     public void whenValidName_thenUserShouldBeFound() throws Exception {
-        UserDetails found = detailsService.loadUserByUsername("test");
+        UserDetails found = userDetailsService.loadUserByUsername("test");
         assertThat(found.getUsername()).isEqualTo("test");
     }
 }

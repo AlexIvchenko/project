@@ -34,7 +34,6 @@ public class UserRepositoryTest {
         testEntityManager.flush();
 
         User found = userRepository.findByUsername(user.getUsername());
-
-        assertThat(found.getUsername()).isEqualTo(user.getUsername());
+        assertThat(found).isEqualToComparingFieldByField(user);
     }
 }
