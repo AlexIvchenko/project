@@ -2,6 +2,13 @@ language: java
 jdk:
  - oraclejdk8
 sudo: false
+notifications:
+  slack: $SLACK_NOTIFICATIONS
+    template:
+          - "%{repository}#%{build_number} (%{branch} - %{commit} : %{author}) : %{message}"
+          - "Build details: %{build_url}"
+    on_success: always
+    on_failure: always
 services:
  - postgresql
 before_script:
