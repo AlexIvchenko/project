@@ -16,9 +16,6 @@ deploy:
     master: netcracker-2017-project
     dev: netcracker-2017-project-dev
 notifications:
-  slack: netcracker-2017-team:Ofl5gqjMXYz2h1VW4595QjhA#builds
-    template:
-      - "%{repository}#%{build_number} (%{branch} - %{commit} : %{author}) : %{message}"
-      - "Build details: %{build_url}"
+  slack: netcracker-2017-team:Ofl5gqjMXYz2h1VW4595QjhA
     on_success: always
     on_failure: always
