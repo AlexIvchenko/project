@@ -47,7 +47,7 @@ public class UserAuthServiceImpl implements UserAuthService {
     private void checkIdentity(Credentials credentials) {
         User user = userRepository.findByUsername(credentials.getUsername());
         if (user != null) {
-            throw new UsernameAlreadyUsed("username " + credentials.getUsername() + " already used");
+            throw new UsernameAlreadyUsedException("username " + credentials.getUsername() + " already used");
         }
     }
 }

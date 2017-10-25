@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Alex Ivchenko
  */
 @Slf4j
-@RestController()
+@RestController
 @RequestMapping("/api")
 public class AuthController {
     private final UserAuthService userAuthService;
