@@ -18,12 +18,13 @@ public class UserDtoConverter {
     }
 
     public User fromDto(UserDto userDto) {
-        return User.builder()
-                .id(userDto.getId())
+        User user = User.builder()
                 .username(userDto.getUsername())
                 .email(userDto.getEmail())
                 .firstName(userDto.getFirstName())
                 .lastName(userDto.getLastName())
                 .build();
+        user.setId(userDto.getId());
+        return user;
     }
 }
