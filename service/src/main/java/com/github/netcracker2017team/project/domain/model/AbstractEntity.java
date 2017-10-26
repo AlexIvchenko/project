@@ -20,7 +20,7 @@ import java.util.UUID;
 public abstract class AbstractEntity {
     @Id
     @Column(name = "id")
-    private UUID id = UUID.randomUUID();
+    private String id = UUID.randomUUID().toString();
 
     /* audit fields */
     @CreatedBy

@@ -3,13 +3,15 @@ package com.github.netcracker2017team.project.rest.controller.converter;
 import com.github.netcracker2017team.model.UserDto;
 import com.github.netcracker2017team.project.domain.model.User;
 
+import java.util.UUID;
+
 /**
  * @author Alex Ivchenko
  */
 public class UserDtoConverter {
     public UserDto toDto(User user) {
         return UserDto.builder()
-                .id(user.getId())
+                .id(UUID.fromString(user.getId()))
                 .username(user.getUsername())
                 .email(user.getEmail())
                 .firstName(user.getFirstName())
@@ -24,7 +26,7 @@ public class UserDtoConverter {
                 .firstName(userDto.getFirstName())
                 .lastName(userDto.getLastName())
                 .build();
-        user.setId(userDto.getId());
+        user.setId(userDto.getId().toString());
         return user;
     }
 }
