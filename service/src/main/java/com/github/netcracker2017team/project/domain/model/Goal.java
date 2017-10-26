@@ -4,8 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.MappedSuperclass;
 
 /**
  * @author Alex Ivchenko
@@ -27,8 +29,5 @@ public abstract class Goal extends AbstractEntity {
     private TimeUnit timeUnit;
 
     @Column(name = "time_unit_repeats")
-    private int timeUnitRepeats;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Step> children;
+    private Integer timeUnitRepeats;
 }

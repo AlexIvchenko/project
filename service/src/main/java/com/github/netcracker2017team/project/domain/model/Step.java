@@ -4,9 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * @author Alex Ivchenko
@@ -14,10 +12,8 @@ import javax.persistence.Table;
 @Setter
 @Getter
 @ToString(of = "name")
-@Entity
-@Table(name = "step")
-public class Step extends AbstractEntity {
-
+@MappedSuperclass
+public abstract class Step extends AbstractEntity {
     @Column(name = "name")
     private String name;
 

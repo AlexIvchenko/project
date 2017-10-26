@@ -8,8 +8,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,7 +21,6 @@ public class UserRepositoryTest {
     private UserRepository userRepository;
 
     @Test
-    @Transactional(propagation = Propagation.NOT_SUPPORTED)
     @DatabaseSetup("UserRepositoryTest.givenUser_whenFindByUsername_thenReturnUser.given.xml")
     @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT, value = "UserRepositoryTest.givenUser_whenFindByUsername_thenReturnUser.then.xml")
     public void givenUserInDb_whenFind_whenReturnedRightUser() throws Exception {
