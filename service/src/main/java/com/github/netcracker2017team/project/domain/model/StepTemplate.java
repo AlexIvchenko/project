@@ -13,10 +13,10 @@ import javax.persistence.*;
 @Getter
 @ToString(of = "name")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Table(name = "steps")
+@Table(name = "step_templates")
 @Entity
 @DiscriminatorColumn(name = "type")
-public abstract class Step extends AbstractEntity {
+public abstract class StepTemplate extends AbstractEntity {
     @Column(name = "name")
     private String name;
 

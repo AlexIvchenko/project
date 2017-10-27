@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <users id="9e3c448d-c48b-4b16-b49f-dca17ded6de9" username="Alex" email="email" password="password"/>
+    <goal_templates type="user" id="501fac7a-6ed6-48dd-a159-55bce1fabc62" owner="9e3c448d-c48b-4b16-b49f-dca17ded6de9" name="goal" />
+    <step_templates type="user" id="f5c23f06-636a-47c7-873d-92d0fefedcbb" user_created_goal_id="501fac7a-6ed6-48dd-a159-55bce1fabc62" name="step1"/>
+    <step_templates type="user" id="c53fef94-f011-4ea8-80d7-e13ca5c08563" user_created_goal_id="501fac7a-6ed6-48dd-a159-55bce1fabc62" name="step2"/>
+</dataset>

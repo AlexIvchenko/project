@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @ToString
 @Entity
 @DiscriminatorValue("distributor")
-public class DistributorCreatedGoal extends Goal {
+public class DistributorCreatedGoalTemplate extends GoalTemplate {
 
     @ManyToOne
     @JoinColumn(name = "distributor_owner_id")
