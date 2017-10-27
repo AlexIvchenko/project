@@ -12,11 +12,11 @@ import java.util.Set;
 @Getter
 @ToString
 @Entity
-@Table(name = "user_created_goal")
+@DiscriminatorValue("user")
 public class UserCreatedGoal extends Goal {
 
     @ManyToOne
-    @JoinColumn(name = "owner", nullable = false)
+    @JoinColumn(name = "owner")
     private User owner;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "goal")

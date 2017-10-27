@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 /**
  * @author Alex Ivchenko
@@ -15,7 +12,10 @@ import javax.persistence.MappedSuperclass;
 @Getter
 @Setter
 @ToString(of = "name")
-@MappedSuperclass
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Table(name = "goal")
+@Entity
+@DiscriminatorColumn(name = "type")
 public abstract class Goal extends AbstractEntity {
 
     @Column(name = "name")

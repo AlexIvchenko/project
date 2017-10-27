@@ -12,11 +12,11 @@ import java.time.LocalDate;
 @Getter
 @ToString
 @Entity
-@Table(name = "distributor_goal")
+@DiscriminatorValue("distributor")
 public class DistributorCreatedGoal extends Goal {
 
     @ManyToOne
-    @JoinColumn(name = "distributor_owner_id", nullable = false)
+    @JoinColumn(name = "distributor_owner_id")
     private Distributor distributor;
 
     @Column(name = "points")

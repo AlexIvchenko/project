@@ -12,7 +12,10 @@ import javax.persistence.*;
 @Setter
 @Getter
 @ToString(of = "name")
-@MappedSuperclass
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Table(name = "step")
+@Entity
+@DiscriminatorColumn(name = "type")
 public abstract class Step extends AbstractEntity {
     @Column(name = "name")
     private String name;
