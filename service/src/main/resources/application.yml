@@ -1,3 +1,6 @@
 spring:
   profiles:
     default: dev
+  output:
+    ansi:
+      enabled: always

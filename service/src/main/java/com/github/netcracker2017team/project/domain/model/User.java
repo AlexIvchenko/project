@@ -14,7 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user")
+@Table(name = "`user`")
 public class User extends AbstractEntity {
 
     @Column(name = "username", nullable = false, unique = true)

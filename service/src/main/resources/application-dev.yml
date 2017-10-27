@@ -4,3 +4,6 @@ spring:
     url: jdbc:log4jdbc:hsqldb:mem:dataSource
     username: sa
     password: ""
+  output:
+    ansi:
+      enabled: always
