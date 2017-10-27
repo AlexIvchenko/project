@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Getter
 @ToString
 @Entity
-@Table(name = "distributor")
+@Table(name = "distributors")
 public class Distributor extends AbstractEntity {
 
     @Column(name = "url", nullable = false, unique = true)

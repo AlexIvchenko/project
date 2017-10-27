@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Setter
 @ToString(of = "name")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Table(name = "goal")
+@Table(name = "goals")
 @Entity
 @DiscriminatorColumn(name = "type")
 public abstract class Goal extends AbstractEntity {
