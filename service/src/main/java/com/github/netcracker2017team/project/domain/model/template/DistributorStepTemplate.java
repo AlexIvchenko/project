@@ -17,8 +17,8 @@ import javax.persistence.ManyToOne;
 @ToString(callSuper = true, exclude = "goal")
 @Entity
 @DiscriminatorValue("distributor")
-public class DistributorStep extends StepTemplate {
+public class DistributorStepTemplate extends StepTemplate {
     @ManyToOne
-    @JoinColumn(name = "distributor_goal_id")
-    private DistributorGoal goal;
+    @JoinColumn(name = "distributor_goal_template_id")
+    private DistributorGoalTemplate goal;
 }

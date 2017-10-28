@@ -1,10 +1,14 @@
 package com.github.netcracker2017team.project.domain.model.template;
 
 import com.github.netcracker2017team.project.domain.model.User;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import javax.persistence.*;
-import java.util.Set;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  * @author Alex Ivchenko
@@ -14,12 +18,9 @@ import java.util.Set;
 @ToString
 @Entity
 @DiscriminatorValue("user")
-public class UserGoal extends GoalTemplate {
+public class UserContinuationTemplate extends ContinuationTemplate {
 
     @ManyToOne
     @JoinColumn(name = "owner")
     private User owner;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "goal", orphanRemoval = true)
-    private Set<UserStep> steps;
 }

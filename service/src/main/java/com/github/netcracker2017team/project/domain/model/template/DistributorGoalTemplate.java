@@ -16,7 +16,7 @@ import java.util.Set;
 @ToString
 @Entity
 @DiscriminatorValue("distributor")
-public class DistributorGoal extends GoalTemplate {
+public class DistributorGoalTemplate extends GoalTemplate {
 
     @ManyToOne
     @JoinColumn(name = "distributor_owner_id")
@@ -32,9 +32,9 @@ public class DistributorGoal extends GoalTemplate {
     private LocalDate expirationDate;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "goal", orphanRemoval = true)
-    private Set<DistributorStep> steps;
+    private Set<DistributorStepTemplate> steps;
 
-    public void addStep(DistributorStep stepTemplate) {
+    public void addStep(DistributorStepTemplate stepTemplate) {
         if (steps == null) {
             steps = new HashSet<>();
         }
@@ -42,7 +42,7 @@ public class DistributorGoal extends GoalTemplate {
         steps.add(stepTemplate);
     }
 
-    public void removeStep(DistributorStep stepTemplate) {
+    public void removeStep(DistributorStepTemplate stepTemplate) {
         if (steps == null) {
             steps = new HashSet<>();
         }
