@@ -1,5 +1,6 @@
 package com.github.netcracker2017team.project.domain.model.template;
 
+import com.github.netcracker2017team.project.domain.model.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,7 +17,7 @@ import javax.persistence.*;
 @Table(name = "continuation_templates")
 @Entity
 @DiscriminatorColumn(name = "type")
-public abstract class ContinuationTemplate {
+public abstract class ContinuationTemplate extends AbstractEntity {
 
     @Column(name = "name", nullable = false)
     private String name;
