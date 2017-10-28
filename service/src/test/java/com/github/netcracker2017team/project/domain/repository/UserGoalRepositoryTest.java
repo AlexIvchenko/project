@@ -1,7 +1,7 @@
 package com.github.netcracker2017team.project.domain.repository;
 
 import com.github.netcracker2017team.project.domain.model.User;
-import com.github.netcracker2017team.project.domain.model.UserCreatedGoalTemplate;
+import com.github.netcracker2017team.project.domain.model.UserGoal;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
@@ -19,18 +19,18 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @RunWith(SpringRunner.class)
 @RepositoryTest
-public class UserCreatedGoalTemplateRepositoryTest {
+public class UserGoalRepositoryTest {
     @Autowired
-    private UserCreatedGoalTemplateRepository goalRepository;
+    private UserGoalRepository goalRepository;
 
     @Test
-    @DatabaseSetup("UserCreatedGoalTemplateRepositoryTest.givenGoalWithSteps_whenRemoveGoal_whenStepsRemovedAsWell.given.xml")
-    @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT, value = "UserCreatedGoalTemplateRepositoryTest.givenGoalWithSteps_whenRemoveGoal_whenStepsRemovedAsWell.then.xml")
+    @DatabaseSetup("UserGoalRepositoryTest.givenGoalWithSteps_whenRemoveGoal_whenStepsRemovedAsWell.given.xml")
+    @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT, value = "UserGoalRepositoryTest.givenGoalWithSteps_whenRemoveGoal_whenStepsRemovedAsWell.then.xml")
     public void givenGoalWithSteps_whenRemoveGoal_whenStepsRemovedAsWell() throws Exception {
         User user = new User();
         user.setId("9e3c448d-c48b-4b16-b49f-dca17ded6de9");
-        Set<UserCreatedGoalTemplate> goals = goalRepository.findByOwner(user);
-        for (UserCreatedGoalTemplate goal: goals) {
+        Set<UserGoal> goals = goalRepository.findByOwner(user);
+        for (UserGoal goal: goals) {
             assertThat(goal.getOwner()).isEqualTo(user);
         }
         goalRepository.delete(goals);

@@ -13,12 +13,12 @@ import java.util.Set;
 @ToString
 @Entity
 @DiscriminatorValue("user")
-public class UserCreatedGoalTemplate extends GoalTemplate {
+public class UserGoal extends GoalTemplate {
 
     @ManyToOne
     @JoinColumn(name = "owner")
     private User owner;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "goal")
-    private Set<UserCreatedStepTemplate> children;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "goal", orphanRemoval = true)
+    private Set<UserStep> steps;
 }

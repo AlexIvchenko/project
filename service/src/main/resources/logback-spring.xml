@@ -9,7 +9,7 @@
     <logger name="com.github.netcracker2017team" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
-    <springProfile name="dev">
+    <springProfile name="dev, test">
         <root level="INFO">
             <appender-ref ref="STDOUT" />
         </root>

@@ -21,6 +21,6 @@ public class Distributor extends AbstractEntity {
     @Column(name = "url", nullable = false, unique = true)
     private String url;
 
-    @Column(name = "password", nullable = false, unique = true)
+    @Column(name = "password", nullable = false)
     private String password;
 }
