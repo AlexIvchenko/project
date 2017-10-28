@@ -1,8 +1,8 @@
 package com.github.netcracker2017team.project.domain.repository;
 
 import com.github.netcracker2017team.project.domain.model.Distributor;
-import com.github.netcracker2017team.project.domain.model.DistributorGoal;
-import com.github.netcracker2017team.project.domain.model.DistributorStep;
+import com.github.netcracker2017team.project.domain.model.template.DistributorGoal;
+import com.github.netcracker2017team.project.domain.model.template.DistributorStep;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;

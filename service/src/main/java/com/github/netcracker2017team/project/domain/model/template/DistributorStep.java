@@ -1,4 +1,4 @@
-package com.github.netcracker2017team.project.domain.model;
+package com.github.netcracker2017team.project.domain.model.template;
 
 import lombok.Getter;
 import lombok.Setter;

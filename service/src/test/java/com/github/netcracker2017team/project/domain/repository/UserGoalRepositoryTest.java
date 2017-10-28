@@ -1,7 +1,7 @@
 package com.github.netcracker2017team.project.domain.repository;
 
 import com.github.netcracker2017team.project.domain.model.User;
-import com.github.netcracker2017team.project.domain.model.UserGoal;
+import com.github.netcracker2017team.project.domain.model.template.UserGoal;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;

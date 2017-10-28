@@ -1,5 +1,6 @@
-package com.github.netcracker2017team.project.domain.model;
+package com.github.netcracker2017team.project.domain.model.template;
 
+import com.github.netcracker2017team.project.domain.model.Distributor;
 import lombok.*;
 
 import javax.persistence.*;
