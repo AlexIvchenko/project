@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @DiscriminatorColumn(name = "type")
 public abstract class Goal extends AbstractEntity {
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Enumerated(EnumType.STRING)
@@ -30,6 +30,10 @@ public abstract class Goal extends AbstractEntity {
 
     @Column(name = "start_time")
     private LocalDate startTime;
+
+    public void accept() {
+        status = Status.ACCEPTED;
+    }
 
     public enum Status {
         WAIT_FOR_ACCEPT, ACCEPTED, RESOLVED

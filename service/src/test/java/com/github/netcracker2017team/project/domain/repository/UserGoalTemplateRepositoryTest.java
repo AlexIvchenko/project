@@ -8,6 +8,7 @@ import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Set;
@@ -22,6 +23,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class UserGoalTemplateRepositoryTest {
     @Autowired
     private UserGoalTemplateRepository goalRepository;
+    @Autowired
+    private TestEntityManager entityManager;
 
     @Test
     @DatabaseSetup("UserGoalTemplateRepositoryTest.givenGoalWithSteps_whenRemoveGoal_whenStepsRemovedAsWell.given.xml")
@@ -34,5 +37,6 @@ public class UserGoalTemplateRepositoryTest {
             assertThat(goal.getOwner()).isEqualTo(user);
         }
         goalRepository.delete(goals);
+        entityManager.flush();
     }
 }
