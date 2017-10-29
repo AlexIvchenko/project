@@ -46,8 +46,7 @@ public class ForeignGoalRepositoryTest {
     @ExpectedDatabase(value = "ForeignGoalRepoTest.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
     public void givenGoals_whenFindNotAcceptedGoal_thenFoundNotAccepted() throws Exception {
         Set<ForeignGoal> goals = repository.findNotAccepted(distributor);
-        assertThat(goals).are(notAccepted());
-        System.err.println(url);
+        assertThat(goals).hasSize(1).are(notAccepted());
     }
 
     private static Condition<ForeignGoal> notAccepted() {

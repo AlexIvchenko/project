@@ -23,7 +23,6 @@ public class Config {
 
     @Bean
     public DataSource dataSource() {
-        System.out.println(url);
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(driver);
         dataSource.setUrl(url);
