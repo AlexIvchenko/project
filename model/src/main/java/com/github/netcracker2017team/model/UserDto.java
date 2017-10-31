@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 /**
  * @author Alex Ivchenko
  */
@@ -12,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public @Data class UserDto {
-    private Long id;
+    private UUID id;
     private String username;
     private String firstName;
     private String lastName;
