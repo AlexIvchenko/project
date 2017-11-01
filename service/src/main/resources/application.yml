@@ -4,3 +4,6 @@ spring:
   output:
     ansi:
       enabled: always
+  data:
+    rest:
+      basePath: api

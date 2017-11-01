@@ -1,5 +1,7 @@
 package com.github.netcracker2017team.project.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,4 +33,14 @@ public class User extends AbstractEntity {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @JsonProperty
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @JsonIgnore
+    public String getPassword() {
+        return password;
+    }
 }

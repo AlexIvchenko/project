@@ -1,8 +1,12 @@
 package com.github.netcracker2017team.project.domain.model;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.hateoas.Identifiable;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -17,7 +21,7 @@ import java.util.UUID;
 @ToString(of = "id")
 @NoArgsConstructor
 @MappedSuperclass
-public abstract class AbstractEntity {
+public abstract class AbstractEntity implements Identifiable<String> {
     @Id
     @Column(name = "id")
     private String id = UUID.randomUUID().toString();
@@ -30,6 +34,11 @@ public abstract class AbstractEntity {
     @LastModifiedBy
     @Column(name = "last_modified_by")
     private String lastModifiedBy;
+
+    @Override
+    public String getId() {
+        return id;
+    }
 
     /* equals and hash code */
     @Override

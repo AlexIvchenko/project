@@ -6,7 +6,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.Set;
 
 /**
  * @author Alex Ivchenko
@@ -26,6 +25,6 @@ public class ForeignStep extends Step {
     @JoinColumn(name = "foreign_goal_id")
     private ForeignGoal goal;
 
-    @OneToMany(mappedBy = "step", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Instruction> instructions;
+    @Column(name = "action")
+    private String action;
 }
