@@ -4,6 +4,7 @@ import com.github.netcracker2017team.project.domain.model.User;
 import com.github.netcracker2017team.project.domain.model.template.UserGoalTemplate;
 import com.github.netcracker2017team.project.domain.repository.UserGoalTemplateRepository;
 import com.github.netcracker2017team.project.domain.repository.UserRepository;
+import com.github.netcracker2017team.project.rest.Rest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.PersistentEntityResource;

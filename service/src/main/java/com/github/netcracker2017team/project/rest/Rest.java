@@ -1,4 +1,4 @@
-package com.github.netcracker2017team.project.rest.controller;
+package com.github.netcracker2017team.project.rest;
 
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.web.bind.annotation.RequestMapping;

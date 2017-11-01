@@ -1,6 +1,7 @@
 package com.github.netcracker2017team.project.rest.controller;
 
 import com.github.netcracker2017team.project.domain.model.User;
+import com.github.netcracker2017team.project.rest.Rest;
 import com.github.netcracker2017team.project.security.UserAuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.rest.webmvc.PersistentEntityResource;

@@ -1,4 +1,4 @@
-package com.github.netcracker2017team.project.rest.controller.converter;
+package com.github.netcracker2017team.project.rest.converter;
 
 import com.github.netcracker2017team.model.UserDto;
 import com.github.netcracker2017team.project.domain.model.User;

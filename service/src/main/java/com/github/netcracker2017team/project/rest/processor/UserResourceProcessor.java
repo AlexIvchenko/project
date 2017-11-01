@@ -1,9 +1,11 @@
-package com.github.netcracker2017team.project.rest.controller;
+package com.github.netcracker2017team.project.rest.processor;
 
 import com.github.netcracker2017team.project.domain.model.User;
+import com.github.netcracker2017team.project.rest.controller.TemplatesController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceProcessor;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -21,7 +23,7 @@ public class UserResourceProcessor implements ResourceProcessor<Resource<User>> 
     public Resource<User> process(Resource<User> resource) {
         log.info("process " + resource);
         UUID id = UUID.fromString(resource.getContent().getId());
-        resource.add(linkTo(methodOn(TemplatesController.class).createGoalTemplate(id, null, null)).withRel("createGoalTemplate"));
+        resource.add(ControllerLinkBuilder.linkTo(methodOn(TemplatesController.class).createGoalTemplate(id, null, null)).withRel("createGoalTemplate"));
         resource.add(linkTo(methodOn(TemplatesController.class).getGoalTemplates(id, null)).withRel("getGoalTemplates"));
         return resource;
     }
