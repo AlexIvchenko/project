@@ -35,8 +35,7 @@ public class TemplatesController {
         template.setOwner(user);
         template.getSteps().forEach(step -> step.setGoal(template));
         userGoalTemplateRepository.save(template);
-        PersistentEntityResource resource = asm.toFullResource(template);
-        return resource;
+        return asm.toFullResource(template);
     }
 
     @GetMapping(path = "/users/{id}/templates/goals")

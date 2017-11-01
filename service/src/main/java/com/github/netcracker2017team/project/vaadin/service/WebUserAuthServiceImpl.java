@@ -1,6 +1,6 @@
 package com.github.netcracker2017team.project.vaadin.service;
 
-import com.github.netcracker2017team.model.Credentials;
+import com.github.netcracker2017team.project.domain.model.User;
 import com.github.netcracker2017team.project.security.UserAuthService;
 import com.github.netcracker2017team.project.vaadin.ui.beans.SignUpBean;
 import lombok.extern.slf4j.Slf4j;
@@ -33,14 +33,14 @@ public class WebUserAuthServiceImpl implements WebUserAuthService {
 
     @Override
     public void signUp(SignUpBean bean) {
-        Credentials credentials = Credentials.builder()
+        User user = User.builder()
                 .username(bean.getUsername())
                 .email(bean.getEmail())
                 .firstName(bean.getFirstName())
                 .lastName(bean.getLastName())
                 .password(bean.getPassword())
                 .build();
-        userAuthService.signUp(credentials);
+        userAuthService.signUp(user);
     }
 
     @Override

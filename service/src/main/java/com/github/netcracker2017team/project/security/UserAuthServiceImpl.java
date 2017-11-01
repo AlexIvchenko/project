@@ -1,6 +1,5 @@
 package com.github.netcracker2017team.project.security;
 
-import com.github.netcracker2017team.model.Credentials;
 import com.github.netcracker2017team.project.domain.model.User;
 import com.github.netcracker2017team.project.domain.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 /**
  * @author Alex Ivchenko
@@ -31,23 +32,49 @@ public class UserAuthServiceImpl implements UserAuthService {
     }
 
     @Override
-    public User signUp(Credentials credentials) {
-        log.info("signing up" + credentials.toString());
-        checkIdentity(credentials);
-        User user = User.builder()
-                .username(credentials.getUsername())
-                .email(credentials.getEmail())
-                .firstName(credentials.getFirstName())
-                .lastName(credentials.getLastName())
-                .password(passwordEncoder.encode(credentials.getPassword()))
-                .build();
+    public User update(UUID id, User updated) {
+        User user = userRepository.findOne(id.toString());
+        user.setUsername(updated.getUsername());
+        user.setEmail(updated.getEmail());
+        user.setFirstName(updated.getFirstName());
+        user.setLastName(updated.getLastName());
+        user.setPassword(passwordEncoder.encode(updated.getPassword()));
         return userRepository.save(user);
     }
 
-    private void checkIdentity(Credentials credentials) {
-        User user = userRepository.findByUsername(credentials.getUsername());
-        if (user != null) {
-            throw new UsernameAlreadyUsedException("username " + credentials.getUsername() + " already used");
+    @Override
+    public User patch(UUID id, User patched) {
+        User user = userRepository.findOne(id.toString());
+        if (patched.getUsername() != null) {
+            user.setUsername(patched.getUsername());
+        }
+        if (patched.getEmail() != null) {
+            user.setEmail(patched.getEmail());
+        }
+        if (patched.getFirstName() != null) {
+            user.setFirstName(patched.getFirstName());
+        }
+        if (patched.getLastName() != null) {
+            user.setLastName(patched.getLastName());
+        }
+        if (patched.getPassword() != null) {
+            user.setPassword(passwordEncoder.encode(patched.getPassword()));
+        }
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User signUp(User user) {
+        log.info("signing up: " + user.toString());
+        checkIdentity(user);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
+    }
+
+    private void checkIdentity(User user) {
+        User loaded = userRepository.findByUsername(user.getUsername());
+        if (loaded != null) {
+            throw new UsernameAlreadyUsedException("username " + user.getUsername() + " already used");
         }
     }
 }
