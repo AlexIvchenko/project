@@ -12,7 +12,7 @@ import javax.persistence.*;
  */
 @Setter
 @Getter
-@ToString
+@ToString(exclude = "goal")
 @Entity
 @DiscriminatorValue("personal")
 public class PersonalStep extends Step {

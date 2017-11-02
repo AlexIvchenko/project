@@ -13,7 +13,7 @@ import java.util.Set;
  */
 @Setter
 @Getter
-@ToString
+@ToString(callSuper = true, exclude = "distributor")
 @Entity
 @DiscriminatorValue("distributor")
 public class DistributorGoalTemplate extends GoalTemplate {

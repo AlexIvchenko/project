@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
  */
 @Setter
 @Getter
-@ToString
+@ToString(callSuper = true, exclude = "owner")
 @Entity
 @DiscriminatorValue("user")
 public class UserContinuationTemplate extends ContinuationTemplate {

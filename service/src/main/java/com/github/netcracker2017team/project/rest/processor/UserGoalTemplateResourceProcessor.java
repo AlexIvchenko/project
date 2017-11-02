@@ -1,7 +1,7 @@
 package com.github.netcracker2017team.project.rest.processor;
 
 import com.github.netcracker2017team.project.domain.model.template.UserGoalTemplate;
-import com.github.netcracker2017team.project.rest.controller.TemplatesController;
+import com.github.netcracker2017team.project.rest.controller.UserTemplatesController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceProcessor;
@@ -21,7 +21,7 @@ public class UserGoalTemplateResourceProcessor implements ResourceProcessor<Reso
     @Override
     public Resource<UserGoalTemplate> process(Resource<UserGoalTemplate> resource) {
         UUID ownerId = UUID.fromString(resource.getContent().getOwner().getId());
-        resource.add(linkTo(methodOn(TemplatesController.class).getContinuationTemplates(ownerId, null)).withRel("getAvailableContinuations"));
+        resource.add(linkTo(methodOn(UserTemplatesController.class).getContinuationTemplates(ownerId, null)).withRel("getAvailableContinuations"));
         return resource;
     }
 }

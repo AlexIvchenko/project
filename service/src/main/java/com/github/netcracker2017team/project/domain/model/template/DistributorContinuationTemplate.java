@@ -13,7 +13,7 @@ import java.time.LocalDate;
  */
 @Setter
 @Getter
-@ToString
+@ToString(callSuper = true, exclude = "owner")
 @Entity
 @DiscriminatorValue("distributor")
 public class DistributorContinuationTemplate extends ContinuationTemplate {

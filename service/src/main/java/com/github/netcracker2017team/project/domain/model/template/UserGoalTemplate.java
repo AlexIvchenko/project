@@ -11,7 +11,7 @@ import java.util.Set;
  */
 @Setter
 @Getter
-@ToString
+@ToString(callSuper = true, exclude = "owner")
 @Entity
 @DiscriminatorValue("user")
 public class UserGoalTemplate extends GoalTemplate {

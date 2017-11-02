@@ -1,7 +1,7 @@
 package com.github.netcracker2017team.project.rest.processor;
 
 import com.github.netcracker2017team.project.domain.model.User;
-import com.github.netcracker2017team.project.rest.controller.TemplatesController;
+import com.github.netcracker2017team.project.rest.controller.UserTemplatesController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceProcessor;
@@ -22,9 +22,9 @@ public class UserResourceProcessor implements ResourceProcessor<Resource<User>> 
     public Resource<User> process(Resource<User> resource) {
         log.info("process " + resource);
         UUID id = UUID.fromString(resource.getContent().getId());
-        resource.add(linkTo(methodOn(TemplatesController.class).createGoalTemplate(id, null, null)).withRel("createGoalTemplate"));
-        resource.add(linkTo(methodOn(TemplatesController.class).getGoalTemplates(id, null)).withRel("getGoalTemplates"));
-        resource.add(linkTo(methodOn(TemplatesController.class).createContinuationTemplate(id, null, null)).withRel("createContinuationTemplate"));
+        resource.add(linkTo(methodOn(UserTemplatesController.class).createGoalTemplate(id, null, null)).withRel("createGoalTemplate"));
+        resource.add(linkTo(methodOn(UserTemplatesController.class).getGoalTemplates(id, null)).withRel("getGoalTemplates"));
+        resource.add(linkTo(methodOn(UserTemplatesController.class).createContinuationTemplate(id, null, null)).withRel("createContinuationTemplate"));
         return resource;
     }
 }
