@@ -19,11 +19,11 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class PersonalStep extends Step {
 
-    @ManyToOne
-    @JoinColumn(name = "user_step_template_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_step_template_id")
     private UserStepTemplate template;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "personal_goal_id")
     private PersonalGoal goal;
 

@@ -16,10 +16,10 @@ import java.util.Set;
 @DiscriminatorValue("doer")
 public class UserGoalTemplate extends GoalTemplate {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner")
     private User owner;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "goal", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "goal", orphanRemoval = true)
     private Set<UserStepTemplate> steps;
 }

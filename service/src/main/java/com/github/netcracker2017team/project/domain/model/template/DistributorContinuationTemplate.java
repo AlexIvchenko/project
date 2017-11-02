@@ -18,7 +18,7 @@ import java.time.LocalDate;
 @DiscriminatorValue("distributor")
 public class DistributorContinuationTemplate extends ContinuationTemplate {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "distributor_owner_id")
     private Distributor owner;
 

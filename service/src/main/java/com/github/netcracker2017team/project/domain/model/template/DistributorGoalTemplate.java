@@ -18,7 +18,7 @@ import java.util.Set;
 @DiscriminatorValue("distributor")
 public class DistributorGoalTemplate extends GoalTemplate {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "distributor_owner_id")
     private Distributor distributor;
 
@@ -31,7 +31,7 @@ public class DistributorGoalTemplate extends GoalTemplate {
     @Column(name = "expiration_date")
     private LocalDate expirationDate;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "goal", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "goal", orphanRemoval = true)
     private Set<DistributorStepTemplate> steps;
 
     public void addStep(DistributorStepTemplate stepTemplate) {

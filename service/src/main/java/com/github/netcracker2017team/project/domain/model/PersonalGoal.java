@@ -22,14 +22,14 @@ import java.util.stream.Collectors;
 @DiscriminatorValue("personal")
 public class PersonalGoal extends Goal {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_goal_template_id")
     private UserGoalTemplate template;
 
-    @OneToMany(mappedBy = "goal", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "goal", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<PersonalStep> steps;
 
-    @OneToMany(mappedBy = "goal", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "goal", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<PersonalContinuation> continuations;
 
     public PersonalGoal(User doer, UserGoalTemplate template) {

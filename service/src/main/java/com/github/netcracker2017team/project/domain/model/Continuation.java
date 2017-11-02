@@ -17,7 +17,8 @@ import javax.persistence.*;
 @DiscriminatorColumn(name = "type")
 @ToString(callSuper = true)
 public abstract class Continuation extends AbstractEntity {
-    @ManyToOne
-    @JoinColumn(name = "user_doer_id")
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_doer_id", nullable = false)
     private User doer;
 }

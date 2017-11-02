@@ -18,7 +18,7 @@ import java.util.Set;
 @DiscriminatorValue("foreign")
 public class ForeignGoal extends Goal {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "distributor_goal_template_id")
     private DistributorGoalTemplate template;
 

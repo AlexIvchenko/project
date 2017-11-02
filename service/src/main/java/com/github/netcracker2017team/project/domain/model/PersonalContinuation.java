@@ -25,7 +25,7 @@ public class PersonalContinuation extends Continuation {
         this.goal = goal;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_template_id")
     private UserContinuationTemplate template;
 

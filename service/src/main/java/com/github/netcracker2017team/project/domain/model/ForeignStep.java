@@ -17,11 +17,11 @@ import javax.persistence.*;
 @DiscriminatorValue("foreign")
 public class ForeignStep extends Step {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "distributor_step_template_id")
     private DistributorStepTemplate template;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "foreign_goal_id")
     private ForeignGoal goal;
 

@@ -26,6 +26,11 @@ public abstract class AbstractEntity implements Identifiable<String> {
     @Column(name = "id")
     private String id = UUID.randomUUID().toString();
 
+    @Override
+    public String getId() {
+        return id;
+    }
+
     /* audit fields */
     @CreatedBy
     @Column(name = "created_by")
@@ -34,11 +39,6 @@ public abstract class AbstractEntity implements Identifiable<String> {
     @LastModifiedBy
     @Column(name = "last_modified_by")
     private String lastModifiedBy;
-
-    @Override
-    public String getId() {
-        return id;
-    }
 
     /* equals and hash code */
     @Override

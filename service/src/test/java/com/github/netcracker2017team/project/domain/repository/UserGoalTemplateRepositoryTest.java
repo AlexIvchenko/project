@@ -32,9 +32,11 @@ public class UserGoalTemplateRepositoryTest {
     public void givenGoalWithSteps_whenRemoveGoal_whenStepsRemovedAsWell() throws Exception {
         User user = new User();
         user.setId("9e3c448d-c48b-4b16-b49f-dca17ded6de9");
+        user.setUsername("Alex");
         Set<UserGoalTemplate> goals = goalRepository.findByOwner(user);
+        assertThat(goals).hasSize(1);
         for (UserGoalTemplate goal: goals) {
-            assertThat(goal.getOwner()).isEqualTo(user);
+            assertThat(goal.getOwner()).isEqualToComparingOnlyGivenFields(user, "id", "username");
         }
         goalRepository.delete(goals);
         entityManager.flush();

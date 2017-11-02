@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Entity
 @DiscriminatorColumn(name = "type")
 public abstract class Goal extends AbstractEntity {
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "doer_id", nullable = false)
     private User doer;
 

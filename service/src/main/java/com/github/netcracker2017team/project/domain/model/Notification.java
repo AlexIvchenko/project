@@ -14,11 +14,11 @@ import javax.persistence.*;
 @Table(name = "notifications")
 public class Notification extends AbstractEntity {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "receiver_user_id")
     private User receiver;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "sender_distributor_id")
     private Distributor sender;
 

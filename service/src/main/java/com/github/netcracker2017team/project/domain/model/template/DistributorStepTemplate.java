@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  * @author Alex Ivchenko
@@ -18,7 +15,8 @@ import javax.persistence.ManyToOne;
 @Entity
 @DiscriminatorValue("distributor")
 public class DistributorStepTemplate extends StepTemplate {
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "distributor_goal_template_id")
     private DistributorGoalTemplate goal;
 }
