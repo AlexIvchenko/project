@@ -1,7 +1,9 @@
 package com.github.netcracker2017team.project.rest.controller;
 
 import com.github.netcracker2017team.project.domain.model.User;
+import com.github.netcracker2017team.project.domain.model.template.UserContinuationTemplate;
 import com.github.netcracker2017team.project.domain.model.template.UserGoalTemplate;
+import com.github.netcracker2017team.project.domain.repository.UserContinuationTemplateRepository;
 import com.github.netcracker2017team.project.domain.repository.UserGoalTemplateRepository;
 import com.github.netcracker2017team.project.domain.repository.UserRepository;
 import com.github.netcracker2017team.project.rest.Rest;
@@ -26,6 +28,8 @@ public class TemplatesController {
     private UserRepository userRepository;
     @Autowired
     private UserGoalTemplateRepository userGoalTemplateRepository;
+    @Autowired
+    private UserContinuationTemplateRepository userContinuationTemplateRepository;
 
     @PostMapping(path = "/users/{id}/templates/goals")
     @ResponseBody
@@ -47,10 +51,27 @@ public class TemplatesController {
         log.info(String.format("user %s retrieving his personal goal templates: ", user));
         Set<UserGoalTemplate> templates = userGoalTemplateRepository.findByOwner(user);
         log.info("result: " + templates.size());
-        for (UserGoalTemplate goal : templates) {
-           goal.getSteps().forEach(step -> log.info(step.toString()));
-        }
-        Resources<PersistentEntityResource> resources = new Resources<>(templates.stream().map(asm::toFullResource).collect(Collectors.toSet()));
-        return resources;
+        return new Resources<>(templates.stream().map(asm::toFullResource).collect(Collectors.toSet()));
+    }
+
+    @PostMapping(path = "/users/{id}/templates/continuations")
+    @ResponseBody
+    public PersistentEntityResource createContinuationTemplate(@PathVariable("id") final UUID id,
+                                                               @RequestBody final UserContinuationTemplate template,
+                                                               PersistentEntityResourceAssembler asm) {
+        User user = userRepository.findOne(id.toString());
+        template.setOwner(user);
+        log.info(String.format("user: %s creating his personal continuation template: %s", user, template));
+        userContinuationTemplateRepository.save(template);
+        return asm.toFullResource(template);
+    }
+
+    @GetMapping(path = "/users/{id}/templates/continuations")
+    @ResponseBody
+    public Resources<PersistentEntityResource> getContinuationTemplates(@PathVariable("id") final UUID id,
+                                                                         PersistentEntityResourceAssembler asm) {
+        User user = userRepository.findOne(id.toString());
+        Set<UserContinuationTemplate> templates = userContinuationTemplateRepository.findByOwner(user);
+        return new Resources<>(templates.stream().map(asm::toFullResource).collect(Collectors.toSet()));
     }
 }

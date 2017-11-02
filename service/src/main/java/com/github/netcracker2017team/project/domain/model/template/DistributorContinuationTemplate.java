@@ -16,10 +16,10 @@ import java.time.LocalDate;
 @ToString
 @Entity
 @DiscriminatorValue("distributor")
-public class DistributorContinuation extends ContinuationTemplate {
+public class DistributorContinuationTemplate extends ContinuationTemplate {
 
     @ManyToOne
-    @JoinColumn(name = "owner")
+    @JoinColumn(name = "distributor_owner_id")
     private Distributor owner;
 
     @Column(name = "points")

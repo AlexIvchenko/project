@@ -21,6 +21,6 @@ import javax.persistence.ManyToOne;
 public class UserContinuationTemplate extends ContinuationTemplate {
 
     @ManyToOne
-    @JoinColumn(name = "owner")
+    @JoinColumn(name = "user_owner_id")
     private User owner;
 }
