@@ -1,7 +1,7 @@
 package com.github.netcracker2017team.project.domain.service;
 
 import com.github.netcracker2017team.project.domain.model.Goal;
-import com.github.netcracker2017team.project.domain.model.PersonalGoal;
+import com.github.netcracker2017team.project.domain.model.personal.PersonalGoal;
 
 import java.util.Set;
 import java.util.UUID;

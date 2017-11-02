@@ -1,6 +1,8 @@
-package com.github.netcracker2017team.project.domain.model;
+package com.github.netcracker2017team.project.domain.model.personal;
 
-import com.github.netcracker2017team.project.domain.model.template.UserContinuationTemplate;
+import com.github.netcracker2017team.project.domain.model.Continuation;
+import com.github.netcracker2017team.project.domain.model.User;
+import com.github.netcracker2017team.project.domain.model.template.user.UserContinuationTemplate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

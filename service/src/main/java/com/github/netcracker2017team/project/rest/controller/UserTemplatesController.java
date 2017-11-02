@@ -1,7 +1,7 @@
 package com.github.netcracker2017team.project.rest.controller;
 
-import com.github.netcracker2017team.project.domain.model.template.UserContinuationTemplate;
-import com.github.netcracker2017team.project.domain.model.template.UserGoalTemplate;
+import com.github.netcracker2017team.project.domain.model.template.user.UserContinuationTemplate;
+import com.github.netcracker2017team.project.domain.model.template.user.UserGoalTemplate;
 import com.github.netcracker2017team.project.domain.service.UserTemplatesService;
 import com.github.netcracker2017team.project.rest.Rest;
 import lombok.extern.slf4j.Slf4j;

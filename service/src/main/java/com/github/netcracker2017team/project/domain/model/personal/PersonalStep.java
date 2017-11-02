@@ -1,6 +1,7 @@
-package com.github.netcracker2017team.project.domain.model;
+package com.github.netcracker2017team.project.domain.model.personal;
 
-import com.github.netcracker2017team.project.domain.model.template.UserStepTemplate;
+import com.github.netcracker2017team.project.domain.model.Step;
+import com.github.netcracker2017team.project.domain.model.template.user.UserStepTemplate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

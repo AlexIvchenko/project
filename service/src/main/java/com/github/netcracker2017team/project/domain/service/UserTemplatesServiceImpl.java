@@ -1,8 +1,8 @@
 package com.github.netcracker2017team.project.domain.service;
 
 import com.github.netcracker2017team.project.domain.model.User;
-import com.github.netcracker2017team.project.domain.model.template.UserContinuationTemplate;
-import com.github.netcracker2017team.project.domain.model.template.UserGoalTemplate;
+import com.github.netcracker2017team.project.domain.model.template.user.UserContinuationTemplate;
+import com.github.netcracker2017team.project.domain.model.template.user.UserGoalTemplate;
 import com.github.netcracker2017team.project.domain.repository.UserContinuationTemplateRepository;
 import com.github.netcracker2017team.project.domain.repository.UserGoalTemplateRepository;
 import com.github.netcracker2017team.project.domain.repository.UserRepository;

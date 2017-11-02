@@ -1,6 +1,6 @@
 package com.github.netcracker2017team.project.domain.repository;
 
-import com.github.netcracker2017team.project.domain.model.PersonalGoal;
+import com.github.netcracker2017team.project.domain.model.personal.PersonalGoal;
 import com.github.netcracker2017team.project.domain.model.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

@@ -1,15 +1,14 @@
 package com.github.netcracker2017team.project.domain.repository;
 
 import com.github.netcracker2017team.project.domain.model.Distributor;
-import com.github.netcracker2017team.project.domain.model.template.DistributorGoalTemplate;
-import com.github.netcracker2017team.project.domain.model.template.DistributorStepTemplate;
+import com.github.netcracker2017team.project.domain.model.template.distributor.DistributorGoalTemplate;
+import com.github.netcracker2017team.project.domain.model.template.distributor.DistributorStepTemplate;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 

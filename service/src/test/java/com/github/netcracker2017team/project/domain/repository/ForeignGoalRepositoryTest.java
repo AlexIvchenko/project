@@ -1,7 +1,7 @@
 package com.github.netcracker2017team.project.domain.repository;
 
 import com.github.netcracker2017team.project.domain.model.Distributor;
-import com.github.netcracker2017team.project.domain.model.ForeignGoal;
+import com.github.netcracker2017team.project.domain.model.foreign.ForeignGoal;
 import com.github.netcracker2017team.project.domain.model.Goal;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;

@@ -1,7 +1,7 @@
 package com.github.netcracker2017team.project.domain.service;
 
-import com.github.netcracker2017team.project.domain.model.template.UserContinuationTemplate;
-import com.github.netcracker2017team.project.domain.model.template.UserGoalTemplate;
+import com.github.netcracker2017team.project.domain.model.template.user.UserContinuationTemplate;
+import com.github.netcracker2017team.project.domain.model.template.user.UserGoalTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;

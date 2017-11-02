@@ -1,7 +1,7 @@
 package com.github.netcracker2017team.project.rest.processor;
 
 import com.github.netcracker2017team.project.domain.model.Goal;
-import com.github.netcracker2017team.project.domain.model.PersonalGoal;
+import com.github.netcracker2017team.project.domain.model.personal.PersonalGoal;
 import com.github.netcracker2017team.project.rest.controller.UserGoalsController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.hateoas.Resource;

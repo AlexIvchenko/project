@@ -1,6 +1,7 @@
-package com.github.netcracker2017team.project.domain.model.template;
+package com.github.netcracker2017team.project.domain.model.template.user;
 
 import com.github.netcracker2017team.project.domain.model.User;
+import com.github.netcracker2017team.project.domain.model.template.ContinuationTemplate;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

@@ -1,6 +1,6 @@
 package com.github.netcracker2017team.project.rest.processor;
 
-import com.github.netcracker2017team.project.domain.model.template.UserGoalTemplate;
+import com.github.netcracker2017team.project.domain.model.template.user.UserGoalTemplate;
 import com.github.netcracker2017team.project.rest.controller.UserGoalsController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.hateoas.Resource;

@@ -1,10 +1,10 @@
 package com.github.netcracker2017team.project.domain.service;
 
 import com.github.netcracker2017team.project.domain.model.Goal;
-import com.github.netcracker2017team.project.domain.model.PersonalGoal;
+import com.github.netcracker2017team.project.domain.model.personal.PersonalGoal;
 import com.github.netcracker2017team.project.domain.model.User;
-import com.github.netcracker2017team.project.domain.model.template.UserContinuationTemplate;
-import com.github.netcracker2017team.project.domain.model.template.UserGoalTemplate;
+import com.github.netcracker2017team.project.domain.model.template.user.UserContinuationTemplate;
+import com.github.netcracker2017team.project.domain.model.template.user.UserGoalTemplate;
 import com.github.netcracker2017team.project.domain.repository.PersonalGoalRepository;
 import com.github.netcracker2017team.project.domain.repository.UserContinuationTemplateRepository;
 import com.github.netcracker2017team.project.domain.repository.UserGoalTemplateRepository;

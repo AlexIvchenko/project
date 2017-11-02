@@ -1,5 +1,6 @@
-package com.github.netcracker2017team.project.domain.model.template;
+package com.github.netcracker2017team.project.domain.model.template.distributor;
 
+import com.github.netcracker2017team.project.domain.model.template.StepTemplate;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
