@@ -24,6 +24,10 @@ public abstract class Goal extends AbstractEntity {
     @Column(name = "status", nullable = false)
     private Status status = Status.NEW;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "result", nullable = false)
+    private Result result = Result.UNDEFINED;
+
     @Enumerated
     @Column(name = "termination_status")
     private TerminationStatus terminationStatus;
@@ -47,7 +51,20 @@ public abstract class Goal extends AbstractEntity {
         }
     }
 
+    public void resolve(Result result) {
+        if (status == Status.ACCEPTED) {
+            status = Status.RESOLVED;
+            this.result = result;
+        } else {
+            throw new IllegalStateException();
+        }
+    }
+
     public enum Status {
         NEW, PUBLISHED, ACCEPTED, RESOLVED
+    }
+
+    public enum Result {
+        UNDEFINED, SUCCESS, FAIL
     }
 }

@@ -18,5 +18,7 @@ public interface UserGoalsService {
 
     Set<PersonalGoal> getPublishedGoals(UUID userId);
 
+    Goal userResolvesHisGoal(UUID userId, UUID goalId, Goal.Result result);
+
     Set<PersonalGoal> getNewGoals(UUID userId);
 }

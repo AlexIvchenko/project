@@ -30,6 +30,12 @@ public class PersonalGoalResourceProcessor implements ResourceProcessor<Resource
             resource.add(linkTo(methodOn(UserGoalsController.class).publishGoal(doerId, goalId, null))
                     .withRel("publish"));
         }
+        if (goal.getStatus() == Goal.Status.ACCEPTED) {
+            resource.add(linkTo(methodOn(UserGoalsController.class).resolveSuccess(doerId, goalId, null))
+                    .withRel("resolveSuccess"));
+            resource.add(linkTo(methodOn(UserGoalsController.class).resolveFail(doerId, goalId, null))
+                    .withRel("resolveFail"));
+        }
         return resource;
     }
 }

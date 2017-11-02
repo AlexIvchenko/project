@@ -1,5 +1,6 @@
 package com.github.netcracker2017team.project.rest.controller;
 
+import com.github.netcracker2017team.project.domain.model.Goal;
 import com.github.netcracker2017team.project.domain.service.UserGoalsService;
 import com.github.netcracker2017team.project.domain.service.UserTemplatesService;
 import com.github.netcracker2017team.project.rest.Rest;
@@ -64,6 +65,22 @@ public class UserGoalsController {
                                                 @PathVariable("goalId") UUID goalId,
                                                 PersistentEntityResourceAssembler asm) {
         return asm.toFullResource(goalsService.userPublishesHisGoal(userId, goalId));
+    }
+
+    @PostMapping(path = "/users/{userId}/goals/new/{goalId}/resolve/success", produces = "application/hal+json")
+    @ResponseBody
+    public PersistentEntityResource resolveSuccess(@PathVariable("userId") UUID userId,
+                                                @PathVariable("goalId") UUID goalId,
+                                                PersistentEntityResourceAssembler asm) {
+        return asm.toFullResource(goalsService.userResolvesHisGoal(userId, goalId, Goal.Result.SUCCESS));
+    }
+
+    @PostMapping(path = "/users/{userId}/goals/new/{goalId}/resolve/fail", produces = "application/hal+json")
+    @ResponseBody
+    public PersistentEntityResource resolveFail(@PathVariable("userId") UUID userId,
+                                                   @PathVariable("goalId") UUID goalId,
+                                                   PersistentEntityResourceAssembler asm) {
+        return asm.toFullResource(goalsService.userResolvesHisGoal(userId, goalId, Goal.Result.FAIL));
     }
 
     @PostMapping(path = "/users/{userId}/templates/goals/personal/{goalId}/apply", produces = "application/hal+json")

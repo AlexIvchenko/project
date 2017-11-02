@@ -54,6 +54,15 @@ public class UserGoalsServiceImpl implements UserGoalsService {
         return personalGoalRepository.save(goal);
     }
 
+    // TODO send notifications / apply continuations
+    @Override
+    public Goal userResolvesHisGoal(UUID userId, UUID goalId, Goal.Result result) {
+        User user = userRepository.findOne(userId.toString());
+        PersonalGoal goal = personalGoalRepository.findOne(goalId.toString());
+        goal.resolve(result);
+        return personalGoalRepository.save(goal);
+    }
+
     @Override
     public Set<PersonalGoal> getPublishedGoals(UUID userId) {
         User user = userRepository.findOne(userId.toString());
