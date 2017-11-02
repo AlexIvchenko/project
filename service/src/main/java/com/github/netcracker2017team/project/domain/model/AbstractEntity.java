@@ -1,5 +1,6 @@
 package com.github.netcracker2017team.project.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,10 +35,12 @@ public abstract class AbstractEntity implements Identifiable<String> {
     /* audit fields */
     @CreatedBy
     @Column(name = "created_by")
+    @JsonIgnore
     private String createdBy;
 
     @LastModifiedBy
     @Column(name = "last_modified_by")
+    @JsonIgnore
     private String lastModifiedBy;
 
     /* equals and hash code */

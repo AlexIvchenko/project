@@ -18,15 +18,5 @@ public class RestSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/**")
                 .permitAll();
-//        http.csrf().disable()
-//                .antMatcher("/api/**")
-//                    .authorizeRequests()
-//                    .antMatchers(HttpMethod.POST, "/api/signUp").permitAll()
-//                    .antMatchers("/api/doer/{username}/**")
-//                    .access("@userAuthService.isAuthorized(authentication, #username)")
-//                    .anyRequest().fullyAuthenticated()
-//                    .and().httpBasic()
-//                    /* this doesn't work. */
-//                    .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 }

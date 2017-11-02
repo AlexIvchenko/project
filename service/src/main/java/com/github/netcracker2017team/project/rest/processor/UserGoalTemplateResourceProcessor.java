@@ -23,7 +23,8 @@ public class UserGoalTemplateResourceProcessor implements ResourceProcessor<Reso
         UserGoalTemplate goalTemplate = resource.getContent();
         UUID userId = UUID.fromString(goalTemplate.getOwner().getId());
         UUID goalId = UUID.fromString(goalTemplate.getId());
-        resource.add(linkTo(methodOn(UserGoalsController.class).applyUserToHisGoal(userId, goalId, null)).withRel("apply"));
+        resource.add(linkTo(methodOn(UserGoalsController.class).applyUserToHisGoal(userId, goalId, null))
+                .withRel("apply"));
         return resource;
     }
 }

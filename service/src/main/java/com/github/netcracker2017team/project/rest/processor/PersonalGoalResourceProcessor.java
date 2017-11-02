@@ -25,8 +25,10 @@ public class PersonalGoalResourceProcessor implements ResourceProcessor<Resource
         UUID doerId = UUID.fromString(goal.getDoer().getId());
         UUID goalId = UUID.fromString(goal.getId());
         if (goal.getStatus() == Goal.Status.NEW) {
-            resource.add(linkTo(methodOn(UserGoalsController.class).getContinuationTemplatesToAdd(doerId, goalId, null)).withRel("getAvailableContinuationsToAdd"));
-            resource.add(linkTo(methodOn(UserGoalsController.class).publishGoal(doerId, goalId, null)).withRel("publish"));
+            resource.add(linkTo(methodOn(UserGoalsController.class).getContinuationTemplatesToAdd(doerId, goalId, null))
+                    .withRel("getAvailableContinuationsToAdd"));
+            resource.add(linkTo(methodOn(UserGoalsController.class).publishGoal(doerId, goalId, null))
+                    .withRel("publish"));
         }
         return resource;
     }

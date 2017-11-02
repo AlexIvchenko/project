@@ -21,11 +21,14 @@ import static com.github.netcracker2017team.project.rest.utils.ResourceUtils.toR
 @Rest
 @Slf4j
 public class UserTemplatesController {
+    private final UserTemplatesService service;
 
     @Autowired
-    private UserTemplatesService service;
+    public UserTemplatesController(UserTemplatesService service) {
+        this.service = service;
+    }
 
-    @PostMapping(path = "/users/{id}/templates/goals")
+    @PostMapping(path = "/users/{id}/templates/goals", produces = "application/hal+json")
     @ResponseBody
     public PersistentEntityResource createGoalTemplate(@PathVariable("id") final UUID id,
                                                        @RequestBody final UserGoalTemplate template,
@@ -33,14 +36,14 @@ public class UserTemplatesController {
         return asm.toFullResource(service.createGoalTemplate(id, template));
     }
 
-    @GetMapping(path = "/users/{id}/templates/goals")
+    @GetMapping(path = "/users/{id}/templates/goals", produces = "application/hal+json")
     @ResponseBody
     public Resources<PersistentEntityResource> getGoalTemplates(@PathVariable("id") final UUID id,
                                                                 PersistentEntityResourceAssembler asm) {
         return toResources(service.getGoalTemplates(id), asm);
     }
 
-    @PostMapping(path = "/users/{id}/templates/continuations")
+    @PostMapping(path = "/users/{id}/templates/continuations", produces = "application/hal+json")
     @ResponseBody
     public PersistentEntityResource createContinuationTemplate(@PathVariable("id") final UUID id,
                                                                @RequestBody final UserContinuationTemplate template,
@@ -48,7 +51,7 @@ public class UserTemplatesController {
         return asm.toFullResource(service.createContinuationTemplate(id, template));
     }
 
-    @GetMapping(path = "/users/{id}/templates/continuations")
+    @GetMapping(path = "/users/{id}/templates/continuations", produces = "application/hal+json")
     @ResponseBody
     public Resources<PersistentEntityResource> getContinuationTemplates(@PathVariable("id") final UUID id,
                                                                         PersistentEntityResourceAssembler asm) {

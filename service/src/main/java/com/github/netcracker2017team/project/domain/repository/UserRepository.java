@@ -5,14 +5,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RestResource;
-import org.springframework.data.rest.webmvc.RepositoryRestController;
 
 import java.util.Set;
 
 /**
  * @author Alex Ivchenko
  */
-@RepositoryRestController
 public interface UserRepository extends Repository<User, String> {
 
     @Query("select u from User u where u.id = :id")

@@ -23,11 +23,16 @@ public class UserResourceProcessor implements ResourceProcessor<Resource<User>> 
     public Resource<User> process(Resource<User> resource) {
         log.info("process " + resource);
         UUID id = UUID.fromString(resource.getContent().getId());
-        resource.add(linkTo(methodOn(UserTemplatesController.class).createGoalTemplate(id, null, null)).withRel("createGoalTemplate"));
-        resource.add(linkTo(methodOn(UserTemplatesController.class).getGoalTemplates(id, null)).withRel("getGoalTemplates"));
-        resource.add(linkTo(methodOn(UserTemplatesController.class).createContinuationTemplate(id, null, null)).withRel("createContinuationTemplate"));
-        resource.add(linkTo(methodOn(UserGoalsController.class).getNewGoals(id, null)).withRel("getNewGoals"));
-        resource.add(linkTo(methodOn(UserGoalsController.class).getPublishedGoals(id, null)).withRel("getPublishedGoals"));
+        resource.add(linkTo(methodOn(UserTemplatesController.class).createGoalTemplate(id, null, null))
+                .withRel("createGoalTemplate"));
+        resource.add(linkTo(methodOn(UserTemplatesController.class).getGoalTemplates(id, null))
+                .withRel("getGoalTemplates"));
+        resource.add(linkTo(methodOn(UserTemplatesController.class).createContinuationTemplate(id, null, null))
+                .withRel("createContinuationTemplate"));
+        resource.add(linkTo(methodOn(UserGoalsController.class).getNewGoals(id, null))
+                .withRel("getNewGoals"));
+        resource.add(linkTo(methodOn(UserGoalsController.class).getPublishedGoals(id, null))
+                .withRel("getPublishedGoals"));
         return resource;
     }
 }
