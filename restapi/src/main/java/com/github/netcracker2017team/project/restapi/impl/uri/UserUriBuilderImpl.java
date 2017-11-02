@@ -14,7 +14,7 @@ public class UserUriBuilderImpl implements UserUriBuilder {
 
     @Override
     public String get(String username) {
-        return restRoot + "/user/" + username;
+        return restRoot + "/doer/" + username;
     }
 
     @Override

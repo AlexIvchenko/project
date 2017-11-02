@@ -17,12 +17,12 @@ import java.time.LocalDate;
 @DiscriminatorColumn(name = "type")
 public abstract class Goal extends AbstractEntity {
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "doer_id", nullable = false)
+    private User doer;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private Status status;
+    private Status status = Status.NEW;
 
     @Enumerated
     @Column(name = "termination_status")
@@ -31,11 +31,23 @@ public abstract class Goal extends AbstractEntity {
     @Column(name = "start_time")
     private LocalDate startTime;
 
+    public void publish() {
+        if (status == Status.NEW) {
+            status = Status.PUBLISHED;
+        } else {
+            throw new IllegalStateException();
+        }
+    }
+
     public void accept() {
-        status = Status.ACCEPTED;
+        if (status == Status.PUBLISHED) {
+            status = Status.ACCEPTED;
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
     public enum Status {
-        WAIT_FOR_ACCEPT, ACCEPTED, RESOLVED
+        NEW, PUBLISHED, ACCEPTED, RESOLVED
     }
 }

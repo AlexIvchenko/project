@@ -45,7 +45,7 @@ public class ForeignGoalRepositoryTest {
     @Test
     @ExpectedDatabase(value = "ForeignGoalRepoTest.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
     public void givenGoals_whenFindNotAcceptedGoal_thenFoundNotAccepted() throws Exception {
-        Set<ForeignGoal> goals = repository.findByDistributorWithStatus(distributor, Goal.Status.WAIT_FOR_ACCEPT);
+        Set<ForeignGoal> goals = repository.findByDistributorWithStatus(distributor, Goal.Status.PUBLISHED);
         assertThat(goals).hasSize(1).are(notAccepted());
     }
 
@@ -53,7 +53,7 @@ public class ForeignGoalRepositoryTest {
         return new Condition<ForeignGoal>() {
             @Override
             public boolean matches(ForeignGoal foreignGoal) {
-                return foreignGoal.getStatus() == Goal.Status.WAIT_FOR_ACCEPT;
+                return foreignGoal.getStatus() == Goal.Status.PUBLISHED;
             }
         };
     }

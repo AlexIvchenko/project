@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 @Getter
 @ToString(callSuper = true, exclude = "goal")
 @Entity
-@DiscriminatorValue("user")
+@DiscriminatorValue("doer")
 public class UserStepTemplate extends StepTemplate {
     @ManyToOne
     @JoinColumn(name = "user_goal_template_id")

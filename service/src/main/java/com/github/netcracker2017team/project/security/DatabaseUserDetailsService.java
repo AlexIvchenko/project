@@ -24,11 +24,11 @@ public class DatabaseUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        log.info("loading user " + username);
+        log.info("loading doer " + username);
         User user = userRepository.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException(
-                    "No user found with username: "+ username);
+                    "No doer found with username: "+ username);
         }
         return  org.springframework.security.core.userdetails.User
                 .withUsername(user.getUsername())

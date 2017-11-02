@@ -13,7 +13,7 @@ import java.util.Set;
 @Getter
 @ToString(callSuper = true, exclude = "owner")
 @Entity
-@DiscriminatorValue("user")
+@DiscriminatorValue("doer")
 public class UserGoalTemplate extends GoalTemplate {
 
     @ManyToOne

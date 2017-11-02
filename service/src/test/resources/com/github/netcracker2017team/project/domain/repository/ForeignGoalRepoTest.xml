@@ -4,7 +4,7 @@
     <goal_templates type="distributor" id="97a1ce52-2017-46bc-90cb-1a8ebe46392d" distributor_owner_id="76dd6349-d2f8-4b44-ba2a-2b861508e7b4" name="goal1" />
     <step_templates type="distributor" id="bef74dd9-b697-48a5-98e6-8b288805dd30" distributor_goal_template_id="97a1ce52-2017-46bc-90cb-1a8ebe46392d" name="step1"/>
     <users id="31b337d5-01b1-40c5-b51b-ae69e4163203" username="test" email="test" password="pass"/>
-    <goals id="62d6627d-b4f4-46fd-ac1c-0ec670d04f44" type="foreign" distributor_goal_template_id="97a1ce52-2017-46bc-90cb-1a8ebe46392d" user_id="31b337d5-01b1-40c5-b51b-ae69e4163203" status="WAIT_FOR_ACCEPT"/>
-    <goals id="1086613a-4011-48ec-b4fb-a83872edaaf9" type="foreign" distributor_goal_template_id="97a1ce52-2017-46bc-90cb-1a8ebe46392d" user_id="31b337d5-01b1-40c5-b51b-ae69e4163203" status="ACCEPTED"/>
-    <goals id="3af1ab89-e5bb-4a91-a103-937b585d04a9" type="foreign" distributor_goal_template_id="97a1ce52-2017-46bc-90cb-1a8ebe46392d" user_id="31b337d5-01b1-40c5-b51b-ae69e4163203" status="RESOLVED"/>
+    <goals id="62d6627d-b4f4-46fd-ac1c-0ec670d04f44" type="foreign" distributor_goal_template_id="97a1ce52-2017-46bc-90cb-1a8ebe46392d" doer_id="31b337d5-01b1-40c5-b51b-ae69e4163203" status="PUBLISHED"/>
+    <goals id="1086613a-4011-48ec-b4fb-a83872edaaf9" type="foreign" distributor_goal_template_id="97a1ce52-2017-46bc-90cb-1a8ebe46392d" doer_id="31b337d5-01b1-40c5-b51b-ae69e4163203" status="ACCEPTED"/>
+    <goals id="3af1ab89-e5bb-4a91-a103-937b585d04a9" type="foreign" distributor_goal_template_id="97a1ce52-2017-46bc-90cb-1a8ebe46392d" doer_id="31b337d5-01b1-40c5-b51b-ae69e4163203" status="RESOLVED"/>
 </dataset>

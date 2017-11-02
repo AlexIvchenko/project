@@ -18,7 +18,7 @@ import javax.persistence.*;
 public class ForeignStep extends Step {
 
     @ManyToOne
-    @JoinColumn(name = "distributor_step_template_id", nullable = false)
+    @JoinColumn(name = "distributor_step_template_id")
     private DistributorStepTemplate template;
 
     @ManyToOne(fetch = FetchType.LAZY)

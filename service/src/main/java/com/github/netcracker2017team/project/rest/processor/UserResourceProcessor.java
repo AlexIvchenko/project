@@ -25,6 +25,8 @@ public class UserResourceProcessor implements ResourceProcessor<Resource<User>> 
         resource.add(linkTo(methodOn(UserTemplatesController.class).createGoalTemplate(id, null, null)).withRel("createGoalTemplate"));
         resource.add(linkTo(methodOn(UserTemplatesController.class).getGoalTemplates(id, null)).withRel("getGoalTemplates"));
         resource.add(linkTo(methodOn(UserTemplatesController.class).createContinuationTemplate(id, null, null)).withRel("createContinuationTemplate"));
+        resource.add(linkTo(methodOn(UserTemplatesController.class).getNewGoals(id, null)).withRel("getNewGoals"));
+        resource.add(linkTo(methodOn(UserTemplatesController.class).getPublishedGoals(id, null)).withRel("getPublishedGoals"));
         return resource;
     }
 }

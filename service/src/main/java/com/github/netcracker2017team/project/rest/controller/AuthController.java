@@ -43,7 +43,7 @@ public class AuthController {
     public PersistentEntityResource patch(@PathVariable final UUID id,
                                           @RequestBody final User user,
                                           PersistentEntityResourceAssembler asm) {
-        log.info("patching user: " + user);
+        log.info("patching doer: " + user);
         return asm.toFullResource(userAuthService.patch(id, user));
     }
 }

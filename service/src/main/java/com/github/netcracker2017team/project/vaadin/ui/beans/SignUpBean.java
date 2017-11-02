@@ -29,7 +29,7 @@ public @Data class SignUpBean {
     private String lastName;
 
     @NotNull
-    @NotEmptyString(message = "{NotEmpty.user.password}")
+    @NotEmptyString(message = "{NotEmpty.doer.password}")
     @Size(min = 6, max = 30, message = "{validation.error.size}")
     private String password;
 

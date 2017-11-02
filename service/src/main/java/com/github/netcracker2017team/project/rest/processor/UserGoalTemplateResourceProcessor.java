@@ -15,13 +15,15 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 /**
  * @author Alex Ivchenko
  */
-@Component
 @Slf4j
-public class UserGoalTemplateResourceProcessor implements ResourceProcessor<Resource<UserGoalTemplate>> {
+@Component
+public class UserGoalTemplateResourceProcessor implements ResourceProcessor<Resource<UserGoalTemplate>>{
     @Override
     public Resource<UserGoalTemplate> process(Resource<UserGoalTemplate> resource) {
-        UUID ownerId = UUID.fromString(resource.getContent().getOwner().getId());
-        resource.add(linkTo(methodOn(UserTemplatesController.class).getContinuationTemplates(ownerId, null)).withRel("getAvailableContinuations"));
+        UserGoalTemplate goalTemplate = resource.getContent();
+        UUID userId = UUID.fromString(goalTemplate.getOwner().getId());
+        UUID goalId = UUID.fromString(goalTemplate.getId());
+        resource.add(linkTo(methodOn(UserTemplatesController.class).applyUserToHisGoal(userId, goalId, null)).withRel("apply"));
         return resource;
     }
 }
