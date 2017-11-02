@@ -2,7 +2,7 @@ package com.github.netcracker2017team.project.rest.processor;
 
 import com.github.netcracker2017team.project.domain.model.Goal;
 import com.github.netcracker2017team.project.domain.model.PersonalGoal;
-import com.github.netcracker2017team.project.rest.controller.UserTemplatesController;
+import com.github.netcracker2017team.project.rest.controller.UserGoalsController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceProcessor;
@@ -25,8 +25,8 @@ public class PersonalGoalResourceProcessor implements ResourceProcessor<Resource
         UUID doerId = UUID.fromString(goal.getDoer().getId());
         UUID goalId = UUID.fromString(goal.getId());
         if (goal.getStatus() == Goal.Status.NEW) {
-            resource.add(linkTo(methodOn(UserTemplatesController.class).getContinuationTemplatesToAdd(doerId, goalId, null)).withRel("getAvailableContinuationsToAdd"));
-            resource.add(linkTo(methodOn(UserTemplatesController.class).publishGoal(doerId, goalId, null)).withRel("publish"));
+            resource.add(linkTo(methodOn(UserGoalsController.class).getContinuationTemplatesToAdd(doerId, goalId, null)).withRel("getAvailableContinuationsToAdd"));
+            resource.add(linkTo(methodOn(UserGoalsController.class).publishGoal(doerId, goalId, null)).withRel("publish"));
         }
         return resource;
     }
