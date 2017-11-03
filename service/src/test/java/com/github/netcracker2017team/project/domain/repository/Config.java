@@ -3,6 +3,7 @@ package com.github.netcracker2017team.project.domain.repository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
@@ -11,6 +12,7 @@ import javax.sql.DataSource;
  * @author Alex Ivchenko
  */
 @TestConfiguration
+@Profile("test")
 public class Config {
     @Value("${spring.datasource.driver-class-name}")
     private String driver;
