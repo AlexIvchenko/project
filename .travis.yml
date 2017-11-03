@@ -7,7 +7,7 @@ services:
 before_script:
   - psql -c "CREATE DATABASE test_db;" -U postgres
 script:
-  - mvn clean integration-test
+  - mvn clean integration-test -P full
 deploy:
   provider: heroku
   api-key:
