@@ -67,11 +67,7 @@ JDBC_DATABASE_PASSWORD={your password here}
 
 [Spring HATEOAS](https://projects.spring.io/spring-hateoas/ "Spring HATEOAS project") - [Hypermedia as the Engine of Application State (HATEOAS) is a constraint of the REST application architecture](https://en.wikipedia.org/wiki/HATEOAS "Wiki HATEOAS")
 
-[Spring Data REST](https://projects.spring.io/spring-data-rest/ "Spring Data REST project")
-
 Spring Web MVC
-
-[Spring HAL browser](https://docs.spring.io/spring-data/rest/docs/current/reference/html/#_the_hal_browser "HAL docs")
 
 #### Useful links
 [Hypertext Application Language](http://stateless.co/hal_specification.html "HAL")
