@@ -1,10 +1,11 @@
 package com.github.netcracker2017team.project.rest.controller;
 
 import com.github.netcracker2017team.project.domain.model.User;
+import com.github.netcracker2017team.project.rest.Rest;
+import com.github.netcracker2017team.project.rest.assembler.UserResourceAssembler;
+import com.github.netcracker2017team.project.rest.resources.UserResource;
 import com.github.netcracker2017team.project.security.UserAuthService;
-import org.springframework.data.rest.webmvc.PersistentEntityResource;
-import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
-import org.springframework.data.rest.webmvc.RepositoryRestController;
+import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -12,41 +13,35 @@ import java.util.UUID;
 /**
  * @author Alex Ivchenko
  */
-@RepositoryRestController
-@RequestMapping("/api/")
+@Rest
 public class AuthController {
     private final UserAuthService userAuthService;
+    private final UserResourceAssembler assembler;
 
-    public AuthController(UserAuthService userAuthService) {
+    public AuthController(UserAuthService userAuthService, UserResourceAssembler assembler) {
         this.userAuthService = userAuthService;
+        this.assembler = assembler;
     }
 
     @PostMapping(path = "/users", produces = "application/hal+json")
-    @ResponseBody
-    public PersistentEntityResource create(@RequestBody final User user,
-                                           PersistentEntityResourceAssembler asm) {
-        return asm.toFullResource(userAuthService.signUp(user));
+    public HttpEntity<UserResource> create(@RequestBody final User user) {
+        return new HttpEntity<>(assembler.toResource(userAuthService.signUp(user)));
     }
 
     @RequestMapping(path = "/users", method = RequestMethod.HEAD)
-    @ResponseBody
     public void createHead() {
 
     }
 
     @PutMapping(path = "/users/{id}", produces = "application/hal+json")
-    @ResponseBody
-    public PersistentEntityResource update(@PathVariable final UUID id,
-                                           @RequestBody final User user,
-                                           PersistentEntityResourceAssembler asm) {
-        return asm.toFullResource(userAuthService.update(id, user));
+    public HttpEntity<UserResource> update(@PathVariable final UUID id,
+                                           @RequestBody final User user) {
+        return new HttpEntity<>(assembler.toResource(userAuthService.update(id, user)));
     }
 
     @PatchMapping(path = "/users/{id}", produces = "application/hal+json")
-    @ResponseBody
-    public PersistentEntityResource patch(@PathVariable final UUID id,
-                                          @RequestBody final User user,
-                                          PersistentEntityResourceAssembler asm) {
-        return asm.toFullResource(userAuthService.patch(id, user));
+    public HttpEntity<UserResource> patch(@PathVariable final UUID id,
+                                          @RequestBody final User user) {
+        return new HttpEntity<>(assembler.toResource(userAuthService.patch(id, user)));
     }
 }

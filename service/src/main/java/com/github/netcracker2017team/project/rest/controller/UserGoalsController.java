@@ -4,14 +4,16 @@ import com.github.netcracker2017team.project.domain.model.Goal;
 import com.github.netcracker2017team.project.domain.service.UserGoalsService;
 import com.github.netcracker2017team.project.domain.service.UserTemplatesService;
 import com.github.netcracker2017team.project.rest.Rest;
+import com.github.netcracker2017team.project.rest.assembler.ContinuationTemplateResourceAssembler;
+import com.github.netcracker2017team.project.rest.assembler.PersonalGoalResourceAssembler;
+import com.github.netcracker2017team.project.rest.resources.ContinuationTemplateResource;
+import com.github.netcracker2017team.project.rest.resources.PersonalGoalResource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.PersistentEntityResource;
-import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
 import org.springframework.hateoas.Resources;
+import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Set;
 import java.util.UUID;
@@ -28,80 +30,68 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 public class UserGoalsController {
     private final UserGoalsService goalsService;
     private final UserTemplatesService templatesService;
+    private final ContinuationTemplateResourceAssembler conTmpAsm;
+    private final PersonalGoalResourceAssembler goalAsm;
 
     @Autowired
-    public UserGoalsController(UserGoalsService goalsService, UserTemplatesService templatesService) {
+    public UserGoalsController(UserGoalsService goalsService, UserTemplatesService templatesService, ContinuationTemplateResourceAssembler asm, PersonalGoalResourceAssembler goalAsm) {
         this.goalsService = goalsService;
         this.templatesService = templatesService;
+        this.conTmpAsm = asm;
+        this.goalAsm = goalAsm;
     }
 
     @GetMapping(path = "/users/{userId}/goals/new/{goalId}/continuations/toAdd", produces = "application/hal+json")
-    @ResponseBody
-    public Resources<PersistentEntityResource> getContinuationTemplatesToAdd(@PathVariable("userId") final UUID userId,
-                                                                             @PathVariable("goalId") final UUID goalId,
-                                                                             PersistentEntityResourceAssembler asm) {
-        Set<PersistentEntityResource> resources = templatesService.getContinuationTemplates(userId)
+    public HttpEntity<Resources<ContinuationTemplateResource>> getContinuationTemplatesToAdd(@PathVariable("userId") final UUID userId,
+                                                                                        @PathVariable("goalId") final UUID goalId) {
+        Set<ContinuationTemplateResource> resources = templatesService.getContinuationTemplates(userId)
                 .stream().map(template -> {
-                    PersistentEntityResource resource = asm.toFullResource(template);
+                    ContinuationTemplateResource resource = conTmpAsm.toResource(template);
                     UUID contId = UUID.fromString(template.getId());
-                    resource.add(linkTo(methodOn(UserGoalsController.class).addContinuationTemplateToGoal(userId, goalId, contId, null)).withRel("add"));
+                    resource.add(linkTo(methodOn(UserGoalsController.class).addContinuationTemplateToGoal(userId, goalId, contId)).withRel("add"));
                     return resource;
                 }).collect(Collectors.toSet());
-        return new Resources<>(resources);
+        return new HttpEntity<>(new Resources<>(resources));
     }
 
     @PostMapping(path = "/users/{userId}/goals/new/{goalId}/continuations/{continuationId}/add", produces = "application/hal+json")
-    @ResponseBody
-    public PersistentEntityResource addContinuationTemplateToGoal(@PathVariable("userId") final UUID userId,
+    public HttpEntity<PersonalGoalResource> addContinuationTemplateToGoal(@PathVariable("userId") final UUID userId,
                                                                   @PathVariable("goalId") final UUID goalId,
-                                                                  @PathVariable("continuationId") final UUID contId,
-                                                                  PersistentEntityResourceAssembler asm) {
-        return asm.toFullResource(goalsService.addContinuationToNewPersonalGoal(userId, goalId, contId));
+                                                                  @PathVariable("continuationId") final UUID contId) {
+        return new HttpEntity<>(goalAsm.toResource(goalsService.addContinuationToNewPersonalGoal(userId, goalId, contId)));
     }
 
     @PostMapping(path = "/users/{userId}/goals/new/{goalId}/publish", produces = "application/hal+json")
-    @ResponseBody
-    public PersistentEntityResource publishGoal(@PathVariable("userId") UUID userId,
-                                                @PathVariable("goalId") UUID goalId,
-                                                PersistentEntityResourceAssembler asm) {
-        return asm.toFullResource(goalsService.userPublishesHisGoal(userId, goalId));
+    public HttpEntity<PersonalGoalResource> publishGoal(@PathVariable("userId") UUID userId,
+                                                @PathVariable("goalId") UUID goalId) {
+        return new HttpEntity<>(goalAsm.toResource(goalsService.userPublishesHisGoal(userId, goalId)));
     }
 
     @PostMapping(path = "/users/{userId}/goals/new/{goalId}/resolve/success", produces = "application/hal+json")
-    @ResponseBody
-    public PersistentEntityResource resolveSuccess(@PathVariable("userId") UUID userId,
-                                                @PathVariable("goalId") UUID goalId,
-                                                PersistentEntityResourceAssembler asm) {
-        return asm.toFullResource(goalsService.userResolvesHisGoal(userId, goalId, Goal.Result.SUCCESS));
+    public HttpEntity<PersonalGoalResource> resolveSuccess(@PathVariable("userId") UUID userId,
+                                                @PathVariable("goalId") UUID goalId) {
+        return new HttpEntity<>(goalAsm.toResource(goalsService.userResolvesHisGoal(userId, goalId, Goal.Result.SUCCESS)));
     }
 
     @PostMapping(path = "/users/{userId}/goals/new/{goalId}/resolve/fail", produces = "application/hal+json")
-    @ResponseBody
-    public PersistentEntityResource resolveFail(@PathVariable("userId") UUID userId,
-                                                   @PathVariable("goalId") UUID goalId,
-                                                   PersistentEntityResourceAssembler asm) {
-        return asm.toFullResource(goalsService.userResolvesHisGoal(userId, goalId, Goal.Result.FAIL));
+    public HttpEntity<PersonalGoalResource> resolveFail(@PathVariable("userId") UUID userId,
+                                                   @PathVariable("goalId") UUID goalId) {
+        return new HttpEntity<>(goalAsm.toResource(goalsService.userResolvesHisGoal(userId, goalId, Goal.Result.FAIL)));
     }
 
     @PostMapping(path = "/users/{userId}/templates/goals/personal/{goalId}/apply", produces = "application/hal+json")
-    @ResponseBody
-    public PersistentEntityResource applyUserToHisGoal(@PathVariable("userId") final UUID userId,
-                                                       @PathVariable("goalId") final UUID goalId,
-                                                       PersistentEntityResourceAssembler asm) {
-        return asm.toFullResource(goalsService.applyUserToHisPersonalGoalTemplate(userId, goalId));
+    public HttpEntity<PersonalGoalResource> applyUserToHisGoal(@PathVariable("userId") final UUID userId,
+                                                       @PathVariable("goalId") final UUID goalId) {
+        return new HttpEntity<>(goalAsm.toResource(goalsService.applyUserToHisPersonalGoalTemplate(userId, goalId)));
     }
 
     @GetMapping(path = "/users/{userId}/goals/new", produces = "application/hal+json")
-    @ResponseBody
-    public Resources<PersistentEntityResource> getNewGoals(@PathVariable("userId") UUID userId,
-                                                           PersistentEntityResourceAssembler asm) {
-        return toResources(goalsService.getNewGoals(userId), asm);
+    public HttpEntity<Resources<PersonalGoalResource>> getNewGoals(@PathVariable("userId") UUID userId) {
+        return new HttpEntity<>(toResources(goalsService.getNewGoals(userId), goalAsm));
     }
 
     @GetMapping(path = "/users/{userId}/goals/published", produces = "application/hal+json")
-    @ResponseBody
-    public Resources<PersistentEntityResource> getPublishedGoals(@PathVariable("userId") UUID userId,
-                                                                 PersistentEntityResourceAssembler asm) {
-        return toResources(goalsService.getPublishedGoals(userId), asm);
+    public HttpEntity<Resources<PersonalGoalResource>> getPublishedGoals(@PathVariable("userId") UUID userId) {
+        return new HttpEntity<>(toResources(goalsService.getPublishedGoals(userId), goalAsm));
     }
 }

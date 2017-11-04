@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Getter
 @ToString(callSuper = true, exclude = "goal")
 @Entity
-@DiscriminatorValue("doer")
+@DiscriminatorValue("user")
 public class UserStepTemplate extends StepTemplate {
 
     @ManyToOne(fetch = FetchType.LAZY)

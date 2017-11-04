@@ -10,15 +10,15 @@ import java.util.UUID;
  * @author Alex Ivchenko
  */
 public interface UserGoalsService {
-    Goal applyUserToHisPersonalGoalTemplate(UUID userId, UUID goalTemplateId);
+    PersonalGoal applyUserToHisPersonalGoalTemplate(UUID userId, UUID goalTemplateId);
 
-    Goal addContinuationToNewPersonalGoal(UUID userId, UUID goalId, UUID contId);
+    PersonalGoal addContinuationToNewPersonalGoal(UUID userId, UUID goalId, UUID contId);
 
-    Goal userPublishesHisGoal(UUID userId, UUID goalId);
+    PersonalGoal userPublishesHisGoal(UUID userId, UUID goalId);
 
     Set<PersonalGoal> getPublishedGoals(UUID userId);
 
-    Goal userResolvesHisGoal(UUID userId, UUID goalId, Goal.Result result);
+    PersonalGoal userResolvesHisGoal(UUID userId, UUID goalId, Goal.Result result);
 
     Set<PersonalGoal> getNewGoals(UUID userId);
 }

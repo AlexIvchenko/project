@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Configuration;
 public class LazyObjectsMapperConfig {
     /**
      * This module enables correct hibernate proxy classes mapping
-     * @return
      */
     @Bean
     public Module datatypeHibernateModule() {

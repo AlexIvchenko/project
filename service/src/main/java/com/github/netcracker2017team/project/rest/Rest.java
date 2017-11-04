@@ -1,7 +1,7 @@
 package com.github.netcracker2017team.project.rest;
 
-import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.lang.annotation.*;
 
@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@RepositoryRestController
 @RequestMapping(path = "/api")
+@RestController
 public @interface Rest {
 }

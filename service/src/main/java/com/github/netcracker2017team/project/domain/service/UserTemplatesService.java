@@ -2,6 +2,7 @@ package com.github.netcracker2017team.project.domain.service;
 
 import com.github.netcracker2017team.project.domain.model.template.user.UserContinuationTemplate;
 import com.github.netcracker2017team.project.domain.model.template.user.UserGoalTemplate;
+import com.github.netcracker2017team.project.domain.model.template.user.UserStepTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
@@ -19,4 +20,8 @@ public interface UserTemplatesService {
     UserContinuationTemplate createContinuationTemplate(final UUID userId, final UserContinuationTemplate template);
 
     Set<UserContinuationTemplate> getContinuationTemplates(final UUID userId);
+
+    Set<UserStepTemplate> getStepTemplates(final UUID userId, final UUID goalId);
+
+    UserGoalTemplate getGoalTemplate(final UUID userId, final UUID goalId);
 }

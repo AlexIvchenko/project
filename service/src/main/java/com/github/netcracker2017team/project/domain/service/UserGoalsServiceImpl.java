@@ -30,7 +30,7 @@ public class UserGoalsServiceImpl implements UserGoalsService {
     private UserContinuationTemplateRepository userContinuationTemplateRepository;
 
     @Override
-    public Goal applyUserToHisPersonalGoalTemplate(UUID userId, UUID goalTemplateId) {
+    public PersonalGoal applyUserToHisPersonalGoalTemplate(UUID userId, UUID goalTemplateId) {
         User user = userRepository.findOne(userId.toString());
         UserGoalTemplate template = userGoalTemplateRepository.findOne(goalTemplateId.toString());
         PersonalGoal goal = new PersonalGoal(user, template);
@@ -38,7 +38,7 @@ public class UserGoalsServiceImpl implements UserGoalsService {
     }
 
     @Override
-    public Goal addContinuationToNewPersonalGoal(UUID userId, UUID goalId, UUID contId) {
+    public PersonalGoal addContinuationToNewPersonalGoal(UUID userId, UUID goalId, UUID contId) {
         User user = userRepository.findOne(userId.toString());
         PersonalGoal goal = personalGoalRepository.findOne(goalId.toString());
         UserContinuationTemplate template = userContinuationTemplateRepository.findOne(contId.toString());
@@ -47,7 +47,7 @@ public class UserGoalsServiceImpl implements UserGoalsService {
     }
 
     @Override
-    public Goal userPublishesHisGoal(UUID userId, UUID goalId) {
+    public PersonalGoal userPublishesHisGoal(UUID userId, UUID goalId) {
         User user = userRepository.findOne(userId.toString());
         PersonalGoal goal = personalGoalRepository.findOne(goalId.toString());
         goal.publish();
@@ -56,7 +56,7 @@ public class UserGoalsServiceImpl implements UserGoalsService {
 
     // TODO send notifications / apply continuations
     @Override
-    public Goal userResolvesHisGoal(UUID userId, UUID goalId, Goal.Result result) {
+    public PersonalGoal userResolvesHisGoal(UUID userId, UUID goalId, Goal.Result result) {
         User user = userRepository.findOne(userId.toString());
         PersonalGoal goal = personalGoalRepository.findOne(goalId.toString());
         goal.resolve(result);
