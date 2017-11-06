@@ -41,7 +41,7 @@ public class UserGoalsController {
         this.goalAsm = goalAsm;
     }
 
-    @GetMapping(path = "/users/{userId}/goals/new/{goalId}/continuations/toAdd", produces = "application/hal+json")
+    @GetMapping(path = "/users/{userId}/goals/new/{goalId}/continuations/toAdd")
     public HttpEntity<Resources<ContinuationTemplateResource>> getContinuationTemplatesToAdd(@PathVariable("userId") final UUID userId,
                                                                                         @PathVariable("goalId") final UUID goalId) {
         Set<ContinuationTemplateResource> resources = templatesService.getContinuationTemplates(userId)
@@ -54,43 +54,43 @@ public class UserGoalsController {
         return new HttpEntity<>(new Resources<>(resources));
     }
 
-    @PostMapping(path = "/users/{userId}/goals/new/{goalId}/continuations/{continuationId}/add", produces = "application/hal+json")
+    @PostMapping(path = "/users/{userId}/goals/new/{goalId}/continuations/{continuationId}/add")
     public HttpEntity<PersonalGoalResource> addContinuationTemplateToGoal(@PathVariable("userId") final UUID userId,
                                                                   @PathVariable("goalId") final UUID goalId,
                                                                   @PathVariable("continuationId") final UUID contId) {
         return new HttpEntity<>(goalAsm.toResource(goalsService.addContinuationToNewPersonalGoal(userId, goalId, contId)));
     }
 
-    @PostMapping(path = "/users/{userId}/goals/new/{goalId}/publish", produces = "application/hal+json")
+    @PostMapping(path = "/users/{userId}/goals/new/{goalId}/publish")
     public HttpEntity<PersonalGoalResource> publishGoal(@PathVariable("userId") UUID userId,
                                                 @PathVariable("goalId") UUID goalId) {
         return new HttpEntity<>(goalAsm.toResource(goalsService.userPublishesHisGoal(userId, goalId)));
     }
 
-    @PostMapping(path = "/users/{userId}/goals/new/{goalId}/resolve/success", produces = "application/hal+json")
+    @PostMapping(path = "/users/{userId}/goals/new/{goalId}/resolve/success")
     public HttpEntity<PersonalGoalResource> resolveSuccess(@PathVariable("userId") UUID userId,
                                                 @PathVariable("goalId") UUID goalId) {
         return new HttpEntity<>(goalAsm.toResource(goalsService.userResolvesHisGoal(userId, goalId, Goal.Result.SUCCESS)));
     }
 
-    @PostMapping(path = "/users/{userId}/goals/new/{goalId}/resolve/fail", produces = "application/hal+json")
+    @PostMapping(path = "/users/{userId}/goals/new/{goalId}/resolve/fail")
     public HttpEntity<PersonalGoalResource> resolveFail(@PathVariable("userId") UUID userId,
                                                    @PathVariable("goalId") UUID goalId) {
         return new HttpEntity<>(goalAsm.toResource(goalsService.userResolvesHisGoal(userId, goalId, Goal.Result.FAIL)));
     }
 
-    @PostMapping(path = "/users/{userId}/templates/goals/personal/{goalId}/apply", produces = "application/hal+json")
+    @PostMapping(path = "/users/{userId}/templates/goals/personal/{goalId}/apply")
     public HttpEntity<PersonalGoalResource> applyUserToHisGoal(@PathVariable("userId") final UUID userId,
                                                        @PathVariable("goalId") final UUID goalId) {
         return new HttpEntity<>(goalAsm.toResource(goalsService.applyUserToHisPersonalGoalTemplate(userId, goalId)));
     }
 
-    @GetMapping(path = "/users/{userId}/goals/new", produces = "application/hal+json")
+    @GetMapping(path = "/users/{userId}/goals/new")
     public HttpEntity<Resources<PersonalGoalResource>> getNewGoals(@PathVariable("userId") UUID userId) {
         return new HttpEntity<>(toResources(goalsService.getNewGoals(userId), goalAsm));
     }
 
-    @GetMapping(path = "/users/{userId}/goals/published", produces = "application/hal+json")
+    @GetMapping(path = "/users/{userId}/goals/published")
     public HttpEntity<Resources<PersonalGoalResource>> getPublishedGoals(@PathVariable("userId") UUID userId) {
         return new HttpEntity<>(toResources(goalsService.getPublishedGoals(userId), goalAsm));
     }

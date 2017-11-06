@@ -7,7 +7,6 @@ import com.github.netcracker2017team.project.rest.assembler.UserGoalTemplateReso
 import com.github.netcracker2017team.project.rest.resources.UserGoalTemplateResource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,18 +33,18 @@ public class UserGoalTemplatesController {
         this.asm = asm;
     }
 
-    @PostMapping(path = "/users/{id}/templates/goals", produces = "application/hal+json")
+    @PostMapping(path = "/users/{id}/templates/goals")
     public HttpEntity<UserGoalTemplateResource> createGoalTemplate(@PathVariable("id") final UUID id,
                                                        @RequestBody final UserGoalTemplate template) {
         return new HttpEntity<>(asm.toResource(service.createGoalTemplate(id, template)));
     }
 
-    @GetMapping(path = "/users/{id}/templates/goals", produces = "application/hal+json")
+    @GetMapping(path = "/users/{id}/templates/goals")
     public HttpEntity<Resources<UserGoalTemplateResource>> getGoalTemplates(@PathVariable("id") final UUID id) {
         return new HttpEntity<>(toResources(service.getGoalTemplates(id), asm));
     }
 
-    @GetMapping(path = "/users/{userId}/templates/goals/{goalId}", produces = MediaTypes.HAL_JSON_VALUE)
+    @GetMapping(path = "/users/{userId}/templates/goals/{goalId}")
     public HttpEntity<UserGoalTemplateResource> getGoalTemplate(@PathVariable("userId") final UUID userId,
                                                                 @PathVariable("goalId") final UUID goalId) {
         return new HttpEntity<>(asm.toResource(service.getGoalTemplate(userId, goalId)));

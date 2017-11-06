@@ -23,7 +23,7 @@ public class AuthController {
         this.assembler = assembler;
     }
 
-    @PostMapping(path = "/users", produces = "application/hal+json")
+    @PostMapping(path = "/users")
     public HttpEntity<UserResource> create(@RequestBody final User user) {
         return new HttpEntity<>(assembler.toResource(userAuthService.signUp(user)));
     }
@@ -33,13 +33,13 @@ public class AuthController {
 
     }
 
-    @PutMapping(path = "/users/{id}", produces = "application/hal+json")
+    @PutMapping(path = "/users/{id}")
     public HttpEntity<UserResource> update(@PathVariable final UUID id,
                                            @RequestBody final User user) {
         return new HttpEntity<>(assembler.toResource(userAuthService.update(id, user)));
     }
 
-    @PatchMapping(path = "/users/{id}", produces = "application/hal+json")
+    @PatchMapping(path = "/users/{id}")
     public HttpEntity<UserResource> patch(@PathVariable final UUID id,
                                           @RequestBody final User user) {
         return new HttpEntity<>(assembler.toResource(userAuthService.patch(id, user)));
