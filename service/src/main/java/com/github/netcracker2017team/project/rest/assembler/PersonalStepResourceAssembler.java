@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 public class PersonalStepResourceAssembler implements ResourceAssembler<PersonalStep, PersonalStepResource> {
     @Override
     public PersonalStepResource toResource(PersonalStep entity) {
-        PersonalStepResource resource = new PersonalStepResource(entity.getTemplate().getName(), entity.getTemplate().getDescription());
-        return resource;
+        return new PersonalStepResource(entity.getTemplate().getName(), entity.getTemplate().getDescription());
     }
 }

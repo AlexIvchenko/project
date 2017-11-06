@@ -30,11 +30,16 @@ public class PersonalGoalResourceAssembler implements ResourceAssembler<Personal
         final UUID doerId = UUID.fromString(entity.getDoer().getId());
         final UUID goalId = UUID.fromString(entity.getId());
 
+        resource.add(linkTo(methodOn(UserGoalsController.class).getSteps(doerId, goalId))
+                .withRel("steps"));
+//        resource.add(linkTo(methodOn(UserGoalsController.class).getContinuations(doerId, goalId))
+//                  .withRel("continuations"));
+
         if (entity.getStatus() == Goal.Status.NEW) {
             resource.add(linkTo(methodOn(UserGoalsController.class).getContinuationTemplatesToAdd(doerId, goalId))
                     .withRel("getAvailableContinuationsToAdd"));
-            resource.add(linkTo(methodOn(UserGoalsController.class).publishGoal(doerId, goalId))
-                    .withRel("publish"));
+            resource.add(linkTo(methodOn(UserGoalsController.class).acceptGoal(doerId, goalId))
+                    .withRel("accept"));
         }
         if (entity.getStatus() == Goal.Status.ACCEPTED) {
             resource.add(linkTo(methodOn(UserGoalsController.class).resolveSuccess(doerId, goalId))

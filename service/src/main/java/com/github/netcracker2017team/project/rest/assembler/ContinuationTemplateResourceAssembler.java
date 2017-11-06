@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 public class ContinuationTemplateResourceAssembler implements ResourceAssembler<UserContinuationTemplate, ContinuationTemplateResource> {
     @Override
     public ContinuationTemplateResource toResource(UserContinuationTemplate entity) {
-        ContinuationTemplateResource resource = new ContinuationTemplateResource(entity.getName(), entity.getDescription());
-        return resource;
+        return new ContinuationTemplateResource(entity.getName(), entity.getDescription());
     }
 }

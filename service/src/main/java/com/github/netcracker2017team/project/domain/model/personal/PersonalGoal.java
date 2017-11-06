@@ -45,7 +45,7 @@ public class PersonalGoal extends Goal {
     }
 
     @Override
-    public void publish() {
+    public void accept() {
         super.publish();
         super.accept();
     }

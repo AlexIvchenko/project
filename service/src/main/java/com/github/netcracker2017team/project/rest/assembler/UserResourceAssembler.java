@@ -32,8 +32,10 @@ public class UserResourceAssembler implements ResourceAssembler<User, UserResour
                 .withRel("getGoalTemplates"));
         resource.add(linkTo(methodOn(UserGoalsController.class).getNewGoals(id))
                 .withRel("getNewGoals"));
-        resource.add(linkTo(methodOn(UserGoalsController.class).getPublishedGoals(id))
-                .withRel("getPublishedGoals"));
+        resource.add(linkTo(methodOn(UserGoalsController.class).getAcceptedGoals(id))
+                .withRel("getAcceptedGoals"));
+        resource.add(linkTo(methodOn(UserGoalsController.class).getResolvedGoals(id))
+                .withRel("getResolvedGoals"));
         return resource;
     }
 }

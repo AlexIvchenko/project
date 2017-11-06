@@ -3,6 +3,7 @@ package com.github.netcracker2017team.project.domain.service;
 import com.github.netcracker2017team.project.domain.model.Goal;
 import com.github.netcracker2017team.project.domain.model.personal.PersonalGoal;
 import com.github.netcracker2017team.project.domain.model.User;
+import com.github.netcracker2017team.project.domain.model.personal.PersonalStep;
 import com.github.netcracker2017team.project.domain.model.template.user.UserContinuationTemplate;
 import com.github.netcracker2017team.project.domain.model.template.user.UserGoalTemplate;
 import com.github.netcracker2017team.project.domain.repository.PersonalGoalRepository;
@@ -47,10 +48,10 @@ public class UserGoalsServiceImpl implements UserGoalsService {
     }
 
     @Override
-    public PersonalGoal userPublishesHisGoal(UUID userId, UUID goalId) {
+    public PersonalGoal userAcceptsHisGoal(UUID userId, UUID goalId) {
         User user = userRepository.findOne(userId.toString());
         PersonalGoal goal = personalGoalRepository.findOne(goalId.toString());
-        goal.publish();
+        goal.accept();
         return personalGoalRepository.save(goal);
     }
 
@@ -64,14 +65,25 @@ public class UserGoalsServiceImpl implements UserGoalsService {
     }
 
     @Override
-    public Set<PersonalGoal> getPublishedGoals(UUID userId) {
+    public Set<PersonalGoal> getNewGoals(UUID userId) {
         User user = userRepository.findOne(userId.toString());
-        return personalGoalRepository.findPublished(user);
+        return personalGoalRepository.findByDoerAndStatus(user, Goal.Status.NEW);
     }
 
     @Override
-    public Set<PersonalGoal> getNewGoals(UUID userId) {
+    public Set<PersonalGoal> getAcceptedGoals(UUID userId) {
         User user = userRepository.findOne(userId.toString());
-        return personalGoalRepository.findNew(user);
+        return personalGoalRepository.findByDoerAndStatus(user, Goal.Status.ACCEPTED);
+    }
+
+    @Override
+    public Set<PersonalGoal> getResolvedGoals(UUID userId) {
+        User user = userRepository.findOne(userId.toString());
+        return personalGoalRepository.findByDoerAndStatus(user, Goal.Status.RESOLVED);
+    }
+
+    @Override
+    public Set<PersonalStep> getSteps(UUID doerId, UUID goalId) {
+        return personalGoalRepository.findOne(goalId.toString()).getSteps();
     }
 }

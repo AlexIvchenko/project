@@ -19,6 +19,6 @@ public class ResourceUtils {
     }
 
     public static <E, R extends ResourceSupport> Set<R> toResourceSet(Collection<E> collection, ResourceAssembler<E, R> asm) {
-        return collection.stream().map(asm::toResource).peek(res -> log.info(res.toString())).collect(Collectors.toSet());
+        return collection.stream().map(asm::toResource).collect(Collectors.toSet());
     }
 }
