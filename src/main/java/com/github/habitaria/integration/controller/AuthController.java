@@ -1,9 +1,9 @@
-package com.github.habitaria.rest.controller;
+package com.github.habitaria.integration.controller;
 
 import com.github.habitaria.domain.model.User;
-import com.github.habitaria.rest.Rest;
-import com.github.habitaria.rest.assembler.UserResourceAssembler;
-import com.github.habitaria.rest.resources.UserResource;
+import com.github.habitaria.integration.Rest;
+import com.github.habitaria.integration.assembler.UserResourceAssembler;
+import com.github.habitaria.integration.resources.UserResource;
 import com.github.habitaria.security.UserAuthService;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;

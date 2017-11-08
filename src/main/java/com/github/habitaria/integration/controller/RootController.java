@@ -1,6 +1,6 @@
-package com.github.habitaria.rest.controller;
+package com.github.habitaria.integration.controller;
 
-import com.github.habitaria.rest.Rest;
+import com.github.habitaria.integration.Rest;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.http.HttpEntity;

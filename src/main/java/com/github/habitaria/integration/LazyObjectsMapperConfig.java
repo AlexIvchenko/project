@@ -1,4 +1,4 @@
-package com.github.habitaria.rest;
+package com.github.habitaria.integration;
 
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;

@@ -1,8 +1,8 @@
-package com.github.habitaria.rest.assembler;
+package com.github.habitaria.integration.assembler;
 
 import com.github.habitaria.domain.model.User;
-import com.github.habitaria.rest.controller.HabitsController;
-import com.github.habitaria.rest.resources.UserResource;
+import com.github.habitaria.integration.controller.HabitsController;
+import com.github.habitaria.integration.resources.UserResource;
 import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.stereotype.Component;
 

@@ -1,9 +1,9 @@
-package com.github.habitaria.rest.assembler;
+package com.github.habitaria.integration.assembler;
 
 import com.github.habitaria.domain.model.Habit;
 import com.github.habitaria.domain.service.HabitService;
-import com.github.habitaria.rest.controller.HabitsController;
-import com.github.habitaria.rest.resources.HabitResource;
+import com.github.habitaria.integration.controller.HabitsController;
+import com.github.habitaria.integration.resources.HabitResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.stereotype.Component;

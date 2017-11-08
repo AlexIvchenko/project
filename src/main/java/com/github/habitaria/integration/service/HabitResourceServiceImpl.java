@@ -1,11 +1,11 @@
-package com.github.habitaria.rest.service;
+package com.github.habitaria.integration.service;
 
 import com.github.habitaria.domain.model.Habit;
 import com.github.habitaria.domain.service.HabitService;
-import com.github.habitaria.rest.assembler.HabitResourceAssembler;
-import com.github.habitaria.rest.assembler.HabitsResourceAssembler;
-import com.github.habitaria.rest.resources.HabitResource;
-import com.github.habitaria.rest.resources.HabitsResource;
+import com.github.habitaria.integration.assembler.HabitResourceAssembler;
+import com.github.habitaria.integration.assembler.HabitsResourceAssembler;
+import com.github.habitaria.integration.resources.HabitResource;
+import com.github.habitaria.integration.resources.HabitsResource;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;

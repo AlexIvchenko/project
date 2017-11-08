@@ -1,4 +1,4 @@
-package com.github.habitaria.rest.security;
+package com.github.habitaria.integration.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;

@@ -1,10 +1,10 @@
-package com.github.habitaria.rest.controller;
+package com.github.habitaria.integration.controller;
 
 import com.github.habitaria.domain.model.Habit;
-import com.github.habitaria.rest.Rest;
-import com.github.habitaria.rest.resources.HabitResource;
-import com.github.habitaria.rest.resources.HabitsResource;
-import com.github.habitaria.rest.service.HabitResourceService;
+import com.github.habitaria.integration.Rest;
+import com.github.habitaria.integration.resources.HabitResource;
+import com.github.habitaria.integration.resources.HabitsResource;
+import com.github.habitaria.integration.service.HabitResourceService;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

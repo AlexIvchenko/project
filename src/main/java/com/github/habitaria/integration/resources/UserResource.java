@@ -1,4 +1,4 @@
-package com.github.habitaria.rest.resources;
+package com.github.habitaria.integration.resources;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
