@@ -1,4 +1,4 @@
-# Habitaria
+# Habiteria
 
 [![Build Status](https://travis-ci.org/NetCracker-2017-Team/project.svg?branch=master)]()
 
