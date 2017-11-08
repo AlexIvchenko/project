@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<dataset>
-    <distributors id="1113f14d-5a6f-4b4f-b580-69e16bf14415" url="test" password="test" />
-    <goal_templates type="distributor" id="08528928-f041-4817-a0bf-268391977d15" distributor_owner_id="1113f14d-5a6f-4b4f-b580-69e16bf14415" name="goal1" />
-    <step_templates type="distributor" id="122659c3-cb52-42f7-9dc4-f64c4b0d15ea" distributor_goal_template_id="08528928-f041-4817-a0bf-268391977d15" name="step1"/>
-    <step_templates type="distributor" id="9132d744-47e3-489d-912e-79798ad0c338" distributor_goal_template_id="08528928-f041-4817-a0bf-268391977d15" name="step2"/>
-    <users />
-</dataset>

@@ -1,7 +1,8 @@
-# NetCracker project
-
+# Habiteria
 
 [![Build Status](https://travis-ci.org/NetCracker-2017-Team/project.svg?branch=master)]()
+
+This platform is designed as a game to help you to form good habits and to get rid of the bad.
 
 # Building
 Make sure that [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) and [Maven 3](https://maven.apache.org/download.cgi) are installed
