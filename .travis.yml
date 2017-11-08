@@ -13,7 +13,7 @@ deploy:
   api-key:
     secure: $HEROKU_API_KEY
   app:
-    master: netcracker-2017-project
-    dev: netcracker-2017-project-dev
+    master: netcracker-2017-habitaria
+    dev: netcracker-2017-habitaria-dev
 notifications:
   slack: netcracker-2017-team:Ofl5gqjMXYz2h1VW4595QjhA
