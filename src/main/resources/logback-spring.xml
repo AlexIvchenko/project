@@ -6,7 +6,7 @@
             <pattern>%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{15}) - %highlight(%msg%n)</pattern>
         </encoder>
     </appender>
-    <logger name="com.github.netcracker2017team" level="DEBUG" additivity="false">
+    <logger name="com.github.habiteria" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
     <springProfile name="dev, test">
