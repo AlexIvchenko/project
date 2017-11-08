@@ -32,6 +32,9 @@ public class HabitResourceAssembler implements ResourceAssembler<Habit, HabitRes
         final UUID userId = UUID.fromString(entity.getOwner().getId());
         final UUID habitId = UUID.fromString(entity.getId());
 
+        resource.add(linkTo(methodOn(HabitsController.class).getHabit(userId, habitId))
+                .withSelfRel());
+
         if (service.isAvailableToDoToday(entity)) {
             resource.add(linkTo(methodOn(HabitsController.class).perform(userId, habitId))
                     .withRel("perform"));
