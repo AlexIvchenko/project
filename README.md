@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/NetCracker-2017-Team/project.svg?branch=master)]()
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-This platform is designed as a game to help you to form good habits and to get rid of the bad.
+This platform is designed as a game and created to help you to develop good habits and get rid of bad ones
 
 # Building
 Make sure that [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) and [Maven 3](https://maven.apache.org/download.cgi) are installed
