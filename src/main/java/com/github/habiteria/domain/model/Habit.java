@@ -23,10 +23,7 @@ public class Habit extends AbstractEntity {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "checker_type")
-    private CheckerType checkerType;
-
     @OneToOne(mappedBy = "habit", cascade = CascadeType.ALL)
-    @JoinColumn(name = "checker_id")
+    @JoinColumn(name = "checker_id", nullable = false)
     private HabitChecker checker;
 }

@@ -11,7 +11,13 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "weekly_habits")
+@Table(name = "daily_checkers")
 public class DailyChecker extends HabitChecker {
+    public DailyChecker() {
+        super(CheckerType.DAILY);
+    }
 
+    public DailyChecker(Habit habit) {
+        super(habit, CheckerType.DAILY);
+    }
 }

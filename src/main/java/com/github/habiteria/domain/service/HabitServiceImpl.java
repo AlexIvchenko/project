@@ -1,11 +1,12 @@
 package com.github.habiteria.domain.service;
 
-import com.github.habiteria.domain.model.Habit;
-import com.github.habiteria.domain.model.User;
+import com.github.habiteria.domain.model.*;
 import com.github.habiteria.domain.repository.HabitRepository;
+import com.github.habiteria.domain.repository.ResultRepository;
 import com.github.habiteria.domain.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Set;
 import java.util.UUID;
 
@@ -16,10 +17,12 @@ import java.util.UUID;
 public class HabitServiceImpl implements HabitService {
     private final UserRepository userRepository;
     private final HabitRepository habitRepository;
+    private final ResultRepository resultRepository;
 
-    public HabitServiceImpl(UserRepository userRepository, HabitRepository habitRepository) {
+    public HabitServiceImpl(UserRepository userRepository, HabitRepository habitRepository, ResultRepository resultRepository) {
         this.userRepository = userRepository;
         this.habitRepository = habitRepository;
+        this.resultRepository = resultRepository;
     }
 
     @Override
@@ -36,14 +39,16 @@ public class HabitServiceImpl implements HabitService {
     @Override
     public Habit perform(UUID userId, UUID habitId) {
         Habit habit = habitRepository.findOne(habitId.toString());
-        // TODO make and save result
+        Result result = new Result(habit, Result.Status.SUCCESS);
+        resultRepository.save(result);
         return habit;
     }
 
     @Override
     public Habit fail(UUID userId, UUID habitId) {
         Habit habit = habitRepository.findOne(habitId.toString());
-        // TODO make and save result
+        Result result = new Result(habit, Result.Status.FAIL);
+        resultRepository.save(result);
         return habit;
     }
 
@@ -56,7 +61,19 @@ public class HabitServiceImpl implements HabitService {
 
     @Override
     public boolean isAvailableToDoToday(Habit habit) {
-        // TODO implement logic
-        return true;
+        if (habit.getChecker().getType() == CheckerType.DAILY) {
+            return resultRepository.countByHabitAndDate(habit, LocalDate.now()) == 0;
+        } else if (habit.getChecker().getType() == CheckerType.WEEKLY) {
+            WeeklyChecker checker = (WeeklyChecker) habit.getChecker();
+            Set<Result> results = resultRepository.findByHabit(habit);
+            LocalDate now = LocalDate.now();
+            LocalDate lastWeekStarted = now.minusDays(now.getDayOfWeek().getValue());
+            long resultsPerLastWeek = results.stream().filter(result -> !result.getDate().isBefore(lastWeekStarted))
+                    .count();
+            long resultsToday = results.stream().filter(result -> result.getDate().isEqual(now)).count();
+            return resultsPerLastWeek < checker.getRepeats() && resultsToday == 0;
+        } else {
+            throw new IllegalArgumentException("unsupported " + CheckerType.class.getName() + ": " + habit.getChecker().getType());
+        }
     }
 }

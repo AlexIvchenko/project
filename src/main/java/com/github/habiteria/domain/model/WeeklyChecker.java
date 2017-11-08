@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "weekly_habits")
+@Table(name = "weekly_checkers")
 public class WeeklyChecker extends HabitChecker {
 
     @Column(name = "repeats")
@@ -20,4 +20,12 @@ public class WeeklyChecker extends HabitChecker {
     @OneToOne(mappedBy = "checker", cascade = CascadeType.ALL)
     @JoinColumn(name = "week_days_id")
     private WeekDays days;
+
+    public WeeklyChecker() {
+        super(CheckerType.WEEKLY);
+    }
+
+    public WeeklyChecker(Habit habit) {
+        super(habit, CheckerType.WEEKLY);
+    }
 }
