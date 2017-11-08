@@ -56,6 +56,7 @@ public class HabitServiceImpl implements HabitService {
     public Habit createHabit(UUID userId, Habit habit) {
         User owner = userRepository.findOne(userId.toString());
         habit.setOwner(owner);
+        System.err.println(habit.getChecker());
         return habitRepository.save(habit);
     }
 

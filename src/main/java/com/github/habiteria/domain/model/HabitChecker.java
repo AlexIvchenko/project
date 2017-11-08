@@ -38,7 +38,7 @@ public abstract class HabitChecker extends AbstractEntity {
         this.type = type;
     }
 
-    @OneToOne
+    @OneToOne(mappedBy = "checker", optional = false)
     private Habit habit;
 
     @Enumerated(EnumType.STRING)
