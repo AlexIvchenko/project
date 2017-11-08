@@ -6,11 +6,11 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 @EntityScan(
-        basePackageClasses = {Service.class, Jsr310JpaConverters.class}
+        basePackageClasses = {Habitaria.class, Jsr310JpaConverters.class}
 )
 @SpringBootApplication
-public class Service {
+public class Habitaria {
     public static void main(String[] args) {
-        SpringApplication.run(Service.class, args);
+        SpringApplication.run(Habitaria.class, args);
     }
 }
