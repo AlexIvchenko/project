@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @ToString(of = "username")
-@Builder()
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

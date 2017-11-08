@@ -17,7 +17,7 @@ public class RootController {
     @GetMapping(produces = MediaTypes.HAL_JSON_VALUE)
     public HttpEntity<ResourceSupport> api() {
         ResourceSupport links = new ResourceSupport();
-        links.add(linkTo(methodOn(AuthController.class).create(null)).withRel("sign-up"));
+        links.add(linkTo(methodOn(AuthController.class).create(null)).withRel("signUp"));
         return new HttpEntity<>(links);
     }
 }
