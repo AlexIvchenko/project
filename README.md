@@ -1,6 +1,7 @@
 # Habiteria
 
 [![Build Status](https://travis-ci.org/NetCracker-2017-Team/project.svg?branch=master)]()
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 This platform is designed as a game to help you to form good habits and to get rid of the bad.
 
