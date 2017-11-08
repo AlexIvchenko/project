@@ -29,14 +29,14 @@ public class HabitResourceServiceImpl implements HabitResourceService {
     }
 
     @Override
-    public HabitsResource getDailyHabits(UUID userId) {
-        Set<Habit> habits = service.getDailyHabits(userId);
+    public HabitsResource getHabits(UUID userId) {
+        Set<Habit> habits = service.getHabits(userId);
         return habitsAsm.toResource(habits);
     }
 
     @Override
-    public HabitResource getDailyHabit(UUID userId, UUID habitId) {
-        Habit habit = service.getDailyHabit(userId, habitId);
+    public HabitResource getHabit(UUID userId, UUID habitId) {
+        Habit habit = service.getHabit(userId, habitId);
         return habitAsm.toResource(habit);
     }
 
@@ -54,7 +54,7 @@ public class HabitResourceServiceImpl implements HabitResourceService {
 
     @Override
     public HabitResource createHabit(UUID userId, Habit habit) {
-        habit = service.createDailyHabit(userId, habit);
+        habit = service.createHabit(userId, habit);
         return habitAsm.toResource(habit);
     }
 }

@@ -1,4 +1,4 @@
-package com.github.habiteria.integration;
+package com.github.habiteria.integration.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

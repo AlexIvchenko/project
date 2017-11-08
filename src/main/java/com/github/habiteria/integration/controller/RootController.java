@@ -1,7 +1,5 @@
 package com.github.habiteria.integration.controller;
 
-import com.github.habiteria.integration.Rest;
-import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +12,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
  */
 @Rest
 public class RootController {
-    @GetMapping(produces = MediaTypes.HAL_JSON_VALUE)
+    @GetMapping
     public HttpEntity<ResourceSupport> api() {
         ResourceSupport links = new ResourceSupport();
         links.add(linkTo(methodOn(AuthController.class).create(null)).withRel("signUp"));

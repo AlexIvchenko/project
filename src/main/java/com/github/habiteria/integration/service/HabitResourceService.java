@@ -10,9 +10,9 @@ import java.util.UUID;
  * @author Alex Ivchenko
  */
 public interface HabitResourceService {
-    HabitsResource getDailyHabits(UUID userId);
+    HabitsResource getHabits(UUID userId);
 
-    HabitResource getDailyHabit(UUID userId, UUID habitId);
+    HabitResource getHabit(UUID userId, UUID habitId);
 
     HabitResource perform(UUID userId, UUID habitId);
 

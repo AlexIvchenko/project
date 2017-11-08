@@ -23,13 +23,13 @@ public class HabitServiceImpl implements HabitService {
     }
 
     @Override
-    public Set<Habit> getDailyHabits(UUID userId) {
+    public Set<Habit> getHabits(UUID userId) {
         User owner = userRepository.findOne(userId.toString());
         return habitRepository.findByOwner(owner);
     }
 
     @Override
-    public Habit getDailyHabit(UUID userId, UUID habitId) {
+    public Habit getHabit(UUID userId, UUID habitId) {
         return habitRepository.findOne(habitId.toString());
     }
 
@@ -48,7 +48,7 @@ public class HabitServiceImpl implements HabitService {
     }
 
     @Override
-    public Habit createDailyHabit(UUID userId, Habit habit) {
+    public Habit createHabit(UUID userId, Habit habit) {
         User owner = userRepository.findOne(userId.toString());
         habit.setOwner(owner);
         return habitRepository.save(habit);

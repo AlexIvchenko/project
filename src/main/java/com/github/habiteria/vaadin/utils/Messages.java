@@ -1,4 +1,4 @@
-package com.github.habiteria.vaadin.ui;
+package com.github.habiteria.vaadin.utils;
 
 import com.vaadin.server.VaadinSession;
 import org.springframework.beans.factory.annotation.Autowired;

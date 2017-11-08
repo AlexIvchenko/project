@@ -3,7 +3,7 @@ package com.github.habiteria.vaadin.ui;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.MenuBar;
 
-import static com.github.habiteria.vaadin.ui.Messages.message;
+import static com.github.habiteria.vaadin.utils.Messages.message;
 
 /**
  * @author Alex Ivchenko

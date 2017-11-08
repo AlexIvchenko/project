@@ -9,17 +9,15 @@ import java.util.UUID;
  * @author Alex Ivchenko
  */
 public interface HabitService {
-    Set<Habit> getDailyHabits(UUID userId);
+    Set<Habit> getHabits(UUID userId);
 
-    Habit getDailyHabit(UUID userId, UUID habitId);
+    Habit getHabit(UUID userId, UUID habitId);
 
     Habit perform(UUID userId, UUID habitId);
 
     Habit fail(UUID userId, UUID habitId);
 
-    Habit createDailyHabit(UUID userId, Habit habit);
-
-//    boolean isAvailableToDoToday(UUID userId, UUID habitId);
+    Habit createHabit(UUID userId, Habit habit);
 
     boolean isAvailableToDoToday(Habit habit);
 }

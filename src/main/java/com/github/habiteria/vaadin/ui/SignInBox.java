@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 
-import static com.github.habiteria.vaadin.ui.Messages.message;
+import static com.github.habiteria.vaadin.utils.Messages.message;
 
 /**
  * @author Alex Ivchenko

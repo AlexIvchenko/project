@@ -1,7 +1,6 @@
 package com.github.habiteria.integration.controller;
 
 import com.github.habiteria.domain.model.Habit;
-import com.github.habiteria.integration.Rest;
 import com.github.habiteria.integration.resources.HabitResource;
 import com.github.habiteria.integration.resources.HabitsResource;
 import com.github.habiteria.integration.service.HabitResourceService;
@@ -34,14 +33,14 @@ public class HabitsController {
     @GetMapping(path = "/users/{userId}/habits")
     public HttpEntity<HabitsResource> getHabits(
             @PathVariable("userId") final UUID userId) {
-        return new HttpEntity<>(service.getDailyHabits(userId));
+        return new HttpEntity<>(service.getHabits(userId));
     }
 
     @GetMapping(path = "/users/{userId}/habits/{habitId}")
     public HttpEntity<HabitResource> getHabit(
             @PathVariable("userId") final UUID userId,
             @PathVariable("habitId") final UUID habitId) {
-        return new HttpEntity<>(service.getDailyHabit(userId, habitId));
+        return new HttpEntity<>(service.getHabit(userId, habitId));
     }
 
     @PostMapping(path = "/users/{userId}/habits/{habitId}/perform")

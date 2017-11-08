@@ -1,4 +1,4 @@
-package com.github.habiteria.integration;
+package com.github.habiteria.integration.config;
 
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
