@@ -34,7 +34,7 @@ Once application is built
 
 Run it as follow if you want to use embedded database
 ```bash
-java -jar service/target/service.jar
+java -jar target/habiteria.jar
 ```
 If you want to use postgres database, you should define the following environment variables and run it as in previous section
 ```
