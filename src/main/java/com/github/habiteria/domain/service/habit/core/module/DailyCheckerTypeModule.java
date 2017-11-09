@@ -1,4 +1,4 @@
-package com.github.habiteria.domain.service.module;
+package com.github.habiteria.domain.service.habit.core.module;
 
 import com.github.habiteria.domain.model.CheckerType;
 import com.github.habiteria.domain.model.Habit;
@@ -7,8 +7,8 @@ import com.github.habiteria.domain.model.User;
 import com.github.habiteria.domain.repository.HabitRepository;
 import com.github.habiteria.domain.repository.ResultRepository;
 import com.github.habiteria.domain.repository.UserRepository;
-import com.github.habiteria.domain.service.HabitSnapshot;
-import com.github.habiteria.utils.LocalDateRange;
+import com.github.habiteria.domain.service.habit.core.HabitSnapshot;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -19,6 +19,7 @@ import java.util.UUID;
 /**
  * @author Alex Ivchenko
  */
+@Slf4j
 @Component
 public class DailyCheckerTypeModule implements HabitCheckerTypeModule {
     private final UserRepository userRepository;
@@ -38,6 +39,7 @@ public class DailyCheckerTypeModule implements HabitCheckerTypeModule {
 
     @Override
     public HabitSnapshot performHabit(UUID userId, UUID habitId, LocalDate date) {
+        log.info("perform by {} habit {} in {}", userId, habitId, date);
         Habit habit = habitRepository.findOne(habitId.toString());
         Result result = Result.success(habit, date);
         resultRepository.save(result);
@@ -46,6 +48,7 @@ public class DailyCheckerTypeModule implements HabitCheckerTypeModule {
 
     @Override
     public HabitSnapshot failHabit(UUID userId, UUID habitId, LocalDate date) {
+        log.info("fail by {} habit {} in {}", userId, habitId, date);
         Habit habit = habitRepository.findOne(habitId.toString());
         Result result = Result.fail(habit, date);
         resultRepository.save(result);
@@ -55,43 +58,11 @@ public class DailyCheckerTypeModule implements HabitCheckerTypeModule {
     // TODO decrease points
     @Override
     public HabitSnapshot undoHabit(UUID userId, UUID habitId, LocalDate date) {
+        log.info("und by {} habit {} in {}", userId, habitId, date);
         Habit habit = habitRepository.findOne(habitId.toString());
         Result result = resultRepository.findByHabitAndDate(habit, date);
         resultRepository.delete(result);
         return genSnapshot(habit, date, HabitSnapshot.Status.UNDEFINED);
-    }
-
-    @Override
-    public void failUncheckedHabits(UUID userId) {
-        User user = userRepository.findOne(userId.toString());
-        Set<Habit> habits = habitRepository.findByOwner(user);
-        Set<Result> fails = new HashSet<>();
-        for (Habit habit : habits) {
-            Set<Result> results = resultRepository.findByHabit(habit);
-            LocalDate yesterday = LocalDate.now().minusDays(1);
-            for (LocalDate date : new LocalDateRange(habit.getStart(), yesterday)) {
-                boolean resultIsFound = false;
-                for (Result result : results) {
-                    if (result.getDate().equals(date)) {
-                        resultIsFound = true;
-                        break;
-                    }
-                }
-                if (!resultIsFound) {
-                    Result fail = Result.fail(habit, date);
-                    fails.add(fail);
-                }
-            }
-        }
-        resultRepository.save(fails);
-    }
-
-    @Override
-    public boolean thereAreUncheckedHabits(UUID userId) {
-        LocalDate yesterday = LocalDate.now().minusDays(1);
-        return getHabits(userId, yesterday)
-                .stream()
-                .anyMatch(HabitSnapshot::isUnchecked);
     }
 
     @Override

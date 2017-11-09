@@ -1,6 +1,6 @@
 package com.github.habiteria.integration.assembler;
 
-import com.github.habiteria.domain.service.HabitSnapshot;
+import com.github.habiteria.domain.service.habit.core.HabitSnapshot;
 import com.github.habiteria.integration.resources.HabitResource;
 import com.github.habiteria.integration.resources.HabitsResource;
 import org.springframework.hateoas.ResourceAssembler;

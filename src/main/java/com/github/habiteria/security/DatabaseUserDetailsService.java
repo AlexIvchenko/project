@@ -2,7 +2,7 @@ package com.github.habiteria.security;
 
 import com.github.habiteria.domain.model.User;
 import com.github.habiteria.domain.repository.UserRepository;
-import com.github.habiteria.domain.service.VisitorService;
+import com.github.habiteria.domain.service.visitor.VisitorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

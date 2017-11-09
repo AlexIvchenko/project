@@ -1,8 +1,8 @@
 package com.github.habiteria.integration.service;
 
 import com.github.habiteria.domain.model.Habit;
-import com.github.habiteria.domain.service.HabitSnapshot;
-import com.github.habiteria.domain.service.HabitSnapshotService;
+import com.github.habiteria.domain.service.habit.core.HabitSnapshot;
+import com.github.habiteria.domain.service.habit.core.HabitSnapshotService;
 import com.github.habiteria.integration.assembler.HabitSnapshotResourceAssembler;
 import com.github.habiteria.integration.assembler.HabitSnapshotsResourceAssembler;
 import com.github.habiteria.integration.links.Links;
@@ -63,11 +63,6 @@ public class HabitResourceServiceImpl implements HabitResourceService {
     public HabitResource createHabit(UUID userId, Habit habit) {
         HabitSnapshot snapshot = service.createHabit(userId, habit);
         return habitAsm.toResource(snapshot);
-    }
-
-    @Override
-    public void failUncheckedHabits(UUID userId) {
-        service.failUncheckedHabits(userId);
     }
 
     @Override

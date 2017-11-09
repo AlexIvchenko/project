@@ -1,4 +1,4 @@
-package com.github.habiteria.domain.service;
+package com.github.habiteria.domain.service.visitor;
 
 import com.github.habiteria.domain.model.User;
 import com.github.habiteria.domain.model.Visitor;

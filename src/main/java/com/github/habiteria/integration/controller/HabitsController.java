@@ -77,17 +77,18 @@ public class HabitsController {
         return new HttpEntity<>(service.failHabit(userId, habitId, date));
     }
 
+    // TODO
     @PostMapping(path = "/users/{userId}/habits/check")
     public HttpEntity failUncheckedHabits(
             @PathVariable("userId") final UUID userId) {
-        service.failUncheckedHabits(userId);
+
         return HttpEntity.EMPTY;
     }
 
     @PostMapping(path = "/users/{userId}/habits/{habitId}/undo")
     public HttpEntity<HabitResource> undoHabit(@PathVariable("userId") final UUID userId,
                                                @PathVariable("habitId") final UUID habitId,
-                                               @PathVariable("date") @Date LocalDate date) {
+                                               @RequestParam("date") @Date LocalDate date) {
         if (date == null) {
             date = LocalDate.now();
         }

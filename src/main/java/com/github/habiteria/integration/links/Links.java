@@ -62,6 +62,6 @@ public class Links {
 
     public static Link undo(UUID userId, UUID habitId) {
         return linkTo(methodOn(HabitsController.class).undoHabit(userId, habitId, LocalDate.now()))
-                .withRel("undo");
+                .withRel("undoToday");
     }
 }

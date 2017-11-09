@@ -1,4 +1,4 @@
-package com.github.habiteria.domain.service;
+package com.github.habiteria.domain.service.result;
 
 import com.github.habiteria.domain.model.Result;
 

@@ -1,6 +1,6 @@
 package com.github.habiteria.integration.service;
 
-import com.github.habiteria.domain.service.ResultService;
+import com.github.habiteria.domain.service.result.ResultService;
 import com.github.habiteria.integration.assembler.ResultsResourceAssembler;
 import com.github.habiteria.integration.resources.ResultsResource;
 import org.springframework.stereotype.Service;

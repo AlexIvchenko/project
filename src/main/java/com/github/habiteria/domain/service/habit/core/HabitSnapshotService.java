@@ -1,4 +1,4 @@
-package com.github.habiteria.domain.service;
+package com.github.habiteria.domain.service.habit.core;
 
 import com.github.habiteria.domain.model.Habit;
 
@@ -21,11 +21,4 @@ public interface HabitSnapshotService {
     HabitSnapshot failHabit(UUID userId, UUID habitId, LocalDate date);
 
     HabitSnapshot undoHabit(UUID userId, UUID habitId, LocalDate date);
-
-    /**
-     * all required habits which not performed in date will failHabit
-     */
-    void failUncheckedHabits(UUID userId);
-
-    boolean thereAreUncheckedHabits(UUID userId);
 }

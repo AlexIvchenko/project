@@ -1,7 +1,7 @@
 package com.github.habiteria.integration.assembler;
 
 import com.github.habiteria.domain.model.Habit;
-import com.github.habiteria.domain.service.HabitSnapshot;
+import com.github.habiteria.domain.service.habit.core.HabitSnapshot;
 import com.github.habiteria.integration.controller.HabitsController;
 import com.github.habiteria.integration.links.Links;
 import com.github.habiteria.integration.resources.HabitResource;
