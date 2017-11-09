@@ -2,6 +2,7 @@ package com.github.habiteria;
 
 import com.github.habiteria.domain.model.User;
 import com.github.habiteria.domain.repository.UserRepository;
+import com.github.habiteria.domain.service.VisitorService;
 import com.github.habiteria.security.DatabaseUserDetailsService;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,6 +37,9 @@ public class DatabaseUserDetailsServiceTest {
 
     @MockBean
     private UserRepository userRepository;
+
+    @MockBean
+    private VisitorService visitorService;
 
     @Before
     public void setUp() throws Exception {
