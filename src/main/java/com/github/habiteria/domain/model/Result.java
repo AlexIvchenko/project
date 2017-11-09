@@ -22,18 +22,42 @@ public class Result extends AbstractEntity {
     private LocalDate date;
 
     @Column(name = "status", nullable = false)
-    private Status status = Status.UNDEFINED;
+    private Status status;
 
     public Result() {
     }
 
-    public Result(Habit habit, Status status) {
+    private Result(Habit habit, LocalDate date, Status status) {
         this.habit = habit;
+        this.date = date;
         this.status = status;
-        date = LocalDate.now();
     }
 
     public enum Status {
-        SUCCESS, FAIL, UNDEFINED
+        SUCCESS, FAIL
+    }
+
+    public boolean isSuccess() {
+        return status == Status.SUCCESS;
+    }
+
+    public boolean isFail() {
+        return status == Status.FAIL;
+    }
+
+    public static Result fail(Habit habit) {
+        return new Result(habit, LocalDate.now(), Status.FAIL);
+    }
+
+    public static Result success(Habit habit) {
+        return new Result(habit, LocalDate.now(), Status.SUCCESS);
+    }
+
+    public static Result fail(Habit habit, LocalDate date) {
+        return new Result(habit, date, Status.FAIL);
+    }
+
+    public static Result success(Habit habit, LocalDate date) {
+        return new Result(habit, date, Status.SUCCESS);
     }
 }

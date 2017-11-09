@@ -6,6 +6,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 /**
@@ -24,5 +25,12 @@ public class ResultsController {
             @PathVariable("userId") final UUID userId,
             @PathVariable("habitId") final UUID habitId) {
         return new HttpEntity<>(service.getResults(userId, habitId));
+    }
+
+    @GetMapping(path = "/users/{userId}/habits/results/{date}")
+    public HttpEntity<ResultsResource> getResults(
+            @PathVariable("userId") final UUID userId,
+            @PathVariable("date") final LocalDate date) {
+        return new HttpEntity<>(service.getResults(userId, date));
     }
 }

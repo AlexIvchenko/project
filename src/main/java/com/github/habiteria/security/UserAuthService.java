@@ -11,7 +11,11 @@ import java.util.UUID;
 public interface UserAuthService {
     User signUp(User user);
 
-    boolean isAuthorized(Authentication auth, String username);
+    User currentUser();
+
+    boolean isAuthorized(Authentication auth, UUID userId);
+
+    boolean isAuthorized(UUID userId, UUID habitId);
 
     User update(UUID id, User user);
 

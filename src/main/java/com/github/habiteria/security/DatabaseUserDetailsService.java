@@ -2,6 +2,7 @@ package com.github.habiteria.security;
 
 import com.github.habiteria.domain.model.User;
 import com.github.habiteria.domain.repository.UserRepository;
+import com.github.habiteria.domain.service.VisitorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,20 +17,27 @@ import java.util.Collections;
 @Slf4j
 public class DatabaseUserDetailsService implements UserDetailsService {
     private UserRepository userRepository;
+    private VisitorService visitorService;
 
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
+    @Autowired
+    public void setVisitorService(VisitorService visitorService) {
+        this.visitorService = visitorService;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        log.info("loading doer " + username);
+        log.info("loading user " + username);
         User user = userRepository.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException(
-                    "No doer found with username: "+ username);
+                    "No user found with username: "+ username);
         }
+        visitorService.visit(user);
         return  org.springframework.security.core.userdetails.User
                 .withUsername(user.getUsername())
                 .password(user.getPassword())

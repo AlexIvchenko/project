@@ -1,6 +1,7 @@
 package com.github.habiteria.integration.assembler;
 
 import com.github.habiteria.domain.model.Result;
+import com.github.habiteria.integration.resources.ResultResource;
 import com.github.habiteria.integration.resources.ResultsResource;
 import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,9 @@ public class ResultsResourceAssembler implements ResourceAssembler<Set<Result>, 
 
     @Override
     public ResultsResource toResource(Set<Result> entity) {
-        return new ResultsResource(entity.stream().map(resultAsm::toResource)
-                .collect(Collectors.toSet()));
+        Set<ResultResource> resources = entity.stream()
+                .map(resultAsm::toResource)
+                .collect(Collectors.toSet());
+        return new ResultsResource(resources);
     }
 }

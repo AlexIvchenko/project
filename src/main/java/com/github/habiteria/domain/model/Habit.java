@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 /**
  * @author Alex Ivchenko
@@ -26,4 +27,7 @@ public class Habit extends AbstractEntity {
     @OneToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "checker_id", nullable = false)
     private HabitChecker checker;
+
+    @Column(name = "start")
+    private LocalDate start;
 }

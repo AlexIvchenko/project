@@ -6,6 +6,7 @@ import com.github.habiteria.domain.repository.HabitRepository;
 import com.github.habiteria.domain.repository.ResultRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Set;
 import java.util.UUID;
 
@@ -26,5 +27,10 @@ public class ResultServiceImpl implements ResultService {
     public Set<Result> getResults(UUID userId, UUID habitId) {
         Habit habit = habitRepository.findOne(habitId.toString());
         return resultRepository.findByHabit(habit);
+    }
+
+    @Override
+    public Set<Result> getResults(UUID userId, LocalDate date) {
+        return resultRepository.findByDate(date);
     }
 }

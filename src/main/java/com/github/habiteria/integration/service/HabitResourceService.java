@@ -4,19 +4,26 @@ import com.github.habiteria.domain.model.Habit;
 import com.github.habiteria.integration.resources.HabitResource;
 import com.github.habiteria.integration.resources.HabitsResource;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 /**
  * @author Alex Ivchenko
  */
 public interface HabitResourceService {
-    HabitsResource getHabits(UUID userId);
+    HabitsResource getHabits(UUID userId, LocalDate date);
 
-    HabitResource getHabit(UUID userId, UUID habitId);
+    HabitResource getHabit(UUID userId, UUID habitId, LocalDate date);
 
-    HabitResource perform(UUID userId, UUID habitId);
+    HabitResource performHabit(UUID userId, UUID habitId, LocalDate date);
 
-    HabitResource fail(UUID userId, UUID habitId);
+    HabitResource failHabit(UUID userId, UUID habitId, LocalDate date);
 
     HabitResource createHabit(UUID userId, Habit habit);
+
+    HabitResource undoHabit(UUID userId, UUID habitId, LocalDate date);
+
+    void failUncheckedHabits(UUID userId);
+
+    HabitsResource getUncheckedHabits(UUID userId);
 }

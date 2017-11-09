@@ -12,5 +12,10 @@ import java.util.Set;
  */
 public interface ResultRepository extends CrudRepository<Result, String> {
     Set<Result> findByHabit(Habit habit);
+
     int countByHabitAndDate(Habit habit, LocalDate date);
+
+    Set<Result> findByDate(LocalDate date);
+
+    Result findByHabitAndDate(Habit habit, LocalDate date);
 }

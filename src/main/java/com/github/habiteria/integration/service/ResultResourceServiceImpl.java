@@ -5,6 +5,7 @@ import com.github.habiteria.integration.assembler.ResultsResourceAssembler;
 import com.github.habiteria.integration.resources.ResultsResource;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 /**
@@ -23,5 +24,10 @@ public class ResultResourceServiceImpl implements ResultResourceService {
     @Override
     public ResultsResource getResults(UUID userId, UUID habitId) {
         return resultsAsm.toResource(service.getResults(userId, habitId));
+    }
+
+    @Override
+    public ResultsResource getResults(UUID userId, LocalDate date) {
+        return resultsAsm.toResource(service.getResults(userId, date));
     }
 }
