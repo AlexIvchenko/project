@@ -5,7 +5,7 @@ import java.util.UUID;
 /**
  * @author Alex Ivchenko
  */
-public interface UncheckedDetector {
+public interface UncheckedHabitsDetector {
     boolean thereAreUncheckedHabits(UUID userId);
 
     void failUncheckedHabits(UUID userId);

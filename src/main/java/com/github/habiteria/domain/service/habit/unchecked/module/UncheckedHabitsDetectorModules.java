@@ -9,8 +9,8 @@ import java.util.List;
  * @author Alex Ivchenko
  */
 @Component
-public class UncheckedDetectorModules extends Modules<UncheckedDetectorModule> {
-    public UncheckedDetectorModules(List<UncheckedDetectorModule> modules) {
+public class UncheckedHabitsDetectorModules extends Modules<UncheckedHabitsDetectorModule> {
+    public UncheckedHabitsDetectorModules(List<UncheckedHabitsDetectorModule> modules) {
         super(modules);
     }
 }

@@ -1,6 +1,6 @@
 package com.github.habiteria.domain.service.habit.unchecked.resolver;
 
-import com.github.habiteria.domain.service.habit.unchecked.module.UncheckedDetectorModules;
+import com.github.habiteria.domain.service.habit.unchecked.module.UncheckedHabitsDetectorModules;
 import com.github.habiteria.domain.service.visitor.event.FirstVisitEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -13,9 +13,9 @@ import java.util.UUID;
 @Slf4j
 @Component
 public class UncheckedHabitsResolverImpl implements UncheckedHabitsResolver {
-    private final UncheckedDetectorModules modules;
+    private final UncheckedHabitsDetectorModules modules;
 
-    public UncheckedHabitsResolverImpl(UncheckedDetectorModules modules) {
+    public UncheckedHabitsResolverImpl(UncheckedHabitsDetectorModules modules) {
         this.modules = modules;
     }
 

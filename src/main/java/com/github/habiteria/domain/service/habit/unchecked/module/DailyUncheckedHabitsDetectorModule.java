@@ -23,13 +23,13 @@ import java.util.UUID;
  */
 @Slf4j
 @Component
-public class DailyUncheckedDetectorModule implements UncheckedDetectorModule {
+public class DailyUncheckedHabitsDetectorModule implements UncheckedHabitsDetectorModule {
     private final DailyCheckerTypeModule module;
     private final UserRepository userRepository;
     private final HabitRepository habitRepository;
     private final ResultRepository resultRepository;
 
-    public DailyUncheckedDetectorModule(DailyCheckerTypeModule module, UserRepository userRepository, HabitRepository habitRepository, ResultRepository resultRepository) {
+    public DailyUncheckedHabitsDetectorModule(DailyCheckerTypeModule module, UserRepository userRepository, HabitRepository habitRepository, ResultRepository resultRepository) {
         this.module = module;
         this.userRepository = userRepository;
         this.habitRepository = habitRepository;
