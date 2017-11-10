@@ -1,6 +1,6 @@
 package com.github.habiteria.domain.service.habit;
 
-import com.github.habiteria.domain.model.CheckerType;
+import com.github.habiteria.domain.model.ScheduleType;
 
 import java.util.List;
 import java.util.Map;
@@ -12,7 +12,7 @@ import java.util.stream.Stream;
  * @author Alex Ivchenko
  */
 public class Modules<T extends Module> {
-    private final Map<CheckerType, T> modules;
+    private final Map<ScheduleType, T> modules;
 
     public Modules(List<T> modules) {
         this.modules = modules.stream()
@@ -20,12 +20,12 @@ public class Modules<T extends Module> {
     }
 
 
-    public T get(CheckerType type) {
+    public T get(ScheduleType type) {
         return modules.get(type);
     }
 
     public Stream<T> all() {
-        return Stream.of(CheckerType.values())
+        return Stream.of(ScheduleType.values())
                 .map(this::get)
                 .filter(Objects::nonNull);
     }

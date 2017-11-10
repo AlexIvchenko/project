@@ -1,7 +1,7 @@
 package com.github.habiteria.integration.service;
 
 import com.github.habiteria.domain.model.User;
-import com.github.habiteria.domain.service.habit.unchecked.UncheckedHabitsDetector;
+import com.github.habiteria.domain.service.habit.unchecked.detector.UncheckedHabitsDetector;
 import com.github.habiteria.integration.links.Links;
 import com.github.habiteria.security.UserAuthService;
 import org.springframework.hateoas.ResourceSupport;

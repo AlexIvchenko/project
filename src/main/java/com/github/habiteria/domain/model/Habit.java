@@ -25,8 +25,8 @@ public class Habit extends AbstractEntity {
     private String description;
 
     @OneToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "checker_id", nullable = false)
-    private HabitChecker checker;
+    @JoinColumn(name = "schedule_id", nullable = false)
+    private Schedule schedule;
 
     @Column(name = "start")
     private LocalDate start;

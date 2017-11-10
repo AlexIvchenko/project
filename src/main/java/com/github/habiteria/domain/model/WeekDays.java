@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class WeekDays extends AbstractEntity {
 
     @OneToOne
-    private WeeklyChecker checker;
+    private WeeklySchedule schedule;
 
     @Column(name = "monday")
     private boolean monday;
