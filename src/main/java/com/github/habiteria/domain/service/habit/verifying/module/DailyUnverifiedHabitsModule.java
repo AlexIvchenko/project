@@ -1,4 +1,4 @@
-package com.github.habiteria.domain.service.habit.unchecked.module;
+package com.github.habiteria.domain.service.habit.verifying.module;
 
 import com.github.habiteria.domain.model.ScheduleType;
 import com.github.habiteria.domain.model.Habit;
@@ -7,8 +7,8 @@ import com.github.habiteria.domain.model.User;
 import com.github.habiteria.domain.repository.HabitRepository;
 import com.github.habiteria.domain.repository.ResultRepository;
 import com.github.habiteria.domain.repository.UserRepository;
-import com.github.habiteria.domain.service.habit.core.HabitSnapshot;
-import com.github.habiteria.domain.service.habit.core.module.DailyScheduleModule;
+import com.github.habiteria.domain.service.habit.tracking.HabitSnapshot;
+import com.github.habiteria.domain.service.habit.tracking.module.DailyTrackingModule;
 import com.github.habiteria.utils.LocalDateRange;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -23,13 +23,13 @@ import java.util.UUID;
  */
 @Slf4j
 @Component
-public class DailyUncheckedHabitsModule implements UncheckedHabitsModule {
-    private final DailyScheduleModule module;
+public class DailyUnverifiedHabitsModule implements UnverifiedHabitsModule {
+    private final DailyTrackingModule module;
     private final UserRepository userRepository;
     private final HabitRepository habitRepository;
     private final ResultRepository resultRepository;
 
-    public DailyUncheckedHabitsModule(DailyScheduleModule module, UserRepository userRepository, HabitRepository habitRepository, ResultRepository resultRepository) {
+    public DailyUnverifiedHabitsModule(DailyTrackingModule module, UserRepository userRepository, HabitRepository habitRepository, ResultRepository resultRepository) {
         this.module = module;
         this.userRepository = userRepository;
         this.habitRepository = habitRepository;
@@ -46,12 +46,12 @@ public class DailyUncheckedHabitsModule implements UncheckedHabitsModule {
         LocalDate yesterday = LocalDate.now().minusDays(1);
         return module.getHabits(userId, yesterday)
                 .stream()
-                .anyMatch(HabitSnapshot::isUnchecked);
+                .anyMatch(HabitSnapshot::isUnverified);
     }
 
     @Override
     public void failUncheckedHabits(UUID userId) {
-        log.info("fail unchecked by {}", userId);
+        log.info("fail verifying by {}", userId);
         User user = userRepository.findOne(userId.toString());
         Set<Habit> habits = habitRepository.findByOwnerAndScheduleType(user, ScheduleType.DAILY);
         Set<Result> fails = new HashSet<>();

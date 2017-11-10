@@ -1,8 +1,8 @@
 package com.github.habiteria.integration.service;
 
 import com.github.habiteria.domain.model.Habit;
-import com.github.habiteria.domain.service.habit.core.HabitSnapshot;
-import com.github.habiteria.domain.service.habit.core.HabitSnapshotService;
+import com.github.habiteria.domain.service.habit.tracking.HabitSnapshot;
+import com.github.habiteria.domain.service.habit.tracking.HabitTrackingService;
 import com.github.habiteria.integration.assembler.HabitSnapshotResourceAssembler;
 import com.github.habiteria.integration.links.Links;
 import com.github.habiteria.integration.resources.HabitResource;
@@ -19,10 +19,10 @@ import java.util.stream.Collectors;
  */
 @Service
 public class HabitResourceServiceImpl implements HabitResourceService {
-    private final HabitSnapshotService service;
+    private final HabitTrackingService service;
     private final HabitSnapshotResourceAssembler habitAsm;
 
-    public HabitResourceServiceImpl(HabitSnapshotService service,
+    public HabitResourceServiceImpl(HabitTrackingService service,
                                     HabitSnapshotResourceAssembler habitAsm) {
         this.service = service;
         this.habitAsm = habitAsm;

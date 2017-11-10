@@ -1,4 +1,4 @@
-package com.github.habiteria.domain.service.habit.core;
+package com.github.habiteria.domain.service.habit.tracking;
 
 import com.github.habiteria.domain.model.Habit;
 

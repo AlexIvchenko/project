@@ -1,6 +1,6 @@
-package com.github.habiteria.domain.service.habit.unverified.resolver;
+package com.github.habiteria.domain.service.habit.verifying.resolver;
 
-import com.github.habiteria.domain.service.habit.unverified.module.UncheckedHabitsModules;
+import com.github.habiteria.domain.service.habit.verifying.module.UncheckedHabitsModules;
 import com.github.habiteria.domain.service.visitor.event.FirstVisitEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;

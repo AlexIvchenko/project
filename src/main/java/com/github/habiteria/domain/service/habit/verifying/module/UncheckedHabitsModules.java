@@ -1,4 +1,4 @@
-package com.github.habiteria.domain.service.habit.unverified.module;
+package com.github.habiteria.domain.service.habit.verifying.module;
 
 import com.github.habiteria.domain.service.habit.Modules;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package com.github.habiteria.domain.service.habit.unverified.detector;
+package com.github.habiteria.domain.service.habit.verifying.detector;
 
 import java.util.UUID;
 

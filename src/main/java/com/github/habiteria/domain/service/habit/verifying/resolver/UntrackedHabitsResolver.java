@@ -1,4 +1,4 @@
-package com.github.habiteria.domain.service.habit.unverified.resolver;
+package com.github.habiteria.domain.service.habit.verifying.resolver;
 
 import java.util.UUID;
 

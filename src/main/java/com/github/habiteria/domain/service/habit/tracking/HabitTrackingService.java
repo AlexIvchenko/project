@@ -1,4 +1,4 @@
-package com.github.habiteria.domain.service.habit.core;
+package com.github.habiteria.domain.service.habit.tracking;
 
 import com.github.habiteria.domain.model.Habit;
 
@@ -14,7 +14,7 @@ import java.util.UUID;
  * into modules.
  * @author Alex Ivchenko
  */
-public interface HabitSnapshotService {
+public interface HabitTrackingService {
     HabitSnapshot createHabit(UUID userId, Habit habit);
 
     HabitSnapshot getHabit(UUID userId, UUID habitId, LocalDate date);

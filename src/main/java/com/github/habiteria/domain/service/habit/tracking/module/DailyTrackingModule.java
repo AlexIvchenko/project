@@ -1,4 +1,4 @@
-package com.github.habiteria.domain.service.habit.core.module;
+package com.github.habiteria.domain.service.habit.tracking.module;
 
 import com.github.habiteria.domain.model.ScheduleType;
 import com.github.habiteria.domain.model.Habit;
@@ -7,7 +7,7 @@ import com.github.habiteria.domain.model.User;
 import com.github.habiteria.domain.repository.HabitRepository;
 import com.github.habiteria.domain.repository.ResultRepository;
 import com.github.habiteria.domain.repository.UserRepository;
-import com.github.habiteria.domain.service.habit.core.HabitSnapshot;
+import com.github.habiteria.domain.service.habit.tracking.HabitSnapshot;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -21,12 +21,12 @@ import java.util.UUID;
  */
 @Slf4j
 @Component
-public class DailyScheduleModule implements ScheduleModule {
+public class DailyTrackingModule implements TrackingModule {
     private final UserRepository userRepository;
     private final HabitRepository habitRepository;
     private final ResultRepository resultRepository;
 
-    public DailyScheduleModule(UserRepository userRepository, HabitRepository habitRepository, ResultRepository resultRepository) {
+    public DailyTrackingModule(UserRepository userRepository, HabitRepository habitRepository, ResultRepository resultRepository) {
         this.userRepository = userRepository;
         this.habitRepository = habitRepository;
         this.resultRepository = resultRepository;

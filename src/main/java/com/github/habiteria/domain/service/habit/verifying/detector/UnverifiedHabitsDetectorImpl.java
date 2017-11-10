@@ -1,6 +1,6 @@
-package com.github.habiteria.domain.service.habit.unchecked.detector;
+package com.github.habiteria.domain.service.habit.verifying.detector;
 
-import com.github.habiteria.domain.service.habit.unchecked.module.UncheckedHabitsModules;
+import com.github.habiteria.domain.service.habit.verifying.module.UncheckedHabitsModules;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +11,10 @@ import java.util.UUID;
  */
 @Primary
 @Service
-public class UncheckedHabitsDetectorImpl implements UncheckedHabitsDetector {
+public class UnverifiedHabitsDetectorImpl implements UnverifiedHabitsDetector {
     private final UncheckedHabitsModules modules;
 
-    public UncheckedHabitsDetectorImpl(UncheckedHabitsModules modules) {
+    public UnverifiedHabitsDetectorImpl(UncheckedHabitsModules modules) {
         this.modules = modules;
     }
 

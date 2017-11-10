@@ -1,9 +1,9 @@
-package com.github.habiteria.domain.service.habit.core;
+package com.github.habiteria.domain.service.habit.tracking;
 
 import com.github.habiteria.domain.model.Habit;
 import com.github.habiteria.domain.repository.HabitRepository;
-import com.github.habiteria.domain.service.habit.core.module.ScheduleModules;
-import com.github.habiteria.domain.service.habit.core.module.ScheduleModule;
+import com.github.habiteria.domain.service.habit.tracking.module.ScheduleModules;
+import com.github.habiteria.domain.service.habit.tracking.module.TrackingModule;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -19,11 +19,11 @@ import java.util.stream.Collectors;
 @Slf4j
 @Primary
 @Service("habitSnapshotService")
-public class HabitSnapshotServiceImpl implements HabitSnapshotService {
+public class HabitTrackingServiceImpl implements HabitTrackingService {
     private final HabitRepository habitRepository;
     private final ScheduleModules modules;
 
-    public HabitSnapshotServiceImpl(HabitRepository habitRepository, ScheduleModules modules) {
+    public HabitTrackingServiceImpl(HabitRepository habitRepository, ScheduleModules modules) {
         this.habitRepository = habitRepository;
         this.modules = modules;
     }
@@ -61,12 +61,12 @@ public class HabitSnapshotServiceImpl implements HabitSnapshotService {
         return getModule(habitId).undoHabit(userId, habitId, date);
     }
 
-    private ScheduleModule getModule(UUID habitId) {
+    private TrackingModule getModule(UUID habitId) {
         Habit habit = habitRepository.findOne(habitId.toString());
         return getModule(habit);
     }
 
-    private ScheduleModule getModule(Habit habit) {
+    private TrackingModule getModule(Habit habit) {
         return modules.get(habit.getSchedule().getType());
     }
 }
