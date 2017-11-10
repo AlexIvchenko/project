@@ -41,7 +41,7 @@ public class HabitsController {
     @GetMapping(path = "/users/{userId}/habits/unchecked")
     public HttpEntity<Resources<HabitResource>> getUncheckedHabits(
             @PathVariable("userId") final UUID userId) {
-        return new HttpEntity<>(service.getUncheckedHabits(userId));
+        return new HttpEntity<>(service.getUnverifiedHabits(userId));
     }
 
     @GetMapping(path = "/users/{userId}/habits/{habitId}")
@@ -79,7 +79,7 @@ public class HabitsController {
 
     // TODO
     @PostMapping(path = "/users/{userId}/habits/check")
-    public HttpEntity failUncheckedHabits(
+    public HttpEntity failUnverifiedHabits(
             @PathVariable("userId") final UUID userId) {
 
         return HttpEntity.EMPTY;

@@ -50,7 +50,7 @@ public class HabitSnapshot {
         return status == Status.FAIL;
     }
 
-    public boolean isUnchecked() {
+    public boolean isUnverified() {
         return status == Status.UNDEFINED;
     }
 

@@ -1,6 +1,6 @@
-package com.github.habiteria.domain.service.habit.unchecked.module;
+package com.github.habiteria.domain.service.habit.unverified.module;
 
-import com.github.habiteria.domain.model.CheckerType;
+import com.github.habiteria.domain.model.ScheduleType;
 import com.github.habiteria.domain.model.Habit;
 import com.github.habiteria.domain.model.Result;
 import com.github.habiteria.domain.model.User;
@@ -8,7 +8,7 @@ import com.github.habiteria.domain.repository.HabitRepository;
 import com.github.habiteria.domain.repository.ResultRepository;
 import com.github.habiteria.domain.repository.UserRepository;
 import com.github.habiteria.domain.service.habit.core.HabitSnapshot;
-import com.github.habiteria.domain.service.habit.core.module.DailyCheckerTypeModule;
+import com.github.habiteria.domain.service.habit.core.module.DailyScheduleModule;
 import com.github.habiteria.utils.LocalDateRange;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -23,13 +23,13 @@ import java.util.UUID;
  */
 @Slf4j
 @Component
-public class DailyUncheckedHabitsDetectorModule implements UncheckedHabitsDetectorModule {
-    private final DailyCheckerTypeModule module;
+public class DailyUnverifiedHabitsModule implements UnverifiedHabitsModule {
+    private final DailyScheduleModule module;
     private final UserRepository userRepository;
     private final HabitRepository habitRepository;
     private final ResultRepository resultRepository;
 
-    public DailyUncheckedHabitsDetectorModule(DailyCheckerTypeModule module, UserRepository userRepository, HabitRepository habitRepository, ResultRepository resultRepository) {
+    public DailyUnverifiedHabitsModule(DailyScheduleModule module, UserRepository userRepository, HabitRepository habitRepository, ResultRepository resultRepository) {
         this.module = module;
         this.userRepository = userRepository;
         this.habitRepository = habitRepository;
@@ -37,8 +37,8 @@ public class DailyUncheckedHabitsDetectorModule implements UncheckedHabitsDetect
     }
 
     @Override
-    public CheckerType supports() {
-        return CheckerType.DAILY;
+    public ScheduleType supports() {
+        return ScheduleType.DAILY;
     }
 
     @Override
@@ -46,14 +46,14 @@ public class DailyUncheckedHabitsDetectorModule implements UncheckedHabitsDetect
         LocalDate yesterday = LocalDate.now().minusDays(1);
         return module.getHabits(userId, yesterday)
                 .stream()
-                .anyMatch(HabitSnapshot::isUnchecked);
+                .anyMatch(HabitSnapshot::isUnverified);
     }
 
     @Override
     public void failUncheckedHabits(UUID userId) {
-        log.info("fail unchecked by {}", userId);
+        log.info("fail unverified by {}", userId);
         User user = userRepository.findOne(userId.toString());
-        Set<Habit> habits = habitRepository.findByOwnerAndCheckerType(user, CheckerType.DAILY);
+        Set<Habit> habits = habitRepository.findByOwnerAndScheduleType(user, ScheduleType.DAILY);
         Set<Result> fails = new HashSet<>();
         for (Habit habit : habits) {
             Set<Result> results = resultRepository.findByHabit(habit);

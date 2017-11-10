@@ -23,5 +23,5 @@ public interface HabitResourceService {
 
     HabitResource undoHabit(UUID userId, UUID habitId, LocalDate date);
 
-    Resources<HabitResource> getUncheckedHabits(UUID userId);
+    Resources<HabitResource> getUnverifiedHabits(UUID userId);
 }

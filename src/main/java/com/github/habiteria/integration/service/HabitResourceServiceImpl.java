@@ -64,11 +64,11 @@ public class HabitResourceServiceImpl implements HabitResourceService {
     }
 
     @Override
-    public Resources<HabitResource> getUncheckedHabits(UUID userId) {
+    public Resources<HabitResource> getUnverifiedHabits(UUID userId) {
         LocalDate yesterday = LocalDate.now().minusDays(1);
         Set<HabitResource> resources = service.getHabits(userId, yesterday)
                 .stream()
-                .filter(HabitSnapshot::isUnchecked)
+                .filter(HabitSnapshot::isUnverified)
                 .map(habitAsm::toResource)
                 .collect(Collectors.toSet());
         return new Resources<>(resources);

@@ -1,7 +1,7 @@
 package com.github.habiteria.integration.service;
 
 import com.github.habiteria.domain.model.User;
-import com.github.habiteria.domain.service.habit.unchecked.detector.UncheckedHabitsDetector;
+import com.github.habiteria.domain.service.habit.unverified.detector.UnverifiedHabitsDetector;
 import com.github.habiteria.integration.links.Links;
 import com.github.habiteria.security.UserAuthService;
 import org.springframework.hateoas.ResourceSupport;
@@ -15,11 +15,11 @@ import java.util.UUID;
 @Service
 public class RootResourceServiceImpl implements RootResourceService {
     private final UserAuthService authService;
-    private final UncheckedHabitsDetector uncheckedHabitsDetector;
+    private final UnverifiedHabitsDetector unverifiedHabitsDetector;
 
-    public RootResourceServiceImpl(UserAuthService authService, UncheckedHabitsDetector uncheckedHabitsDetector) {
+    public RootResourceServiceImpl(UserAuthService authService, UnverifiedHabitsDetector unverifiedHabitsDetector) {
         this.authService = authService;
-        this.uncheckedHabitsDetector = uncheckedHabitsDetector;
+        this.unverifiedHabitsDetector = unverifiedHabitsDetector;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class RootResourceServiceImpl implements RootResourceService {
     private void fillLinksForAuthenticatedUser(User user, ResourceSupport links) {
         UUID userId = UUID.fromString(user.getId());
         links.add(Links.getHabits(userId));
-        if (uncheckedHabitsDetector.thereAreUncheckedHabits(userId)) {
+        if (unverifiedHabitsDetector.thereAreUncheckedHabits(userId)) {
             links.add(Links.getUncheckedHabits(userId));
         }
     }

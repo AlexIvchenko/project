@@ -32,7 +32,7 @@ public class Links {
 
     public static Link getUncheckedHabits(UUID userId) {
         return linkTo(methodOn(HabitsController.class).getUncheckedHabits(userId))
-                .withRel("getUncheckedHabits");
+                .withRel("getUnverifiedHabits");
     }
 
     public static Link perform(UUID userId, UUID habitId) {
