@@ -30,13 +30,12 @@ public class HabitSnapshotServiceImpl implements HabitSnapshotService {
 
     @Override
     public HabitSnapshot createHabit(UUID userId, Habit habit) {
-        return modules.get(habit.getChecker().getType()).createHabit(userId, habit);
+        return getModule(habit).createHabit(userId, habit);
     }
 
     @Override
     public HabitSnapshot getHabit(UUID userId, UUID habitId, LocalDate date) {
-        Habit habit = habitRepository.findOne(habitId.toString());
-        return modules.get(habit.getChecker().getType()).getHabit(userId, habitId, date);
+        return getModule(habitId).getHabit(userId, habitId, date);
     }
 
     @Override
@@ -49,22 +48,25 @@ public class HabitSnapshotServiceImpl implements HabitSnapshotService {
 
     @Override
     public HabitSnapshot performHabit(UUID userId, UUID habitId, LocalDate date) {
-        Habit habit = habitRepository.findOne(habitId.toString());
-        HabitCheckerTypeModule module = modules.get(habit.getChecker().getType());
-        return module.performHabit(userId, habitId, date);
+        return getModule(habitId).performHabit(userId, habitId, date);
     }
 
     @Override
     public HabitSnapshot failHabit(UUID userId, UUID habitId, LocalDate date) {
-        Habit habit = habitRepository.findOne(habitId.toString());
-        HabitCheckerTypeModule module = modules.get(habit.getChecker().getType());
-        return module.failHabit(userId, habitId, date);
+        return getModule(habitId).failHabit(userId, habitId, date);
     }
 
     @Override
     public HabitSnapshot undoHabit(UUID userId, UUID habitId, LocalDate date) {
+        return getModule(habitId).undoHabit(userId, habitId, date);
+    }
+
+    private HabitCheckerTypeModule getModule(UUID habitId) {
         Habit habit = habitRepository.findOne(habitId.toString());
-        HabitCheckerTypeModule module = modules.get(habit.getChecker().getType());
-        return module.undoHabit(userId, habitId, date);
+        return getModule(habit);
+    }
+
+    private HabitCheckerTypeModule getModule(Habit habit) {
+        return modules.get(habit.getChecker().getType());
     }
 }

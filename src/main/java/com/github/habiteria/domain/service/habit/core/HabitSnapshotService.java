@@ -7,6 +7,11 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
+ * This service contains logic to build current HabitSnapshot.
+ * This means that this service should check habit, results, schedule and endingCondition
+ * to represent current habit snapshot in define date.
+ * We need to separate logic for working with different types of schedules or endingConditions
+ * into modules.
  * @author Alex Ivchenko
  */
 public interface HabitSnapshotService {
