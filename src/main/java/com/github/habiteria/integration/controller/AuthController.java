@@ -1,8 +1,8 @@
 package com.github.habiteria.integration.controller;
 
-import com.github.habiteria.domain.model.User;
-import com.github.habiteria.integration.assembler.UserResourceAssembler;
-import com.github.habiteria.integration.resources.UserResource;
+import com.github.habiteria.core.model.User;
+import com.github.habiteria.integration.domain.assembler.UserResourceAssembler;
+import com.github.habiteria.integration.domain.resources.UserResource;
 import com.github.habiteria.security.UserAuthService;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;

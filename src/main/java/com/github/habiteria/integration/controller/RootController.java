@@ -1,6 +1,6 @@
 package com.github.habiteria.integration.controller;
 
-import com.github.habiteria.integration.service.RootResourceService;
+import com.github.habiteria.integration.domain.service.RootResourceService;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.GetMapping;
