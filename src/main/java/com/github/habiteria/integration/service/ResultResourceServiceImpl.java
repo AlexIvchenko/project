@@ -1,12 +1,16 @@
 package com.github.habiteria.integration.service;
 
+import com.github.habiteria.domain.model.Result;
 import com.github.habiteria.domain.service.result.ResultService;
-import com.github.habiteria.integration.assembler.ResultsResourceAssembler;
-import com.github.habiteria.integration.resources.ResultsResource;
+import com.github.habiteria.integration.assembler.ResultResourceAssembler;
+import com.github.habiteria.integration.resources.ResultResource;
+import org.springframework.hateoas.Resources;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * @author Alex Ivchenko
@@ -14,20 +18,26 @@ import java.util.UUID;
 @Service
 public class ResultResourceServiceImpl implements ResultResourceService {
     private final ResultService service;
-    private final ResultsResourceAssembler resultsAsm;
+    private final ResultResourceAssembler resultAsm;
 
-    public ResultResourceServiceImpl(ResultService service, ResultsResourceAssembler resultsAsm) {
+    public ResultResourceServiceImpl(ResultService service, ResultResourceAssembler resultAsm) {
         this.service = service;
-        this.resultsAsm = resultsAsm;
+        this.resultAsm = resultAsm;
     }
 
     @Override
-    public ResultsResource getResults(UUID userId, UUID habitId) {
-        return resultsAsm.toResource(service.getResults(userId, habitId));
+    public Resources<ResultResource> getResults(UUID userId, UUID habitId) {
+        return assembly(service.getResults(userId, habitId));
     }
 
     @Override
-    public ResultsResource getResults(UUID userId, LocalDate date) {
-        return resultsAsm.toResource(service.getResults(userId, date));
+    public Resources<ResultResource> getResults(UUID userId, LocalDate date) {
+        return assembly(service.getResults(userId, date));
+    }
+
+    private Resources<ResultResource> assembly(Set<Result> results) {
+        return new Resources<>(results.stream()
+                .map(resultAsm::toResource)
+                .collect(Collectors.toSet()));
     }
 }

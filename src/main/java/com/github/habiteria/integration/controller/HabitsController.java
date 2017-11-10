@@ -2,8 +2,8 @@ package com.github.habiteria.integration.controller;
 
 import com.github.habiteria.domain.model.Habit;
 import com.github.habiteria.integration.resources.HabitResource;
-import com.github.habiteria.integration.resources.HabitsResource;
 import com.github.habiteria.integration.service.HabitResourceService;
+import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +29,7 @@ public class HabitsController {
     }
 
     @GetMapping(path = "/users/{userId}/habits/")
-    public HttpEntity<HabitsResource> getHabits(
+    public HttpEntity<Resources<HabitResource>> getHabits(
             @PathVariable("userId") final UUID userId,
             @RequestParam("date") @Date LocalDate date) {
         if (date == null) {
@@ -39,7 +39,7 @@ public class HabitsController {
     }
 
     @GetMapping(path = "/users/{userId}/habits/unchecked")
-    public HttpEntity<HabitsResource> getUncheckedHabits(
+    public HttpEntity<Resources<HabitResource>> getUncheckedHabits(
             @PathVariable("userId") final UUID userId) {
         return new HttpEntity<>(service.getUncheckedHabits(userId));
     }

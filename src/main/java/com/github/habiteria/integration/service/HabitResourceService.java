@@ -2,7 +2,7 @@ package com.github.habiteria.integration.service;
 
 import com.github.habiteria.domain.model.Habit;
 import com.github.habiteria.integration.resources.HabitResource;
-import com.github.habiteria.integration.resources.HabitsResource;
+import org.springframework.hateoas.Resources;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -11,7 +11,7 @@ import java.util.UUID;
  * @author Alex Ivchenko
  */
 public interface HabitResourceService {
-    HabitsResource getHabits(UUID userId, LocalDate date);
+    Resources<HabitResource> getHabits(UUID userId, LocalDate date);
 
     HabitResource getHabit(UUID userId, UUID habitId, LocalDate date);
 
@@ -23,5 +23,5 @@ public interface HabitResourceService {
 
     HabitResource undoHabit(UUID userId, UUID habitId, LocalDate date);
 
-    HabitsResource getUncheckedHabits(UUID userId);
+    Resources<HabitResource> getUncheckedHabits(UUID userId);
 }

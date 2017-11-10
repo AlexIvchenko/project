@@ -4,11 +4,9 @@ import com.github.habiteria.domain.model.Habit;
 import com.github.habiteria.domain.service.habit.core.HabitSnapshot;
 import com.github.habiteria.domain.service.habit.core.HabitSnapshotService;
 import com.github.habiteria.integration.assembler.HabitSnapshotResourceAssembler;
-import com.github.habiteria.integration.assembler.HabitSnapshotsResourceAssembler;
 import com.github.habiteria.integration.links.Links;
 import com.github.habiteria.integration.resources.HabitResource;
-import com.github.habiteria.integration.resources.HabitsResource;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.hateoas.Resources;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -23,20 +21,20 @@ import java.util.stream.Collectors;
 public class HabitResourceServiceImpl implements HabitResourceService {
     private final HabitSnapshotService service;
     private final HabitSnapshotResourceAssembler habitAsm;
-    private final HabitSnapshotsResourceAssembler habitsAsm;
 
-    public HabitResourceServiceImpl(@Qualifier("habitSnapshotService") HabitSnapshotService service,
-                                    HabitSnapshotResourceAssembler habitAsm,
-                                    HabitSnapshotsResourceAssembler habitsAsm) {
+    public HabitResourceServiceImpl(HabitSnapshotService service,
+                                    HabitSnapshotResourceAssembler habitAsm) {
         this.service = service;
         this.habitAsm = habitAsm;
-        this.habitsAsm = habitsAsm;
     }
 
     @Override
-    public HabitsResource getHabits(UUID userId, LocalDate date) {
-        Set<HabitSnapshot> habits = service.getHabits(userId, date);
-        HabitsResource resource = habitsAsm.toResource(habits);
+    public Resources<HabitResource> getHabits(UUID userId, LocalDate date) {
+        Set<HabitResource> habits = service.getHabits(userId, date)
+                .stream()
+                .map(habitAsm::toResource)
+                .collect(Collectors.toSet());
+        Resources<HabitResource> resource = new Resources<>(habits);
         resource.add(Links.createHabit(userId));
         return resource;
     }
@@ -66,14 +64,14 @@ public class HabitResourceServiceImpl implements HabitResourceService {
     }
 
     @Override
-    public HabitsResource getUncheckedHabits(UUID userId) {
+    public Resources<HabitResource> getUncheckedHabits(UUID userId) {
         LocalDate yesterday = LocalDate.now().minusDays(1);
         Set<HabitResource> resources = service.getHabits(userId, yesterday)
                 .stream()
                 .filter(HabitSnapshot::isUnchecked)
                 .map(habitAsm::toResource)
                 .collect(Collectors.toSet());
-        return new HabitsResource(resources);
+        return new Resources<>(resources);
     }
 
     @Override
