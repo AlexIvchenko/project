@@ -95,7 +95,7 @@ public class DailyCheckerTypeModule implements HabitCheckerTypeModule {
     public Set<HabitSnapshot> getHabits(UUID userId, LocalDate date) {
         User owner = userRepository.findOne(userId.toString());
         Set<Result> results = resultRepository.findByDate(date);
-        Set<Habit> habits = habitRepository.findByOwner(owner);
+        Set<Habit> habits = habitRepository.findByOwnerAndCheckerType(owner, CheckerType.DAILY);
         Set<HabitSnapshot> snapshots = new HashSet<>();
         for (Habit habit : habits) {
             for (Result result : results) {

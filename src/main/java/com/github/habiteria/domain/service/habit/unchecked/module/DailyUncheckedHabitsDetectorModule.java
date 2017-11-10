@@ -53,7 +53,7 @@ public class DailyUncheckedHabitsDetectorModule implements UncheckedHabitsDetect
     public void failUncheckedHabits(UUID userId) {
         log.info("fail unchecked by {}", userId);
         User user = userRepository.findOne(userId.toString());
-        Set<Habit> habits = habitRepository.findByOwner(user);
+        Set<Habit> habits = habitRepository.findByOwnerAndCheckerType(user, CheckerType.DAILY);
         Set<Result> fails = new HashSet<>();
         for (Habit habit : habits) {
             Set<Result> results = resultRepository.findByHabit(habit);
