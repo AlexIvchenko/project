@@ -1,8 +1,8 @@
 package com.github.habiteria.integration.controller;
 
-import com.github.habiteria.domain.model.Habit;
-import com.github.habiteria.integration.resources.HabitResource;
-import com.github.habiteria.integration.service.HabitResourceService;
+import com.github.habiteria.core.model.Habit;
+import com.github.habiteria.integration.domain.resources.HabitResource;
+import com.github.habiteria.integration.domain.service.HabitResourceService;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,8 +1,8 @@
 package com.github.habiteria;
 
-import com.github.habiteria.domain.model.User;
-import com.github.habiteria.domain.repository.UserRepository;
-import com.github.habiteria.domain.service.visitor.VisitorService;
+import com.github.habiteria.core.model.User;
+import com.github.habiteria.core.repository.UserRepository;
+import com.github.habiteria.core.domain.visitor.VisitorService;
 import com.github.habiteria.security.DatabaseUserDetailsService;
 import org.junit.Before;
 import org.junit.Test;

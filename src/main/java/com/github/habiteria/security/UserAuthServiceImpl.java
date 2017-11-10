@@ -1,9 +1,9 @@
 package com.github.habiteria.security;
 
-import com.github.habiteria.domain.model.Habit;
-import com.github.habiteria.domain.model.User;
-import com.github.habiteria.domain.repository.HabitRepository;
-import com.github.habiteria.domain.repository.UserRepository;
+import com.github.habiteria.core.model.Habit;
+import com.github.habiteria.core.model.User;
+import com.github.habiteria.core.repository.HabitRepository;
+import com.github.habiteria.core.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
