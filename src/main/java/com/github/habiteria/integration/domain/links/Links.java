@@ -1,11 +1,10 @@
 package com.github.habiteria.integration.domain.links;
 
 import com.github.habiteria.integration.controller.AuthController;
-import com.github.habiteria.integration.controller.HabitsController;
-import com.github.habiteria.integration.controller.ResultsController;
+import com.github.habiteria.integration.controller.HabitController;
+import com.github.habiteria.integration.controller.TrackingController;
 import org.springframework.hateoas.Link;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -21,47 +20,28 @@ public class Links {
     }
 
     public static Link createHabit(UUID userId) {
-        return linkTo(methodOn(HabitsController.class).createHabit(userId, null))
-                .withRel("createHabit");
+        return linkTo(methodOn(HabitController.class).create(userId, null))
+                .withRel("create");
     }
 
-    public static Link getHabits(UUID userId) {
-        return linkTo(methodOn(HabitsController.class).getHabits(userId, LocalDate.now()))
-                .withRel("getHabits");
+    public static Link getCurrentHabitList(UUID userId) {
+        return linkTo(methodOn(TrackingController.class).getCurrentHabitList(userId))
+                .withRel("getCurrentHabitList");
     }
 
-    public static Link getUncheckedHabits(UUID userId) {
-        return linkTo(methodOn(HabitsController.class).getUncheckedHabits(userId))
-                .withRel("getUnverifiedHabits");
+    public static Link perform(UUID userId, UUID habitId, int repeat) {
+        return linkTo(methodOn(TrackingController.class).perform(userId, habitId, repeat))
+                .withRel("perform");
     }
 
-    public static Link perform(UUID userId, UUID habitId) {
-        return linkTo(methodOn(HabitsController.class).perform(userId, habitId, LocalDate.now()))
-                .withRel("performToday");
+
+    public static Link fail(UUID userId, UUID habitId, int repeat) {
+        return linkTo(methodOn(TrackingController.class).fail(userId, habitId, repeat))
+                .withRel("fail");
     }
 
-    public static Link performYesterday(UUID userId, UUID habitId) {
-        return linkTo(methodOn(HabitsController.class).perform(userId, habitId, LocalDate.now().minusDays(1))).
-                withRel("performYesterday");
-    }
-
-    public static Link fail(UUID userId, UUID habitId) {
-        return linkTo(methodOn(HabitsController.class).fail(userId, habitId, LocalDate.now()))
-                .withRel("failToday");
-    }
-
-    public static Link failYesterday(UUID userId, UUID habitId) {
-        return linkTo(methodOn(HabitsController.class).fail(userId, habitId, LocalDate.now().minusDays(1)))
-                .withRel("failYesterday");
-    }
-
-    public static Link getResults(UUID userId, UUID habitId) {
-        return linkTo(methodOn(ResultsController.class).getResults(userId, habitId))
-                .withRel("getResults");
-    }
-
-    public static Link undo(UUID userId, UUID habitId) {
-        return linkTo(methodOn(HabitsController.class).undoHabit(userId, habitId, LocalDate.now()))
-                .withRel("undoToday");
+    public static Link undo(UUID userId, UUID habitId, int repeats) {
+        return linkTo(methodOn(TrackingController.class).undo(userId, habitId, repeats))
+                .withRel("undo");
     }
 }

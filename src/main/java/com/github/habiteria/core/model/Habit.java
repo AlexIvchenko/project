@@ -2,6 +2,7 @@ package com.github.habiteria.core.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -13,9 +14,10 @@ import java.time.LocalDate;
 @Setter
 @Entity
 @Table(name = "habits")
+@ToString(of = "name", callSuper = false)
 public class Habit extends AbstractEntity {
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User owner;
 
     @Column(name = "name")
