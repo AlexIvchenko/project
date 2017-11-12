@@ -4,7 +4,6 @@ import com.github.habiteria.core.model.CalendarRecord;
 import com.github.habiteria.core.model.Habit;
 import com.github.habiteria.core.model.Status;
 import com.github.habiteria.core.model.User;
-import com.github.habiteria.core.repository.CalendarRecordRepository;
 import com.github.habiteria.core.repository.HabitRepository;
 import com.github.habiteria.core.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -23,19 +22,19 @@ import java.util.UUID;
 public class TrackerImpl implements Tracker {
     private final UserRepository userRepository;
     private final HabitRepository habitRepository;
-    private final CalendarRecordRepository calendarRecordRepository;
+    private final Scheduler scheduler;
 
-    public TrackerImpl(UserRepository userRepository, HabitRepository habitRepository, CalendarRecordRepository calendarRecordRepository) {
+
+    public TrackerImpl(UserRepository userRepository, HabitRepository habitRepository, Scheduler scheduler) {
         this.userRepository = userRepository;
         this.habitRepository = habitRepository;
-        this.calendarRecordRepository = calendarRecordRepository;
+        this.scheduler = scheduler;
     }
 
     @Override
     public Set<ScheduledHabit> getCurrentHabitList(UUID userId) {
         User user = fetchUser(userId);
-        LocalDateTime now = LocalDateTime.now();
-        Set<CalendarRecord> records = calendarRecordRepository.findVerifiableIn(user, now);
+        Set<CalendarRecord> records = scheduler.findVerifiable(user);
         Set<Habit> habits = habitRepository.findByOwner(user);
         Set<ScheduledHabit> scheduled = new HashSet<>();
         log.info("habits size: " + habits.size());
@@ -54,10 +53,10 @@ public class TrackerImpl implements Tracker {
     @Override
     public ScheduledHabit perform(UUID habitId, int repeat) {
         Habit habit = fetchHabit(habitId);
-        CalendarRecord record = calendarRecordRepository.findOne(habit, repeat);
+        CalendarRecord record = scheduler.getRecord(habit, repeat);
         // TODO validation
         record.setStatus(Status.SUCCESS);
-        calendarRecordRepository.save(record);
+        scheduler.update(record);
         // TODO change person state or publish event
         return build(habit, record);
     }
@@ -65,18 +64,18 @@ public class TrackerImpl implements Tracker {
     @Override
     public ScheduledHabit fail(UUID habitId, int repeat) {
         Habit habit = fetchHabit(habitId);
-        CalendarRecord record = calendarRecordRepository.findOne(habit, repeat);
+        CalendarRecord record = scheduler.getRecord(habit, repeat);
         record.setStatus(Status.FAIL);
-        calendarRecordRepository.save(record);
+        scheduler.update(record);
         return build(habit, record);
     }
 
     @Override
     public ScheduledHabit undo(UUID habitId, int repeat) {
         Habit habit = fetchHabit(habitId);
-        CalendarRecord record = calendarRecordRepository.findOne(habit, repeat);
+        CalendarRecord record = scheduler.getRecord(habit, repeat);
         record.setStatus(Status.UNVERIFIED);
-        calendarRecordRepository.save(record);
+        scheduler.update(record);
         return build(habit, record);
     }
 

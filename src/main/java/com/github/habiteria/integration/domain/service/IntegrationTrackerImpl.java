@@ -4,12 +4,11 @@ import com.github.habiteria.core.domain.habit.ScheduledHabit;
 import com.github.habiteria.core.domain.habit.Tracker;
 import com.github.habiteria.integration.domain.assembler.ScheduledHabitResourceAssembler;
 import com.github.habiteria.integration.domain.resources.ScheduledHabitResource;
+import com.github.habiteria.integration.domain.utils.ResourceUtils;
 import org.springframework.hateoas.Resources;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 /**
  * @author Alex Ivchenko
@@ -27,12 +26,8 @@ public class IntegrationTrackerImpl implements IntegrationTracker {
 
     @Override
     public Resources<ScheduledHabitResource> getCurrentHabitList(UUID userId) {
-        Set<ScheduledHabitResource> habits = service.getCurrentHabitList(userId)
-                .stream()
-                .map(habitAsm::toResource)
-                .collect(Collectors.toSet());
-        Resources<ScheduledHabitResource> resource = new Resources<>(habits);
-        return resource;
+        Resources<ScheduledHabitResource> habits = ResourceUtils.toResources(service.getCurrentHabitList(userId), habitAsm);
+        return new Resources<>(habits);
     }
 
     @Override

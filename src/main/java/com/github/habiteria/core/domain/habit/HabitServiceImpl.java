@@ -6,7 +6,6 @@ import com.github.habiteria.core.repository.HabitRepository;
 import com.github.habiteria.core.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -16,12 +15,10 @@ import java.util.UUID;
 public class HabitServiceImpl implements HabitService {
     private final UserRepository userRepository;
     private final HabitRepository repository;
-    private final Scheduler scheduler;
 
-    public HabitServiceImpl(UserRepository userRepository, HabitRepository repository, Scheduler scheduler) {
+    public HabitServiceImpl(UserRepository userRepository, HabitRepository repository) {
         this.userRepository = userRepository;
         this.repository = repository;
-        this.scheduler = scheduler;
     }
 
     @Override
@@ -29,7 +26,6 @@ public class HabitServiceImpl implements HabitService {
         User user = userRepository.findOne(userId.toString());
         habit.setOwner(user);
         habit = repository.save(habit);
-        scheduler.generate(habit, LocalDateTime.now(), LocalDateTime.now().plusDays(7));
         return habit;
     }
 }

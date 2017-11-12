@@ -5,7 +5,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 /**
  * @author Alex Ivchenko
@@ -29,7 +28,4 @@ public class Habit extends AbstractEntity {
     @OneToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "schedule_id", nullable = false)
     private Schedule schedule;
-
-    @Column(name = "start")
-    private LocalDate start;
 }

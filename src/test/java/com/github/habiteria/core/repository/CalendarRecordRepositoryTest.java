@@ -1,6 +1,7 @@
 package com.github.habiteria.core.repository;
 
 import com.github.habiteria.core.model.*;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,21 +25,48 @@ public class CalendarRecordRepositoryTest {
     private HabitRepository habitRepository;
     @Autowired
     private CalendarRecordRepository repo;
-    @Test
-    public void name() throws Exception {
-        User user = new User("a", null, null, "e", "p");
+
+    private User user;
+    private Habit habit;
+    private CalendarRecord today;
+    private CalendarRecord yesterday;
+    private CalendarRecord tomorrow;
+
+    @Before
+    public void setUp() throws Exception {
+        user = new User("Test", "test", "test", "test", "test");
         userRepository.save(user);
-        Habit habit = new Habit();
+        habit = new Habit();
         habit.setOwner(user);
         habit.setSchedule(new Schedule());
         habitRepository.save(habit);
 
+        LocalDate now = LocalDate.now();
+        today = record(now);
+        yesterday = record(now.minusDays(1));
+        tomorrow = record(now.plusDays(1));
+
+        repo.save(yesterday);
+        repo.save(today);
+        repo.save(tomorrow);
+    }
+
+    @Test
+    public void givenRecords_whenFindVerifiableNow_whenCorrect() throws Exception {
+        assertThat(repo.findVerifiableIn(user, LocalDateTime.now())).hasSize(1);
+    }
+
+    @Test
+    public void givenRecords_whenFindLastRecord_whenCorrect() throws Exception {
+        CalendarRecord lastRecord = repo.getLastRecord(habit);
+        assertThat(lastRecord).isEqualTo(tomorrow);
+    }
+
+    private CalendarRecord record(LocalDate date) {
         CalendarRecord record = new CalendarRecord();
         record.setStatus(Status.UNVERIFIED);
         record.setHabit(habit);
         record.setRepeat(1);
-
-        LocalDate date = LocalDate.now();
 
         record.setStartDoing(date.atStartOfDay());
         record.setEndDoing(date.plusDays(1).atStartOfDay());
@@ -46,8 +74,6 @@ public class CalendarRecordRepositoryTest {
         record.setStartVerifying(date.atStartOfDay());
         record.setEndVerifying(date.plusDays(1).atStartOfDay());
 
-        repo.save(record);
-
-        assertThat(repo.findVerifiableIn(user, LocalDateTime.now())).hasSize(1);
+        return record;
     }
 }

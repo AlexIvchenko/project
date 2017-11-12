@@ -33,6 +33,7 @@ public class RootResourceServiceImpl implements RootResourceService {
 
     private void fillLinksForAuthenticatedUser(User user, ResourceSupport links) {
         UUID userId = UUID.fromString(user.getId());
+        links.add(Links.createHabit(userId));
         links.add(Links.getCurrentHabitList(userId));
     }
 
