@@ -4,6 +4,7 @@ import com.github.habiteria.core.model.CalendarRecord;
 import com.github.habiteria.core.model.Habit;
 import com.github.habiteria.core.model.User;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 /**
@@ -15,4 +16,6 @@ public interface Scheduler {
     CalendarRecord update(CalendarRecord record);
 
     Set<CalendarRecord> findVerifiable(User user);
+
+    Set<CalendarRecord> getRecords(Habit habit, LocalDate from, LocalDate to);
 }

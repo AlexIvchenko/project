@@ -22,6 +22,16 @@ public interface CalendarRecordRepository extends CrudRepository<CalendarRecord,
             "(:time between rec.startVerifying and rec.endVerifying)")
     Set<CalendarRecord> findVerifiableIn(@Param("user") User user, @Param("time") LocalDateTime time);
 
-    @Query("select rec from CalendarRecord rec where rec.habit = :habit and rec.startDoing = (select max(rec2.startDoing) from CalendarRecord rec2)")
+    @Query("select rec from CalendarRecord rec " +
+            "where rec.habit = :habit and rec.startDoing = (select max(rec2.startDoing) from CalendarRecord rec2)")
     CalendarRecord getLastRecord(@Param("habit") Habit habit);
+
+    @Query("select rec from CalendarRecord rec " +
+            "where rec.habit = :habit and (" +
+            "(:start between rec.startDoing and rec.endDoing) or " +
+            "(:finish between rec.startDoing and rec.endDoing) or " +
+            "(rec.startDoing between :start and :finish and rec.endDoing between :start and :finish))")
+    Set<CalendarRecord> findBetween(@Param("habit") Habit habit,
+                                    @Param("start") LocalDateTime from,
+                                    @Param("finish") LocalDateTime to);
 }

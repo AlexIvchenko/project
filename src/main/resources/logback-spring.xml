@@ -9,7 +9,7 @@
     <logger name="com.github.habiteria" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
-    <springProfile name="dev, test">
+    <springProfile name="dev, test, postgresdev">
         <root level="INFO">
             <appender-ref ref="STDOUT" />
         </root>

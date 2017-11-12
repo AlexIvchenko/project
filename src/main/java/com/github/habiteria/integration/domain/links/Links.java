@@ -1,10 +1,12 @@
 package com.github.habiteria.integration.domain.links;
 
 import com.github.habiteria.integration.controller.AuthController;
+import com.github.habiteria.integration.controller.CalendarController;
 import com.github.habiteria.integration.controller.HabitController;
 import com.github.habiteria.integration.controller.TrackingController;
 import org.springframework.hateoas.Link;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -43,5 +45,17 @@ public class Links {
     public static Link undo(UUID userId, UUID habitId, int repeats) {
         return linkTo(methodOn(TrackingController.class).undo(userId, habitId, repeats))
                 .withRel("undo");
+    }
+
+    public static Link getCalendarForLastMonth(UUID userId, UUID habitId) {
+        LocalDate now = LocalDate.now();
+        LocalDate monthAgo = now.minusMonths(1);
+        return linkTo(methodOn(CalendarController.class).getCalendar(userId, habitId, monthAgo, now))
+                .withRel("getCalendarForLastMonth");
+    }
+
+    public static Link getHabitCard(UUID userId, UUID habitId) {
+        return linkTo(methodOn(HabitController.class).getHabitCard(userId, habitId))
+                .withRel("getCard");
     }
 }

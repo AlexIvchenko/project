@@ -1,0 +1,10 @@
+spring:
+  jpa:
+    database: postgresql
+    hibernate.ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    driverClassName: net.sf.log4jdbc.DriverSpy
+    url: jdbc:log4jdbc:postgresql://localhost:5432/webapp
+    username: postgres
+    password: ""

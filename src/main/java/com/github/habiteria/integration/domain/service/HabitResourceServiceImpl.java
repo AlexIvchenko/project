@@ -25,4 +25,9 @@ public class HabitResourceServiceImpl implements HabitResourceService {
     public HabitResource create(UUID userId, Habit habit) {
         return habitAsm.toResource(service.create(userId, habit));
     }
+
+    @Override
+    public HabitResource getHabit(UUID userId, UUID habitId) {
+        return habitAsm.toResource(service.get(habitId));
+    }
 }

@@ -45,6 +45,12 @@ public class MockScheduler implements Scheduler {
         return recordRepository.findVerifiableIn(user, LocalDateTime.now());
     }
 
+    @Override
+    public Set<CalendarRecord> getRecords(Habit habit, LocalDate from, LocalDate to) {
+        generate(habit, to.atStartOfDay());
+        return recordRepository.findBetween(habit, from.atStartOfDay(), to.plusDays(1).atStartOfDay());
+    }
+
 
     // TODO cache
     private void generateAll(User user) {
@@ -55,28 +61,41 @@ public class MockScheduler implements Scheduler {
     }
 
     private void generate(Habit habit) {
-        CalendarRecord record = recordRepository.getLastRecord(habit);
-        if (record == null) {
-            generate(habit, LocalDateTime.now(), LocalDateTime.now().plusDays(1));
-        } else if (record.getEndDoing().isBefore(LocalDateTime.now())) {
-            generate(habit, record.getStartDoing(), LocalDateTime.now().plusDays(1));
+        generate(habit, LocalDate.now().plusDays(1).atStartOfDay());
+    }
+
+    private void generate(Habit habit, LocalDateTime to) {
+        CalendarRecord last = recordRepository.getLastRecord(habit);
+        if (last != null) {
+            doGenerate(habit, last.getRepeat() + 1, to);
+        } else {
+            doGenerate(habit, 1, to);
         }
     }
 
-    private void generate(Habit habit, LocalDateTime from, LocalDateTime to) {
+    private void doGenerate(Habit habit, int nextRepeat, LocalDateTime to) {
         Set<CalendarRecord> records = new HashSet<>();
-        int repeat = 1;
-        for (LocalDate date : new LocalDateRange(from.toLocalDate(), to.toLocalDate())) {
+
+        LocalDate scheduleStart = habit.getSchedule().getStart().toLocalDate();
+        LocalDate from = scheduleStart.plusDays(nextRepeat - 1);
+
+        int repeat = nextRepeat;
+        for (LocalDate date : new LocalDateRange(from, to.toLocalDate())) {
             CalendarRecord record = new CalendarRecord();
             record.setStatus(Status.UNVERIFIED);
             record.setHabit(habit);
             record.setRepeat(repeat++);
 
-            record.setStartDoing(date.atStartOfDay());
-            record.setEndDoing(date.plusDays(1).atStartOfDay());
+            LocalDateTime startDoing = date.atStartOfDay();
+            LocalDateTime startVerifying = date.atStartOfDay();
+            LocalDateTime endDoing = date.plusDays(1).atStartOfDay();
+            LocalDateTime endVerifying = date.plusDays(1).atStartOfDay();
 
-            record.setStartVerifying(date.atStartOfDay());
-            record.setEndVerifying(date.plusDays(1).atStartOfDay());
+            record.setStartDoing(startDoing);
+            record.setEndDoing(endDoing);
+
+            record.setStartVerifying(startVerifying);
+            record.setEndVerifying(endVerifying);
 
             records.add(record);
         }

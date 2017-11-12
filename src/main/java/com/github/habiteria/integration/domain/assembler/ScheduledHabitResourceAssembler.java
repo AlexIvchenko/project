@@ -29,6 +29,9 @@ public class ScheduledHabitResourceAssembler implements ResourceAssembler<Schedu
                 resource.add(Links.undo(userId, habitId, entity.getRepeat()));
             }
         }
+
+        resource.add(Links.getHabitCard(userId, habitId));
+
         return resource;
     }
 }

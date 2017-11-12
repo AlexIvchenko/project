@@ -10,4 +10,6 @@ import java.util.UUID;
  */
 public interface HabitResourceService {
     HabitResource create(UUID userId, Habit habit);
+
+    HabitResource getHabit(UUID userId, UUID habitId);
 }
