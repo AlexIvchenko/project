@@ -35,18 +35,11 @@ public class TrackerImpl implements Tracker {
     public Set<ScheduledHabit> getCurrentHabitList(UUID userId) {
         User user = fetchUser(userId);
         Set<CalendarRecord> records = scheduler.findVerifiable(user);
-        Set<Habit> habits = habitRepository.findByOwner(user);
         Set<ScheduledHabit> scheduled = new HashSet<>();
-        log.info("habits size: " + habits.size());
-        log.info("records size: " + records.size());
-        for (Habit habit : habits) {
-            for (CalendarRecord record : records) {
-                if (record.getHabit().equals(habit)) {
-                    scheduled.add(build(habit, record));
-                }
-            }
+        for (CalendarRecord record : records) {
+            scheduled.add(build(record.getHabit(), record));
         }
-        log.info("scheduled size: " + scheduled.size());
+        log.info("current size: " + scheduled.size());
         return scheduled;
     }
 
