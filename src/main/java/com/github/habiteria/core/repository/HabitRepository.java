@@ -1,7 +1,7 @@
 package com.github.habiteria.core.repository;
 
-import com.github.habiteria.core.model.Habit;
-import com.github.habiteria.core.model.User;
+import com.github.habiteria.core.entities.Habit;
+import com.github.habiteria.core.entities.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Set;

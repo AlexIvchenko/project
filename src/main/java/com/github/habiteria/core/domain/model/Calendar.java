@@ -1,7 +1,7 @@
-package com.github.habiteria.core.domain.calendar;
+package com.github.habiteria.core.domain.model;
 
-import com.github.habiteria.core.model.CalendarRecord;
-import com.github.habiteria.core.model.Habit;
+import com.github.habiteria.core.entities.CalendarRecord;
+import com.github.habiteria.core.entities.Habit;
 
 import java.time.LocalDate;
 import java.util.*;

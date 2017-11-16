@@ -1,6 +1,6 @@
 package com.github.habiteria.vaadin.service;
 
-import com.github.habiteria.core.model.User;
+import com.github.habiteria.core.entities.User;
 import com.github.habiteria.security.UserAuthService;
 import com.github.habiteria.vaadin.ui.beans.SignUpBean;
 import lombok.extern.slf4j.Slf4j;

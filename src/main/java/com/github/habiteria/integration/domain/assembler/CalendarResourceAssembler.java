@@ -1,6 +1,6 @@
 package com.github.habiteria.integration.domain.assembler;
 
-import com.github.habiteria.core.domain.calendar.Calendar;
+import com.github.habiteria.core.domain.model.Calendar;
 import com.github.habiteria.integration.domain.links.Links;
 import com.github.habiteria.integration.domain.resources.CalendarRecordResource;
 import com.github.habiteria.integration.domain.resources.CalendarResource;

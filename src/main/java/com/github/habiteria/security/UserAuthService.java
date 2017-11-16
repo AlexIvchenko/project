@@ -1,6 +1,6 @@
 package com.github.habiteria.security;
 
-import com.github.habiteria.core.model.User;
+import com.github.habiteria.core.entities.User;
 import org.springframework.security.core.Authentication;
 
 import java.util.UUID;

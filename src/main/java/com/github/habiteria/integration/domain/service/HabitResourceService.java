@@ -1,6 +1,6 @@
 package com.github.habiteria.integration.domain.service;
 
-import com.github.habiteria.core.model.Habit;
+import com.github.habiteria.core.entities.Habit;
 import com.github.habiteria.integration.domain.resources.HabitResource;
 
 import java.util.UUID;

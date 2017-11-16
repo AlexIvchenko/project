@@ -1,6 +1,6 @@
 package com.github.habiteria.integration.controller;
 
-import com.github.habiteria.core.model.User;
+import com.github.habiteria.core.entities.User;
 import com.github.habiteria.integration.domain.assembler.UserResourceAssembler;
 import com.github.habiteria.integration.domain.resources.UserResource;
 import com.github.habiteria.security.UserAuthService;

@@ -1,6 +1,6 @@
 package com.github.habiteria.integration.domain.service;
 
-import com.github.habiteria.core.domain.calendar.CalendarService;
+import com.github.habiteria.core.domain.service.calendar.CalendarService;
 import com.github.habiteria.integration.domain.assembler.CalendarResourceAssembler;
 import com.github.habiteria.integration.domain.resources.CalendarResource;
 import org.springframework.stereotype.Service;

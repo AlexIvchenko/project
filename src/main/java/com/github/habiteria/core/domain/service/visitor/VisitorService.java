@@ -1,6 +1,6 @@
-package com.github.habiteria.core.domain.visitor;
+package com.github.habiteria.core.domain.service.visitor;
 
-import com.github.habiteria.core.model.User;
+import com.github.habiteria.core.entities.User;
 
 /**
  * @author Alex Ivchenko

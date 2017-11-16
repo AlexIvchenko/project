@@ -1,8 +1,8 @@
-package com.github.habiteria.core.domain.habit;
+package com.github.habiteria.core.domain.service.habit;
 
-import com.github.habiteria.core.model.Habit;
-import com.github.habiteria.core.model.Schedule;
-import com.github.habiteria.core.model.User;
+import com.github.habiteria.core.entities.Habit;
+import com.github.habiteria.core.entities.Schedule;
+import com.github.habiteria.core.entities.User;
 import com.github.habiteria.core.repository.HabitRepository;
 import com.github.habiteria.core.repository.UserRepository;
 import org.springframework.stereotype.Service;

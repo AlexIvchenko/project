@@ -1,7 +1,7 @@
 package com.github.habiteria.core.repository;
 
-import com.github.habiteria.core.model.User;
-import com.github.habiteria.core.model.Visitor;
+import com.github.habiteria.core.entities.User;
+import com.github.habiteria.core.entities.Visitor;
 import org.springframework.data.repository.CrudRepository;
 
 import java.time.LocalDate;

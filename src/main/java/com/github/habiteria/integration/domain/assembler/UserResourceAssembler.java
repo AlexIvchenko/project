@@ -1,6 +1,6 @@
 package com.github.habiteria.integration.domain.assembler;
 
-import com.github.habiteria.core.model.User;
+import com.github.habiteria.core.entities.User;
 import com.github.habiteria.integration.domain.resources.UserResource;
 import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.stereotype.Component;

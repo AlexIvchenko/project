@@ -1,7 +1,7 @@
 package com.github.habiteria.integration.domain.service;
 
-import com.github.habiteria.core.domain.habit.ScheduledHabit;
-import com.github.habiteria.core.domain.habit.Tracker;
+import com.github.habiteria.core.domain.model.ScheduledHabit;
+import com.github.habiteria.core.domain.service.habit.Tracker;
 import com.github.habiteria.integration.domain.assembler.ScheduledHabitResourceAssembler;
 import com.github.habiteria.integration.domain.resources.ScheduledHabitResource;
 import com.github.habiteria.integration.domain.utils.ResourceUtils;

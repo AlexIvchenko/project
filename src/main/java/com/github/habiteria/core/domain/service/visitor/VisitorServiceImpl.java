@@ -1,7 +1,7 @@
-package com.github.habiteria.core.domain.visitor;
+package com.github.habiteria.core.domain.service.visitor;
 
-import com.github.habiteria.core.model.User;
-import com.github.habiteria.core.model.Visitor;
+import com.github.habiteria.core.entities.User;
+import com.github.habiteria.core.entities.Visitor;
 import com.github.habiteria.core.repository.VisitorRepository;
 import org.springframework.stereotype.Service;
 

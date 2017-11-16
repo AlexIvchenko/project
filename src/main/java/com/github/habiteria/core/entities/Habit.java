@@ -1,4 +1,4 @@
-package com.github.habiteria.core.model;
+package com.github.habiteria.core.entities;
 
 import lombok.Getter;
 import lombok.Setter;

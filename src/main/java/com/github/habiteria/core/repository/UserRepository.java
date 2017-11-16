@@ -1,6 +1,6 @@
 package com.github.habiteria.core.repository;
 
-import com.github.habiteria.core.model.User;
+import com.github.habiteria.core.entities.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;

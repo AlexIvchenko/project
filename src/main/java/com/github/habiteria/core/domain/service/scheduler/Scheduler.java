@@ -1,8 +1,8 @@
-package com.github.habiteria.core.domain.habit;
+package com.github.habiteria.core.domain.service.scheduler;
 
-import com.github.habiteria.core.model.CalendarRecord;
-import com.github.habiteria.core.model.Habit;
-import com.github.habiteria.core.model.User;
+import com.github.habiteria.core.entities.CalendarRecord;
+import com.github.habiteria.core.entities.Habit;
+import com.github.habiteria.core.entities.User;
 
 import java.time.LocalDate;
 import java.util.Set;

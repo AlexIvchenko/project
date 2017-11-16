@@ -1,8 +1,9 @@
-package com.github.habiteria.core.domain.calendar;
+package com.github.habiteria.core.domain.service.calendar;
 
-import com.github.habiteria.core.domain.habit.Scheduler;
-import com.github.habiteria.core.model.CalendarRecord;
-import com.github.habiteria.core.model.Habit;
+import com.github.habiteria.core.domain.model.Calendar;
+import com.github.habiteria.core.domain.service.scheduler.Scheduler;
+import com.github.habiteria.core.entities.CalendarRecord;
+import com.github.habiteria.core.entities.Habit;
 import com.github.habiteria.core.repository.HabitRepository;
 import org.springframework.stereotype.Service;
 

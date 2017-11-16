@@ -1,7 +1,7 @@
 package com.github.habiteria.security;
 
-import com.github.habiteria.core.model.Habit;
-import com.github.habiteria.core.model.User;
+import com.github.habiteria.core.entities.Habit;
+import com.github.habiteria.core.entities.User;
 import com.github.habiteria.core.repository.HabitRepository;
 import com.github.habiteria.core.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;

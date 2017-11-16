@@ -1,7 +1,7 @@
-package com.github.habiteria.core.domain.habit;
+package com.github.habiteria.core.domain.model;
 
-import com.github.habiteria.core.model.Habit;
-import com.github.habiteria.core.model.Status;
+import com.github.habiteria.core.entities.Habit;
+import com.github.habiteria.core.entities.Status;
 
 /**
  * @author Alex Ivchenko

@@ -1,9 +1,11 @@
-package com.github.habiteria.core.domain.habit;
+package com.github.habiteria.core.domain.service.habit;
 
-import com.github.habiteria.core.model.CalendarRecord;
-import com.github.habiteria.core.model.Habit;
-import com.github.habiteria.core.model.Status;
-import com.github.habiteria.core.model.User;
+import com.github.habiteria.core.domain.model.ScheduledHabit;
+import com.github.habiteria.core.domain.service.scheduler.Scheduler;
+import com.github.habiteria.core.entities.CalendarRecord;
+import com.github.habiteria.core.entities.Habit;
+import com.github.habiteria.core.entities.Status;
+import com.github.habiteria.core.entities.User;
 import com.github.habiteria.core.repository.HabitRepository;
 import com.github.habiteria.core.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;

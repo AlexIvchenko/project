@@ -1,7 +1,7 @@
 package com.github.habiteria.integration.domain.assembler;
 
-import com.github.habiteria.core.domain.habit.ScheduledHabit;
-import com.github.habiteria.core.model.Habit;
+import com.github.habiteria.core.domain.model.ScheduledHabit;
+import com.github.habiteria.core.entities.Habit;
 import com.github.habiteria.integration.domain.links.Links;
 import com.github.habiteria.integration.domain.resources.ScheduledHabitResource;
 import org.springframework.hateoas.ResourceAssembler;

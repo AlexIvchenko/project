@@ -1,7 +1,7 @@
 package com.github.habiteria.integration.domain.resources;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.habiteria.core.model.Status;
+import com.github.habiteria.core.entities.Status;
 import lombok.EqualsAndHashCode;
 import org.springframework.hateoas.ResourceSupport;
 

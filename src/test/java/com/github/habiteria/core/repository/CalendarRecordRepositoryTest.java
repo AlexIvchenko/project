@@ -1,6 +1,6 @@
 package com.github.habiteria.core.repository;
 
-import com.github.habiteria.core.model.*;
+import com.github.habiteria.core.entities.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
