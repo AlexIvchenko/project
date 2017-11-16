@@ -12,9 +12,9 @@ import org.springframework.data.repository.query.Param;
 public interface UserRepository extends Repository<UserImpl, Long> {
 
     @Query("select u from UserImpl u where u.id = :id")
-    User findOne(@Param("id") String id);
+    User findOne(@Param("id") Long id);
 
     User findByUsername(String username);
 
-    User save(User s);
+    User save(UserImpl s);
 }

@@ -80,7 +80,7 @@ public class TrackerImpl implements Tracker {
     }
 
     private User fetchUser(Long userId) {
-        return userRepository.findOne(userId.toString());
+        return userRepository.findOne(userId);
     }
 
     private Habit fetchHabit(Long habitId) {

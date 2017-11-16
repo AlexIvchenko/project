@@ -1,13 +1,13 @@
 package com.github.habiteria.core.domain.service.habit;
 
 import com.github.habiteria.core.entities.Habit;
-import com.github.habiteria.core.entities.Schedule;
+import com.github.habiteria.core.entities.builders.Habits;
 import com.github.habiteria.core.entities.User;
+import com.github.habiteria.core.entities.imps.HabitImpl;
 import com.github.habiteria.core.repository.HabitRepository;
 import com.github.habiteria.core.repository.UserRepository;
+import com.github.habiteria.dto.HabitDto;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 
 /**
  * @author Alex Ivchenko
@@ -23,18 +23,14 @@ public class HabitServiceImpl implements HabitService {
     }
 
     @Override
-    public Habit create(Long userId, Habit habit) {
-        User user = userRepository.findOne(userId.toString());
-        Schedule schedule = habit.getSchedule();
-        if (schedule == null) {
-            schedule = new Schedule();
-        }
-        if (schedule.getStart() == null) {
-            schedule.setStart(LocalDateTime.now());
-        }
-        habit.setOwner(user);
-        habit = repository.save(habit);
-        return habit;
+    public Habit create(Long userId, HabitDto dto) {
+        User user = userRepository.findOne(userId);
+        HabitImpl habit = Habits.withOwner(user)
+                .withName(dto.getName())
+                .withDescription(dto.getDescription())
+                .withStart(dto.getSchedule().getStart());
+
+        return repository.save(habit);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.github.habiteria.core.entities.builders;
 
-import com.github.habiteria.core.entities.User;
 import com.github.habiteria.core.entities.imps.UserImpl;
 
 import java.util.Objects;
@@ -42,7 +41,7 @@ public class Users {
         }
 
         @Override
-        public User withName(String firstName, String lastName) {
+        public UserImpl withName(String firstName, String lastName) {
             this.firstName = firstName;
             this.lastName = lastName;
             return new UserImpl(username, firstName, lastName, email, password);
@@ -62,6 +61,6 @@ public class Users {
     }
 
     public interface NameStageBuilder {
-        User withName(String firstName, String lastName);
+        UserImpl withName(String firstName, String lastName);
     }
 }

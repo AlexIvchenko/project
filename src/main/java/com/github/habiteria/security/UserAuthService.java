@@ -1,13 +1,14 @@
 package com.github.habiteria.security;
 
 import com.github.habiteria.core.entities.User;
+import com.github.habiteria.dto.UserDto;
 import org.springframework.security.core.Authentication;
 
 /**
  * @author Alex Ivchenko
  */
 public interface UserAuthService {
-    User signUp(User user);
+    User signUp(UserDto dto);
 
     User currentUser();
 

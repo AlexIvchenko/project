@@ -1,5 +1,6 @@
 package com.github.habiteria.core.entities;
 
+import com.github.habiteria.core.entities.imps.HabitImpl;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +20,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(of = {"habit", "repeat"}, callSuper = false)
 public class CalendarRecord extends AbstractEntity {
 
-    @ManyToOne
+    @ManyToOne(targetEntity = HabitImpl.class)
     @JoinColumn(name = "habit_id")
     private Habit habit;
 

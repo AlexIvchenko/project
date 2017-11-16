@@ -1,7 +1,7 @@
 package com.github.habiteria.integration.domain.service;
 
 import com.github.habiteria.core.domain.service.habit.HabitService;
-import com.github.habiteria.core.entities.Habit;
+import com.github.habiteria.dto.HabitDto;
 import com.github.habiteria.integration.domain.assemblers.HabitResAsm;
 import com.github.habiteria.integration.domain.resources.HabitResource;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class HabitResourceServiceImpl implements HabitResourceService {
     }
 
     @Override
-    public HabitResource create(Long userId, Habit habit) {
+    public HabitResource create(Long userId, HabitDto habit) {
         return habitAsm.toResource(service.create(userId, habit));
     }
 

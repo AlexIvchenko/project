@@ -1,7 +1,10 @@
 package com.github.habiteria.core.repository;
 
 import com.github.habiteria.core.entities.*;
+import com.github.habiteria.core.entities.builders.Habits;
 import com.github.habiteria.core.entities.builders.Users;
+import com.github.habiteria.core.entities.imps.HabitImpl;
+import com.github.habiteria.core.entities.imps.UserImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,8 +30,8 @@ public class CalendarRecordRepositoryTest {
     @Autowired
     private CalendarRecordRepository repo;
 
-    private User user;
-    private Habit habit;
+    private UserImpl user;
+    private HabitImpl habit;
     private CalendarRecord today;
     private CalendarRecord yesterday;
     private CalendarRecord tomorrow;
@@ -40,9 +43,11 @@ public class CalendarRecordRepositoryTest {
                 .withEmail("test")
                 .withName("test", "test");
         userRepository.save(user);
-        habit = new Habit();
-        habit.setOwner(user);
-        habit.setSchedule(new Schedule());
+        habit = Habits.withOwner(user)
+                .withName("habit")
+                .withDescription("habit")
+                .withStart(LocalDateTime.now());
+
         habitRepository.save(habit);
 
         LocalDate now = LocalDate.now();

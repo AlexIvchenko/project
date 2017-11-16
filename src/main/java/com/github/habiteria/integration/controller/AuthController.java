@@ -1,6 +1,7 @@
 package com.github.habiteria.integration.controller;
 
 import com.github.habiteria.core.entities.User;
+import com.github.habiteria.dto.UserDto;
 import com.github.habiteria.integration.controller.annotations.Rest;
 import com.github.habiteria.integration.domain.assemblers.UserResAsm;
 import com.github.habiteria.integration.domain.resources.UserResource;
@@ -23,7 +24,7 @@ public class AuthController {
     }
 
     @PostMapping(path = "/users")
-    public HttpEntity<UserResource> create(@RequestBody final User user) {
+    public HttpEntity<UserResource> create(@RequestBody final UserDto user) {
         return new HttpEntity<>(assembler.toResource(userAuthService.signUp(user)));
     }
 }

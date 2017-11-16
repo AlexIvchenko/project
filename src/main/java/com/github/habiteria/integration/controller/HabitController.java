@@ -1,6 +1,6 @@
 package com.github.habiteria.integration.controller;
 
-import com.github.habiteria.core.entities.Habit;
+import com.github.habiteria.dto.HabitDto;
 import com.github.habiteria.integration.controller.annotations.Rest;
 import com.github.habiteria.integration.domain.resources.HabitResource;
 import com.github.habiteria.integration.domain.service.HabitResourceService;
@@ -23,7 +23,7 @@ public class HabitController {
     @PostMapping(path = "/users/{userId}/habits")
     public HttpEntity<HabitResource> create(
             @PathVariable("userId") final Long userId,
-            @RequestBody final Habit habit) {
+            @RequestBody final HabitDto habit) {
         return new HttpEntity<>(service.create(userId, habit));
     }
 

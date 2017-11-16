@@ -2,8 +2,11 @@ package com.github.habiteria.security;
 
 import com.github.habiteria.core.entities.Habit;
 import com.github.habiteria.core.entities.User;
+import com.github.habiteria.core.entities.builders.Users;
+import com.github.habiteria.core.entities.imps.UserImpl;
 import com.github.habiteria.core.repository.HabitRepository;
 import com.github.habiteria.core.repository.UserRepository;
+import com.github.habiteria.dto.UserDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -42,7 +45,7 @@ public class UserAuthServiceImpl implements UserAuthService {
     }
 
     private User object(Long userId) {
-        return userRepository.findOne(userId.toString());
+        return userRepository.findOne(userId);
     }
 
     private User subject(Authentication auth) {
@@ -60,10 +63,13 @@ public class UserAuthServiceImpl implements UserAuthService {
     }
 
     @Override
-    public User signUp(User user) {
-        log.info("signing up: " + user.toString());
-        checkIdentity(user);
-        user.changePassword(passwordEncoder.encode(user.getPassword()));
+    public User signUp(UserDto dto) {
+        log.info("signing up: " + dto.toString());
+        checkIdentity(dto);
+        UserImpl user = Users.withUsername(dto.getUsername())
+                .withPassword(passwordEncoder.encode(dto.getPassword()))
+                .withEmail(dto.getEmail())
+                .withName(dto.getFirstName(), dto.getLastName());
         return userRepository.save(user);
     }
 
@@ -72,10 +78,10 @@ public class UserAuthServiceImpl implements UserAuthService {
         return subject(SecurityContextHolder.getContext().getAuthentication());
     }
 
-    private void checkIdentity(User user) {
+    private void checkIdentity(UserDto user) {
         User loaded = userRepository.findByUsername(user.getUsername());
         if (loaded != null) {
-            throw new UsernameAlreadyUsedException("getUsername " + user.getUsername() + " already used");
+            throw new UsernameAlreadyUsedException("username " + user.getUsername() + " already used");
         }
     }
 }
