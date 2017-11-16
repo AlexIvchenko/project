@@ -7,8 +7,6 @@ import com.github.habiteria.integration.domain.resources.ScheduledHabitResource;
 import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
 /**
  * @author Alex Ivchenko
  */
@@ -18,8 +16,8 @@ public class ScheduledHabitResAsm implements ResourceAssembler<ScheduledHabit, S
     public ScheduledHabitResource toResource(ScheduledHabit entity) {
         Habit habit = entity.getHabit();
         final ScheduledHabitResource resource = new ScheduledHabitResource(habit.getName(), habit.getDescription(), entity.isVerifiable(), entity.isRequired(), entity.getStatus());
-        final UUID userId = UUID.fromString(habit.getOwner().getId());
-        final UUID habitId = UUID.fromString(habit.getId());
+        final Long userId = habit.getOwner().getId();
+        final Long habitId = habit.getId();
 
         if (entity.isVerifiable()) {
             if (entity.isUnverified()) {

@@ -1,6 +1,7 @@
 package com.github.habiteria.core.entities;
 
 import com.github.habiteria.core.entities.imps.UserImpl;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,6 +16,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "habits")
 @ToString(of = "name", callSuper = false)
+@EqualsAndHashCode(of = {"owner", "name"}, callSuper = false)
 public class Habit extends AbstractEntity {
     @ManyToOne(targetEntity = UserImpl.class)
     @JoinColumn(name = "user_id", nullable = false)

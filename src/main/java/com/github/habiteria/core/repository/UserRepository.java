@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 /**
  * @author Alex Ivchenko
  */
-public interface UserRepository extends Repository<UserImpl, String> {
+public interface UserRepository extends Repository<UserImpl, Long> {
 
     @Query("select u from UserImpl u where u.id = :id")
     User findOne(@Param("id") String id);

@@ -8,7 +8,6 @@ import com.github.habiteria.core.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 /**
  * @author Alex Ivchenko
@@ -24,7 +23,7 @@ public class HabitServiceImpl implements HabitService {
     }
 
     @Override
-    public Habit create(UUID userId, Habit habit) {
+    public Habit create(Long userId, Habit habit) {
         User user = userRepository.findOne(userId.toString());
         Schedule schedule = habit.getSchedule();
         if (schedule == null) {
@@ -39,7 +38,7 @@ public class HabitServiceImpl implements HabitService {
     }
 
     @Override
-    public Habit get(UUID habitId) {
-        return repository.findOne(habitId.toString());
+    public Habit get(Long habitId) {
+        return repository.findOne(habitId);
     }
 }

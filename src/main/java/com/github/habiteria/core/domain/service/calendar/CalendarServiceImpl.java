@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Set;
-import java.util.UUID;
 
 /**
  * @author Alex Ivchenko
@@ -25,8 +24,8 @@ public class CalendarServiceImpl implements CalendarService {
     }
 
     @Override
-    public Calendar getCalendar(UUID habitId, LocalDate from, LocalDate to) {
-        Habit habit = habitRepository.findOne(habitId.toString());
+    public Calendar getCalendar(Long habitId, LocalDate from, LocalDate to) {
+        Habit habit = habitRepository.findOne(habitId);
         Set<CalendarRecord> records = scheduler.getRecords(habit, from, to);
         return new Calendar(habit, from, to, records);
     }

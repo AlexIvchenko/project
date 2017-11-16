@@ -24,8 +24,8 @@ public class CalendarResAsm implements ResourceAssembler<Calendar, CalendarResou
 
     @Override
     public CalendarResource toResource(Calendar entity) {
-        UUID userId = UUID.fromString(entity.getHabit().getOwner().getId());
-        UUID habitId = UUID.fromString(entity.getHabit().getId());
+        Long userId = entity.getHabit().getOwner().getId();
+        Long habitId = entity.getHabit().getId();
 
         Set<CalendarRecordResource> records = ResourceUtils.toResourceSet(entity.getRecords(), assembler);
         Map<LocalDate, Set<CalendarRecordResource>> recordsMap = new HashMap<>();

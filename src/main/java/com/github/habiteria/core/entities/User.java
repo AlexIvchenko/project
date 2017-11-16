@@ -4,7 +4,7 @@ package com.github.habiteria.core.entities;
  * @author Alex Ivchenko
  */
 public interface User {
-    String getId();
+    Long getId();
 
     String getUsername();
 

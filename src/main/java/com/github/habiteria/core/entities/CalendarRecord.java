@@ -1,5 +1,6 @@
 package com.github.habiteria.core.entities;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @Entity
 @ToString(of = "habit", callSuper = false)
 @Table(name = "calendar_records")
+@EqualsAndHashCode(of = {"habit", "repeat"}, callSuper = false)
 public class CalendarRecord extends AbstractEntity {
 
     @ManyToOne

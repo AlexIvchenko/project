@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 /**
  * @author Alex Ivchenko
@@ -34,7 +33,7 @@ public class TrackerImpl implements Tracker {
     }
 
     @Override
-    public Set<ScheduledHabit> getCurrentHabitList(UUID userId) {
+    public Set<ScheduledHabit> getCurrentHabitList(Long userId) {
         User user = fetchUser(userId);
         Set<CalendarRecord> records = scheduler.findVerifiable(user);
         Set<ScheduledHabit> scheduled = new HashSet<>();
@@ -46,7 +45,7 @@ public class TrackerImpl implements Tracker {
     }
 
     @Override
-    public ScheduledHabit perform(UUID habitId, int repeat) {
+    public ScheduledHabit perform(Long habitId, int repeat) {
         Habit habit = fetchHabit(habitId);
         CalendarRecord record = scheduler.getRecord(habit, repeat);
         // TODO validation
@@ -57,7 +56,7 @@ public class TrackerImpl implements Tracker {
     }
 
     @Override
-    public ScheduledHabit fail(UUID habitId, int repeat) {
+    public ScheduledHabit fail(Long habitId, int repeat) {
         Habit habit = fetchHabit(habitId);
         CalendarRecord record = scheduler.getRecord(habit, repeat);
         record.setStatus(Status.FAIL);
@@ -66,7 +65,7 @@ public class TrackerImpl implements Tracker {
     }
 
     @Override
-    public ScheduledHabit undo(UUID habitId, int repeat) {
+    public ScheduledHabit undo(Long habitId, int repeat) {
         Habit habit = fetchHabit(habitId);
         CalendarRecord record = scheduler.getRecord(habit, repeat);
         record.setStatus(Status.UNVERIFIED);
@@ -80,11 +79,11 @@ public class TrackerImpl implements Tracker {
         return new ScheduledHabit(habit, record.isRequired(), verifiable, record.getStatus(), record.getRepeat());
     }
 
-    private User fetchUser(UUID userId) {
+    private User fetchUser(Long userId) {
         return userRepository.findOne(userId.toString());
     }
 
-    private Habit fetchHabit(UUID habitId) {
-        return habitRepository.findOne(habitId.toString());
+    private Habit fetchHabit(Long habitId) {
+        return habitRepository.findOne(habitId);
     }
 }

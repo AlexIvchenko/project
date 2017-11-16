@@ -7,7 +7,6 @@ import com.github.habiteria.integration.controller.TrackingController;
 import org.springframework.hateoas.Link;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -21,40 +20,40 @@ public class Links {
                 .withRel("signUp");
     }
 
-    public static Link createHabit(UUID userId) {
+    public static Link createHabit(Long userId) {
         return linkTo(methodOn(HabitController.class).create(userId, null))
                 .withRel("create");
     }
 
-    public static Link getCurrentHabitList(UUID userId) {
+    public static Link getCurrentHabitList(Long userId) {
         return linkTo(methodOn(TrackingController.class).getCurrentHabitList(userId))
                 .withRel("getCurrentHabitList");
     }
 
-    public static Link perform(UUID userId, UUID habitId, int repeat) {
+    public static Link perform(Long userId, Long habitId, int repeat) {
         return linkTo(methodOn(TrackingController.class).perform(userId, habitId, repeat))
                 .withRel("perform");
     }
 
 
-    public static Link fail(UUID userId, UUID habitId, int repeat) {
+    public static Link fail(Long userId, Long habitId, int repeat) {
         return linkTo(methodOn(TrackingController.class).fail(userId, habitId, repeat))
                 .withRel("fail");
     }
 
-    public static Link undo(UUID userId, UUID habitId, int repeats) {
+    public static Link undo(Long userId, Long habitId, int repeats) {
         return linkTo(methodOn(TrackingController.class).undo(userId, habitId, repeats))
                 .withRel("undo");
     }
 
-    public static Link getCalendarForLastMonth(UUID userId, UUID habitId) {
+    public static Link getCalendarForLastMonth(Long userId, Long habitId) {
         LocalDate now = LocalDate.now();
         LocalDate monthAgo = now.minusMonths(1);
         return linkTo(methodOn(CalendarController.class).getCalendar(userId, habitId, monthAgo, now))
                 .withRel("getCalendarForLastMonth");
     }
 
-    public static Link getHabitCard(UUID userId, UUID habitId) {
+    public static Link getHabitCard(Long userId, Long habitId) {
         return linkTo(methodOn(HabitController.class).getHabitCard(userId, habitId))
                 .withRel("getCard");
     }

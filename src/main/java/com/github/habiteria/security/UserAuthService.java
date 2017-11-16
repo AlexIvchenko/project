@@ -3,8 +3,6 @@ package com.github.habiteria.security;
 import com.github.habiteria.core.entities.User;
 import org.springframework.security.core.Authentication;
 
-import java.util.UUID;
-
 /**
  * @author Alex Ivchenko
  */
@@ -13,7 +11,7 @@ public interface UserAuthService {
 
     User currentUser();
 
-    boolean isAuthorized(Authentication auth, UUID userId);
+    boolean isAuthorized(Authentication auth, Long userId);
 
-    boolean isAuthorized(UUID userId, UUID habitId);
+    boolean isAuthorized(Long userId, Long habitId);
 }

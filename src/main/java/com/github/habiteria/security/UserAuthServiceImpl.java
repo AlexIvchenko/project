@@ -11,8 +11,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 /**
  * @author Alex Ivchenko
  */
@@ -31,7 +29,7 @@ public class UserAuthServiceImpl implements UserAuthService {
     }
 
     @Override
-    public boolean isAuthorized(Authentication auth, UUID userId) {
+    public boolean isAuthorized(Authentication auth, Long userId) {
         log.info("checking authorities: " + userId + " " + auth);
         User object = object(userId);
         User subject = subject(auth);
@@ -43,7 +41,7 @@ public class UserAuthServiceImpl implements UserAuthService {
         return ret;
     }
 
-    private User object(UUID userId) {
+    private User object(Long userId) {
         return userRepository.findOne(userId.toString());
     }
 
@@ -52,10 +50,10 @@ public class UserAuthServiceImpl implements UserAuthService {
     }
 
     @Override
-    public boolean isAuthorized(UUID userId, UUID habitId) {
+    public boolean isAuthorized(Long userId, Long habitId) {
         log.info("checking authorities: " + userId + " " + habitId);
         User user = object(userId);
-        Habit habit = habitRepository.findOne(habitId.toString());
+        Habit habit = habitRepository.findOne(habitId);
         boolean ret = habit.getOwner().equals(user);
         log.info("authorization {}", ret ? "success" : "failed");
         return ret;

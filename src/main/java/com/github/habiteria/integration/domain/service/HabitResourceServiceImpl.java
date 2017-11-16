@@ -6,8 +6,6 @@ import com.github.habiteria.integration.domain.assemblers.HabitResAsm;
 import com.github.habiteria.integration.domain.resources.HabitResource;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 /**
  * @author Alex Ivchenko
  */
@@ -22,12 +20,12 @@ public class HabitResourceServiceImpl implements HabitResourceService {
     }
 
     @Override
-    public HabitResource create(UUID userId, Habit habit) {
+    public HabitResource create(Long userId, Habit habit) {
         return habitAsm.toResource(service.create(userId, habit));
     }
 
     @Override
-    public HabitResource getHabit(UUID userId, UUID habitId) {
+    public HabitResource getHabit(Long userId, Long habitId) {
         return habitAsm.toResource(service.get(habitId));
     }
 }

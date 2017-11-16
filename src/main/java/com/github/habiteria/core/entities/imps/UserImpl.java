@@ -19,6 +19,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
+@EqualsAndHashCode(of = "username", callSuper = false)
 public class UserImpl extends AbstractEntity implements User {
 
     @Column(name = "username", nullable = false, unique = true)

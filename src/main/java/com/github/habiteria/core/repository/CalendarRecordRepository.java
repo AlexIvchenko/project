@@ -13,7 +13,7 @@ import java.util.Set;
 /**
  * @author Alex Ivchenko
  */
-public interface CalendarRecordRepository extends CrudRepository<CalendarRecord, String> {
+public interface CalendarRecordRepository extends CrudRepository<CalendarRecord, Long> {
 
     @Query("select rec from CalendarRecord rec where rec.habit = :habit and rec.repeat = :repeat")
     CalendarRecord findOne(@Param("habit") Habit habit, @Param("repeat") int repeat);

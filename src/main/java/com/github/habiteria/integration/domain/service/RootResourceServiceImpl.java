@@ -6,8 +6,6 @@ import com.github.habiteria.security.UserAuthService;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 /**
  * @author Alex Ivchenko
  */
@@ -32,7 +30,7 @@ public class RootResourceServiceImpl implements RootResourceService {
     }
 
     private void fillLinksForAuthenticatedUser(User user, ResourceSupport links) {
-        UUID userId = UUID.fromString(user.getId());
+        Long userId = user.getId();
         links.add(Links.createHabit(userId));
         links.add(Links.getCurrentHabitList(userId));
     }

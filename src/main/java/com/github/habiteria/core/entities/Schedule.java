@@ -1,5 +1,6 @@
 package com.github.habiteria.core.entities;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name = "schedules")
+@EqualsAndHashCode(of = "habit", callSuper = false)
 public class Schedule extends AbstractEntity {
     public Schedule() {
 

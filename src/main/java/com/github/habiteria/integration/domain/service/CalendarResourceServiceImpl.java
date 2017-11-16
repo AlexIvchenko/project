@@ -6,7 +6,6 @@ import com.github.habiteria.integration.domain.resources.CalendarResource;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 /**
  * @author Alex Ivchenko
@@ -22,7 +21,7 @@ public class CalendarResourceServiceImpl implements CalendarResourceService {
     }
 
     @Override
-    public CalendarResource getCalendar(UUID habitId, LocalDate from, LocalDate to) {
+    public CalendarResource getCalendar(Long habitId, LocalDate from, LocalDate to) {
         return assembler.toResource(service.getCalendar(habitId, from, to));
     }
 }

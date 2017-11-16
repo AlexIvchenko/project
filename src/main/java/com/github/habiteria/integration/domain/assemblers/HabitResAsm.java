@@ -6,8 +6,6 @@ import com.github.habiteria.integration.domain.resources.HabitResource;
 import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
 /**
  * @author Alex Ivchenko
  */
@@ -16,8 +14,8 @@ public class HabitResAsm implements ResourceAssembler<Habit, HabitResource> {
     @Override
     public HabitResource toResource(Habit entity) {
         HabitResource resource = new HabitResource(entity.getName(), entity.getDescription());
-        UUID userId = UUID.fromString(entity.getOwner().getId());
-        UUID habitId = UUID.fromString(entity.getId());
+        Long userId = entity.getOwner().getId();
+        Long habitId = entity.getId();
         resource.add(Links.getCalendarForLastMonth(userId, habitId));
         return resource;
     }

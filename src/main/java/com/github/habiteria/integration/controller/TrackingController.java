@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.UUID;
-
 /**
  * @author Alex Ivchenko
  */
@@ -24,30 +22,30 @@ public class TrackingController {
 
     @GetMapping(path = "/users/{userId}/habits/")
     public HttpEntity<Resources<ScheduledHabitResource>> getCurrentHabitList(
-            @PathVariable("userId") final UUID userId) {
+            @PathVariable("userId") final Long userId) {
         return new HttpEntity<>(service.getCurrentHabitList(userId));
     }
 
     @PostMapping(path = "/users/{userId}/habits/{habitId}/{repeat}/perform")
     public HttpEntity<ScheduledHabitResource> perform(
-            @PathVariable("userId") final UUID userId,
-            @PathVariable("habitId") final UUID habitId,
+            @PathVariable("userId") final Long userId,
+            @PathVariable("habitId") final Long habitId,
             @PathVariable("repeat") final int repeat) {
         return new HttpEntity<>(service.perform(habitId, repeat));
     }
 
     @PostMapping(path = "/users/{userId}/habits/{habitId}/{repeat}/fail")
     public HttpEntity<ScheduledHabitResource> fail(
-            @PathVariable("userId") final UUID userId,
-            @PathVariable("habitId") final UUID habitId,
+            @PathVariable("userId") final Long userId,
+            @PathVariable("habitId") final Long habitId,
             @PathVariable("repeat") final int repeat) {
         return new HttpEntity<>(service.fail(habitId, repeat));
     }
 
 
     @PostMapping(path = "/users/{userId}/habits/{habitId}/{repeat}/undo")
-    public HttpEntity<ScheduledHabitResource> undo(@PathVariable("userId") final UUID userId,
-                                                   @PathVariable("habitId") final UUID habitId,
+    public HttpEntity<ScheduledHabitResource> undo(@PathVariable("userId") final Long userId,
+                                                   @PathVariable("habitId") final Long habitId,
                                                    @PathVariable("repeat") final int repeat) {
         return new HttpEntity<>(service.undo(habitId, repeat));
     }

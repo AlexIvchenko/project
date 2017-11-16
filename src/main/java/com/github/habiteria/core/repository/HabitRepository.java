@@ -9,6 +9,6 @@ import java.util.Set;
 /**
  * @author Alex Ivchenko
  */
-public interface HabitRepository extends CrudRepository<Habit, String> {
+public interface HabitRepository extends CrudRepository<Habit, Long> {
     Set<Habit> findByOwner(User owner);
 }
