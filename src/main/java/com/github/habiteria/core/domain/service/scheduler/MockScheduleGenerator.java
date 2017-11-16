@@ -18,53 +18,31 @@ import java.util.Set;
  * @author Alex Ivchenko
  */
 @Service
-public class MockScheduler implements Scheduler {
-
-    private final CalendarRecordRepository recordRepository;
+public class MockScheduleGenerator implements ScheduleGenerator {
     private final HabitRepository habitRepository;
+    private final CalendarRecordRepository recordRepository;
 
-    public MockScheduler(CalendarRecordRepository recordRepository, HabitRepository habitRepository) {
-        this.recordRepository = recordRepository;
+    public MockScheduleGenerator(HabitRepository habitRepository, CalendarRecordRepository recordRepository) {
         this.habitRepository = habitRepository;
+        this.recordRepository = recordRepository;
     }
-
-    @Override
-    public CalendarRecord getRecord(Habit habit, int repeat) {
-        generate(habit);
-        return recordRepository.findOne(habit, repeat);
-    }
-
-    @Override
-    public CalendarRecord update(CalendarRecord record) {
-        return recordRepository.save(record);
-    }
-
-    @Override
-    public Set<CalendarRecord> findVerifiable(User user) {
-        generateAll(user);
-        return recordRepository.findVerifiableIn(user, LocalDateTime.now());
-    }
-
-    @Override
-    public Set<CalendarRecord> getRecords(Habit habit, LocalDate from, LocalDate to) {
-        generate(habit, to.atStartOfDay());
-        return recordRepository.findBetween(habit, from.atStartOfDay(), to.plusDays(1).atStartOfDay());
-    }
-
 
     // TODO cache
-    private void generateAll(User user) {
+    @Override
+    public void generateAll(User user) {
         Set<Habit> habits = habitRepository.findByOwner(user);
         for (Habit habit: habits) {
             generate(habit);
         }
     }
 
-    private void generate(Habit habit) {
+    @Override
+    public void generate(Habit habit) {
         generate(habit, LocalDate.now().plusDays(1).atStartOfDay());
     }
 
-    private void generate(Habit habit, LocalDateTime to) {
+    @Override
+    public void generate(Habit habit, LocalDateTime to) {
         CalendarRecord last = recordRepository.getLastRecord(habit);
         if (last != null) {
             doGenerate(habit, last.getRepeat() + 1, to);
@@ -73,7 +51,8 @@ public class MockScheduler implements Scheduler {
         }
     }
 
-    private void doGenerate(Habit habit, int nextRepeat, LocalDateTime to) {
+    @Override
+    public void doGenerate(Habit habit, int nextRepeat, LocalDateTime to) {
         Set<CalendarRecord> records = new HashSet<>();
 
         LocalDate scheduleStart = habit.getSchedule().getStart().toLocalDate();
