@@ -38,11 +38,11 @@ public class MockScheduleGenerator implements ScheduleGenerator {
 
     @Override
     public void generate(Habit habit) {
-        generate(habit, LocalDate.now().plusDays(1).atStartOfDay());
+        generate(habit, LocalDate.now());
     }
 
-    @Override
-    public void generate(Habit habit, LocalDateTime to) {
+
+    private void generate(Habit habit, LocalDate to) {
         CalendarRecord last = recordRepository.getLastRecord(habit);
         if (last != null) {
             doGenerate(habit, last.getRepeat() + 1, to);
@@ -51,15 +51,14 @@ public class MockScheduleGenerator implements ScheduleGenerator {
         }
     }
 
-    @Override
-    public void doGenerate(Habit habit, int nextRepeat, LocalDateTime to) {
+    private void doGenerate(Habit habit, int nextRepeat, LocalDate to) {
         Set<CalendarRecord> records = new HashSet<>();
 
         LocalDate scheduleStart = habit.getSchedule().getStart().toLocalDate();
         LocalDate from = scheduleStart.plusDays(nextRepeat - 1);
 
         int repeat = nextRepeat;
-        for (LocalDate date : new LocalDateRange(from, to.toLocalDate())) {
+        for (LocalDate date : new LocalDateRange(from, to)) {
             CalendarRecord record = new CalendarRecord();
             record.setStatus(Status.UNVERIFIED);
             record.setHabit(habit);

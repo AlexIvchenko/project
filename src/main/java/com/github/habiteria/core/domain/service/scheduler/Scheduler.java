@@ -11,11 +11,11 @@ import java.util.Set;
  * @author Alex Ivchenko
  */
 public interface Scheduler {
-    CalendarRecord getRecord(Habit habit, int repeat);
+    CalendarRecord getRecord(Habit habit, int repeat) throws FutureScheduleRetreivingException;
 
     CalendarRecord update(CalendarRecord record);
 
     Set<CalendarRecord> findVerifiable(User user);
 
-    Set<CalendarRecord> getRecords(Habit habit, LocalDate from, LocalDate to);
+    Set<CalendarRecord> getRecords(Habit habit, LocalDate from, LocalDate to) throws FutureScheduleRetreivingException;
 }
