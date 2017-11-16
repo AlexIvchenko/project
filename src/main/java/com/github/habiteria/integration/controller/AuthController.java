@@ -6,9 +6,8 @@ import com.github.habiteria.integration.domain.assemblers.UserResAsm;
 import com.github.habiteria.integration.domain.resources.UserResource;
 import com.github.habiteria.security.UserAuthService;
 import org.springframework.http.HttpEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * @author Alex Ivchenko
@@ -26,22 +25,5 @@ public class AuthController {
     @PostMapping(path = "/users")
     public HttpEntity<UserResource> create(@RequestBody final User user) {
         return new HttpEntity<>(assembler.toResource(userAuthService.signUp(user)));
-    }
-
-    @RequestMapping(path = "/users", method = RequestMethod.HEAD)
-    public void createHead() {
-
-    }
-
-    @PutMapping(path = "/users/{id}")
-    public HttpEntity<UserResource> update(@PathVariable final UUID id,
-                                           @RequestBody final User user) {
-        return new HttpEntity<>(assembler.toResource(userAuthService.update(id, user)));
-    }
-
-    @PatchMapping(path = "/users/{id}")
-    public HttpEntity<UserResource> patch(@PathVariable final UUID id,
-                                          @RequestBody final User user) {
-        return new HttpEntity<>(assembler.toResource(userAuthService.patch(id, user)));
     }
 }

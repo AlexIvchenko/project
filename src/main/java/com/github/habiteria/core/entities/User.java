@@ -1,46 +1,18 @@
 package com.github.habiteria.core.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
-
-import javax.persistence.*;
-
 /**
  * @author Alex Ivchenko
  */
-@Setter
-@Getter
-@ToString(of = "username")
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
-@Table(name = "users")
-public class User extends AbstractEntity {
+public interface User {
+    String getId();
 
-    @Column(name = "username", nullable = false, unique = true)
-    private String username;
+    String getUsername();
 
-    @Column(name = "first_name")
-    private String firstName;
+    String getPassword();
 
-    @Column(name = "last_name")
-    private String lastName;
+    String getFirstName();
 
-    @Column(name = "email", nullable = false, unique = true)
-    private String email;
+    String getLastName();
 
-    @Column(name = "password", nullable = false)
-    private String password;
-
-    @JsonProperty
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @JsonIgnore
-    public String getPassword() {
-        return password;
-    }
+    void changePassword(String password);
 }

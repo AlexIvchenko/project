@@ -1,5 +1,6 @@
 package com.github.habiteria.core.entities;
 
+import com.github.habiteria.core.entities.imps.UserImpl;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,7 +16,7 @@ import javax.persistence.*;
 @Table(name = "habits")
 @ToString(of = "name", callSuper = false)
 public class Habit extends AbstractEntity {
-    @ManyToOne
+    @ManyToOne(targetEntity = UserImpl.class)
     @JoinColumn(name = "user_id", nullable = false)
     private User owner;
 

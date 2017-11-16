@@ -1,6 +1,7 @@
 package com.github.habiteria.core.repository;
 
 import com.github.habiteria.core.entities.*;
+import com.github.habiteria.core.entities.builders.Users;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,7 +35,10 @@ public class CalendarRecordRepositoryTest {
 
     @Before
     public void setUp() throws Exception {
-        user = new User("Test", "test", "test", "test", "test");
+        user = Users.withUsername("Test")
+                .withPassword("test")
+                .withEmail("test")
+                .withName("test", "test");
         userRepository.save(user);
         habit = new Habit();
         habit.setOwner(user);

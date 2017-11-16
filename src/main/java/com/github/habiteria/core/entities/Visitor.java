@@ -1,5 +1,6 @@
 package com.github.habiteria.core.entities;
 
+import com.github.habiteria.core.entities.imps.UserImpl;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +16,7 @@ import java.time.LocalDate;
 @Table(name = "visitors")
 public class Visitor extends AbstractEntity {
 
-    @ManyToOne
+    @ManyToOne(targetEntity = UserImpl.class)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 

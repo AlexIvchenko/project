@@ -1,6 +1,7 @@
 package com.github.habiteria;
 
 import com.github.habiteria.core.entities.User;
+import com.github.habiteria.core.entities.builders.Users;
 import com.github.habiteria.core.repository.UserRepository;
 import com.github.habiteria.core.domain.service.visitor.VisitorService;
 import com.github.habiteria.security.DatabaseUserDetailsService;
@@ -43,10 +44,10 @@ public class DatabaseUserDetailsServiceTest {
 
     @Before
     public void setUp() throws Exception {
-        User user = User.builder()
-                .username("test")
-                .password("pass")
-                .build();
+        User user = Users.withUsername("test")
+                .withPassword("test")
+                .withEmail("test")
+                .withName("test", "test");
         Mockito.when(userRepository.findByUsername("test")).thenReturn(user);
     }
 

@@ -1,6 +1,7 @@
 package com.github.habiteria.vaadin.service;
 
 import com.github.habiteria.core.entities.User;
+import com.github.habiteria.core.entities.builders.Users;
 import com.github.habiteria.security.UserAuthService;
 import com.github.habiteria.vaadin.ui.beans.SignUpBean;
 import lombok.extern.slf4j.Slf4j;
@@ -33,13 +34,10 @@ public class WebUserAuthServiceImpl implements WebUserAuthService {
 
     @Override
     public void signUp(SignUpBean bean) {
-        User user = User.builder()
-                .username(bean.getUsername())
-                .email(bean.getEmail())
-                .firstName(bean.getFirstName())
-                .lastName(bean.getLastName())
-                .password(bean.getPassword())
-                .build();
+        User user = Users.withUsername(bean.getUsername())
+                .withPassword(bean.getPassword())
+                .withEmail(bean.getEmail())
+                .withName(bean.getFirstName(), bean.getLastName());
         userAuthService.signUp(user);
     }
 

@@ -16,8 +16,4 @@ public interface UserAuthService {
     boolean isAuthorized(Authentication auth, UUID userId);
 
     boolean isAuthorized(UUID userId, UUID habitId);
-
-    User update(UUID id, User user);
-
-    User patch(UUID id, User user);
 }
