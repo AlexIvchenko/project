@@ -1,7 +1,7 @@
 package com.github.habiteria.core.domain.service.scheduler;
 
-import com.github.habiteria.core.domain.service.scheduler.exceptions.FutureScheduleRetreivingException;
-import com.github.habiteria.core.domain.service.scheduler.exceptions.SequenceOfRepeatsBrokenException;
+import com.github.habiteria.core.exceptions.client.FutureScheduleRetrievingException;
+import com.github.habiteria.core.exceptions.server.SequenceOfRepeatsBrokenException;
 import com.github.habiteria.core.entities.CalendarRecord;
 import com.github.habiteria.core.entities.Habit;
 import com.github.habiteria.core.entities.User;
@@ -58,13 +58,25 @@ public class SchedulerImplTest {
         verify(generator).generate(habit);
     }
 
-    @Test(expected = FutureScheduleRetreivingException.class)
-    public void givenFutureDate_whenGettingRecords_thenFail() throws Exception {
+    @Test(expected = IllegalArgumentException.class)
+    public void givenBadBounds_whenGettingRecords_thenFail() throws Exception {
+        Habit habit = mock(Habit.class);
+        scheduler.getRecords(habit, LocalDate.now(), LocalDate.now().minusDays(1));
+    }
+
+    @Test(expected = FutureScheduleRetrievingException.class)
+    public void givenFutureFromBound_whenGettingRecords_thenFail() throws Exception {
+        Habit habit = mock(Habit.class);
+        scheduler.getRecords(habit, LocalDate.now().plusDays(1), LocalDate.now().plusDays(1));
+    }
+
+    @Test(expected = FutureScheduleRetrievingException.class)
+    public void givenFutureToDate_whenGettingRecords_thenFail() throws Exception {
         Habit habit = mock(Habit.class);
         scheduler.getRecords(habit, LocalDate.now().minusDays(1), LocalDate.now().plusDays(1));
     }
 
-    @Test(expected = FutureScheduleRetreivingException.class)
+    @Test(expected = FutureScheduleRetrievingException.class)
     public void givenFutureRepeat_whenGettingRecord_thenFail() throws Exception {
         Habit habit = mock(Habit.class);
         scheduler.getRecord(habit, 1);

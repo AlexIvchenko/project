@@ -1,7 +1,7 @@
 package com.github.habiteria.core.domain.service.scheduler;
 
-import com.github.habiteria.core.domain.service.scheduler.exceptions.FutureScheduleRetreivingException;
-import com.github.habiteria.core.domain.service.scheduler.exceptions.SequenceOfRepeatsBrokenException;
+import com.github.habiteria.core.exceptions.client.FutureScheduleRetrievingException;
+import com.github.habiteria.core.exceptions.server.SequenceOfRepeatsBrokenException;
 import com.github.habiteria.core.entities.CalendarRecord;
 import com.github.habiteria.core.entities.Habit;
 import com.github.habiteria.core.entities.User;
@@ -26,7 +26,7 @@ public class SchedulerImpl implements Scheduler {
     }
 
     @Override
-    public CalendarRecord getRecord(Habit habit, int repeat) throws FutureScheduleRetreivingException {
+    public CalendarRecord getRecord(Habit habit, int repeat) throws FutureScheduleRetrievingException {
         if (repeat <= 0) {
             throw new IllegalArgumentException("repeat must be greater than 0");
         }
@@ -35,7 +35,7 @@ public class SchedulerImpl implements Scheduler {
         if (record == null) {
             CalendarRecord last = recordRepository.getLastRecord(habit);
             if (last == null || last.getRepeat() < repeat) {
-                throw new FutureScheduleRetreivingException(habit, repeat);
+                throw new FutureScheduleRetrievingException(habit, repeat);
             } else {
                 throw new SequenceOfRepeatsBrokenException(habit, repeat, last);
             }
@@ -56,9 +56,15 @@ public class SchedulerImpl implements Scheduler {
     }
 
     @Override
-    public Set<CalendarRecord> getRecords(Habit habit, LocalDate from, LocalDate to) throws FutureScheduleRetreivingException {
+    public Set<CalendarRecord> getRecords(Habit habit, LocalDate from, LocalDate to) throws FutureScheduleRetrievingException {
+        if (from.isAfter(to)) {
+            throw new IllegalArgumentException("\"from\" date must not be after than \"to\" date");
+        }
+        if (from.isAfter(LocalDate.now())) {
+            throw new FutureScheduleRetrievingException(habit, from);
+        }
         if (to.isAfter(LocalDate.now())) {
-            throw new FutureScheduleRetreivingException(habit, to);
+            throw new FutureScheduleRetrievingException(habit, to);
         }
         generator.generate(habit);
         return recordRepository.findBetween(habit, from.atStartOfDay(), to.plusDays(1).atStartOfDay());

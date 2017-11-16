@@ -1,5 +1,6 @@
 package com.github.habiteria.core.domain.service.habit;
 
+import com.github.habiteria.core.domain.service.fetcher.StrictFetcher;
 import com.github.habiteria.core.entities.Habit;
 import com.github.habiteria.core.entities.builders.Habits;
 import com.github.habiteria.core.entities.User;
@@ -15,16 +16,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class HabitServiceImpl implements HabitService {
     private final UserRepository userRepository;
+    private final StrictFetcher fetcher;
     private final HabitRepository repository;
 
-    public HabitServiceImpl(UserRepository userRepository, HabitRepository repository) {
+    public HabitServiceImpl(UserRepository userRepository, StrictFetcher fetcher, HabitRepository repository) {
         this.userRepository = userRepository;
+        this.fetcher = fetcher;
         this.repository = repository;
     }
 
     @Override
     public Habit create(Long userId, HabitDto dto) {
         User user = userRepository.findOne(userId);
+
         HabitImpl habit = Habits.withOwner(user)
                 .withName(dto.getName())
                 .withDescription(dto.getDescription())
@@ -35,6 +39,6 @@ public class HabitServiceImpl implements HabitService {
 
     @Override
     public Habit get(Long habitId) {
-        return repository.findOne(habitId);
+        return fetcher.fetchHabit(habitId);
     }
 }

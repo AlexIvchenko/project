@@ -1,13 +1,15 @@
 package com.github.habiteria.core.domain.service.habit;
 
 import com.github.habiteria.core.domain.model.ScheduledHabit;
+import com.github.habiteria.core.domain.service.fetcher.StrictFetcher;
 import com.github.habiteria.core.domain.service.scheduler.Scheduler;
 import com.github.habiteria.core.entities.CalendarRecord;
 import com.github.habiteria.core.entities.Habit;
 import com.github.habiteria.core.entities.Status;
 import com.github.habiteria.core.entities.User;
-import com.github.habiteria.core.repository.HabitRepository;
-import com.github.habiteria.core.repository.UserRepository;
+import com.github.habiteria.core.exceptions.client.IllegalCalendarRecordStateTransitionException;
+import com.github.habiteria.core.exceptions.client.ResourceNotFoundException;
+import com.github.habiteria.core.exceptions.client.TryToVerifyNotVerifiableHabitException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -21,20 +23,18 @@ import java.util.Set;
 @Slf4j
 @Service
 public class TrackerImpl implements Tracker {
-    private final UserRepository userRepository;
-    private final HabitRepository habitRepository;
+    private final StrictFetcher fetcher;
     private final Scheduler scheduler;
 
-
-    public TrackerImpl(UserRepository userRepository, HabitRepository habitRepository, Scheduler scheduler) {
-        this.userRepository = userRepository;
-        this.habitRepository = habitRepository;
+    public TrackerImpl(StrictFetcher fetcher, Scheduler scheduler) {
+        this.fetcher = fetcher;
         this.scheduler = scheduler;
     }
 
     @Override
-    public Set<ScheduledHabit> getCurrentHabitList(Long userId) {
-        User user = fetchUser(userId);
+    public Set<ScheduledHabit> getCurrentHabitList(Long userId)
+            throws ResourceNotFoundException, TryToVerifyNotVerifiableHabitException {
+        User user = fetcher.fetchUser(userId);
         Set<CalendarRecord> records = scheduler.findVerifiable(user);
         Set<ScheduledHabit> scheduled = new HashSet<>();
         for (CalendarRecord record : records) {
@@ -45,8 +45,9 @@ public class TrackerImpl implements Tracker {
     }
 
     @Override
-    public ScheduledHabit perform(Long habitId, int repeat) {
-        Habit habit = fetchHabit(habitId);
+    public ScheduledHabit perform(Long habitId, int repeat) throws ResourceNotFoundException,
+            TryToVerifyNotVerifiableHabitException, IllegalCalendarRecordStateTransitionException {
+        Habit habit = fetcher.fetchHabit(habitId);
         CalendarRecord record = scheduler.getRecord(habit, repeat);
         // TODO validation
         record.setStatus(Status.SUCCESS);
@@ -56,8 +57,9 @@ public class TrackerImpl implements Tracker {
     }
 
     @Override
-    public ScheduledHabit fail(Long habitId, int repeat) {
-        Habit habit = fetchHabit(habitId);
+    public ScheduledHabit fail(Long habitId, int repeat) throws ResourceNotFoundException,
+            TryToVerifyNotVerifiableHabitException, IllegalCalendarRecordStateTransitionException {
+        Habit habit = fetcher.fetchHabit(habitId);
         CalendarRecord record = scheduler.getRecord(habit, repeat);
         record.setStatus(Status.FAIL);
         scheduler.update(record);
@@ -65,8 +67,9 @@ public class TrackerImpl implements Tracker {
     }
 
     @Override
-    public ScheduledHabit undo(Long habitId, int repeat) {
-        Habit habit = fetchHabit(habitId);
+    public ScheduledHabit undo(Long habitId, int repeat) throws ResourceNotFoundException,
+            TryToVerifyNotVerifiableHabitException, IllegalCalendarRecordStateTransitionException {
+        Habit habit = fetcher.fetchHabit(habitId);
         CalendarRecord record = scheduler.getRecord(habit, repeat);
         record.setStatus(Status.UNVERIFIED);
         scheduler.update(record);
@@ -79,11 +82,10 @@ public class TrackerImpl implements Tracker {
         return new ScheduledHabit(habit, record.isRequired(), verifiable, record.getStatus(), record.getRepeat());
     }
 
-    private User fetchUser(Long userId) {
-        return userRepository.findOne(userId);
-    }
-
-    private Habit fetchHabit(Long habitId) {
-        return habitRepository.findOne(habitId);
+    private void assertVerifiable(CalendarRecord record) throws TryToVerifyNotVerifiableHabitException {
+        LocalDateTime now = LocalDateTime.now();
+        if (now.isBefore(record.getStartVerifying()) || now.isAfter(record.getEndVerifying())) {
+            throw new TryToVerifyNotVerifiableHabitException(record);
+        }
     }
 }
