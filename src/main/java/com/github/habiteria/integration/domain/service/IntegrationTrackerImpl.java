@@ -2,7 +2,7 @@ package com.github.habiteria.integration.domain.service;
 
 import com.github.habiteria.core.domain.model.ScheduledHabit;
 import com.github.habiteria.core.domain.service.habit.Tracker;
-import com.github.habiteria.integration.domain.assembler.ScheduledHabitResourceAssembler;
+import com.github.habiteria.integration.domain.assemblers.ScheduledHabitResAsm;
 import com.github.habiteria.integration.domain.resources.ScheduledHabitResource;
 import com.github.habiteria.integration.domain.utils.ResourceUtils;
 import org.springframework.hateoas.Resources;
@@ -16,10 +16,10 @@ import java.util.UUID;
 @Service
 public class IntegrationTrackerImpl implements IntegrationTracker {
     private final Tracker service;
-    private final ScheduledHabitResourceAssembler habitAsm;
+    private final ScheduledHabitResAsm habitAsm;
 
     public IntegrationTrackerImpl(Tracker service,
-                                  ScheduledHabitResourceAssembler habitAsm) {
+                                  ScheduledHabitResAsm habitAsm) {
         this.service = service;
         this.habitAsm = habitAsm;
     }

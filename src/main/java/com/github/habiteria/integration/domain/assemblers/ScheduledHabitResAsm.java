@@ -1,4 +1,4 @@
-package com.github.habiteria.integration.domain.assembler;
+package com.github.habiteria.integration.domain.assemblers;
 
 import com.github.habiteria.core.domain.model.ScheduledHabit;
 import com.github.habiteria.core.entities.Habit;
@@ -13,7 +13,7 @@ import java.util.UUID;
  * @author Alex Ivchenko
  */
 @Component
-public class ScheduledHabitResourceAssembler implements ResourceAssembler<ScheduledHabit, ScheduledHabitResource> {
+public class ScheduledHabitResAsm implements ResourceAssembler<ScheduledHabit, ScheduledHabitResource> {
     @Override
     public ScheduledHabitResource toResource(ScheduledHabit entity) {
         Habit habit = entity.getHabit();

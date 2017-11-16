@@ -1,7 +1,7 @@
 package com.github.habiteria.integration.domain.service;
 
 import com.github.habiteria.core.domain.service.calendar.CalendarService;
-import com.github.habiteria.integration.domain.assembler.CalendarResourceAssembler;
+import com.github.habiteria.integration.domain.assemblers.CalendarResAsm;
 import com.github.habiteria.integration.domain.resources.CalendarResource;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +14,9 @@ import java.util.UUID;
 @Service
 public class CalendarResourceServiceImpl implements CalendarResourceService {
     private final CalendarService service;
-    private final CalendarResourceAssembler assembler;
+    private final CalendarResAsm assembler;
 
-    public CalendarResourceServiceImpl(CalendarService service, CalendarResourceAssembler assembler) {
+    public CalendarResourceServiceImpl(CalendarService service, CalendarResAsm assembler) {
         this.service = service;
         this.assembler = assembler;
     }

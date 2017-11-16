@@ -2,7 +2,7 @@ package com.github.habiteria.integration.domain.service;
 
 import com.github.habiteria.core.domain.service.habit.HabitService;
 import com.github.habiteria.core.entities.Habit;
-import com.github.habiteria.integration.domain.assembler.HabitResourceAssembler;
+import com.github.habiteria.integration.domain.assemblers.HabitResAsm;
 import com.github.habiteria.integration.domain.resources.HabitResource;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +14,9 @@ import java.util.UUID;
 @Service
 public class HabitResourceServiceImpl implements HabitResourceService {
     private final HabitService service;
-    private final HabitResourceAssembler habitAsm;
+    private final HabitResAsm habitAsm;
 
-    public HabitResourceServiceImpl(HabitService service, HabitResourceAssembler habitAsm) {
+    public HabitResourceServiceImpl(HabitService service, HabitResAsm habitAsm) {
         this.service = service;
         this.habitAsm = habitAsm;
     }

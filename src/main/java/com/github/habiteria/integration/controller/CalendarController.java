@@ -1,5 +1,7 @@
 package com.github.habiteria.integration.controller;
 
+import com.github.habiteria.integration.controller.annotations.Date;
+import com.github.habiteria.integration.controller.annotations.Rest;
 import com.github.habiteria.integration.domain.resources.CalendarResource;
 import com.github.habiteria.integration.domain.service.CalendarResourceService;
 import org.springframework.http.HttpEntity;

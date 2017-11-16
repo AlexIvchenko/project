@@ -1,5 +1,6 @@
 package com.github.habiteria.integration.controller;
 
+import com.github.habiteria.integration.controller.annotations.Rest;
 import com.github.habiteria.integration.domain.resources.ScheduledHabitResource;
 import com.github.habiteria.integration.domain.service.IntegrationTracker;
 import org.springframework.hateoas.Resources;

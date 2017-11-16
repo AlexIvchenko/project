@@ -1,4 +1,4 @@
-package com.github.habiteria.integration.domain.assembler;
+package com.github.habiteria.integration.domain.assemblers;
 
 import com.github.habiteria.core.domain.model.Calendar;
 import com.github.habiteria.integration.domain.links.Links;
@@ -15,10 +15,10 @@ import java.util.*;
  * @author Alex Ivchenko
  */
 @Component
-public class CalendarResourceAssembler implements ResourceAssembler<Calendar, CalendarResource> {
-    private final CalendarRecordResourceAssembler assembler;
+public class CalendarResAsm implements ResourceAssembler<Calendar, CalendarResource> {
+    private final CalendarRecordResAsm assembler;
 
-    public CalendarResourceAssembler(CalendarRecordResourceAssembler assembler) {
+    public CalendarResAsm(CalendarRecordResAsm assembler) {
         this.assembler = assembler;
     }
 

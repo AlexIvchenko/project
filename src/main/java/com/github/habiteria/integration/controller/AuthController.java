@@ -1,7 +1,8 @@
 package com.github.habiteria.integration.controller;
 
 import com.github.habiteria.core.entities.User;
-import com.github.habiteria.integration.domain.assembler.UserResourceAssembler;
+import com.github.habiteria.integration.controller.annotations.Rest;
+import com.github.habiteria.integration.domain.assemblers.UserResAsm;
 import com.github.habiteria.integration.domain.resources.UserResource;
 import com.github.habiteria.security.UserAuthService;
 import org.springframework.http.HttpEntity;
@@ -15,9 +16,9 @@ import java.util.UUID;
 @Rest
 public class AuthController {
     private final UserAuthService userAuthService;
-    private final UserResourceAssembler assembler;
+    private final UserResAsm assembler;
 
-    public AuthController(UserAuthService userAuthService, UserResourceAssembler assembler) {
+    public AuthController(UserAuthService userAuthService, UserResAsm assembler) {
         this.userAuthService = userAuthService;
         this.assembler = assembler;
     }

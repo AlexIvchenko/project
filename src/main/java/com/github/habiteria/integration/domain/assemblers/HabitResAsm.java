@@ -1,4 +1,4 @@
-package com.github.habiteria.integration.domain.assembler;
+package com.github.habiteria.integration.domain.assemblers;
 
 import com.github.habiteria.core.entities.Habit;
 import com.github.habiteria.integration.domain.links.Links;
@@ -12,7 +12,7 @@ import java.util.UUID;
  * @author Alex Ivchenko
  */
 @Component
-public class HabitResourceAssembler implements ResourceAssembler<Habit, HabitResource> {
+public class HabitResAsm implements ResourceAssembler<Habit, HabitResource> {
     @Override
     public HabitResource toResource(Habit entity) {
         HabitResource resource = new HabitResource(entity.getName(), entity.getDescription());

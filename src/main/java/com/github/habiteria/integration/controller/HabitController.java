@@ -1,6 +1,7 @@
 package com.github.habiteria.integration.controller;
 
 import com.github.habiteria.core.entities.Habit;
+import com.github.habiteria.integration.controller.annotations.Rest;
 import com.github.habiteria.integration.domain.resources.HabitResource;
 import com.github.habiteria.integration.domain.service.HabitResourceService;
 import org.springframework.http.HttpEntity;
