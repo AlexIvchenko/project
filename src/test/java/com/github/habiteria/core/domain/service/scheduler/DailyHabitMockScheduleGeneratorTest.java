@@ -24,8 +24,8 @@ import static org.mockito.Mockito.*;
  * @author Alex Ivchenko
  */
 @RunWith(SpringRunner.class)
-public class MockScheduleGeneratorTest {
-    private MockScheduleGenerator generator;
+public class DailyHabitMockScheduleGeneratorTest {
+    private DailyHabitMockScheduleGenerator generator;
 
     @MockBean
     private HabitRepository habitRepository;
@@ -35,7 +35,7 @@ public class MockScheduleGeneratorTest {
 
     @Before
     public void setUp() throws Exception {
-        generator = new MockScheduleGenerator(habitRepository, recordRepository);
+        generator = new DailyHabitMockScheduleGenerator(habitRepository, recordRepository);
     }
 
     @Test

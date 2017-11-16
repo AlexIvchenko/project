@@ -1,5 +1,6 @@
 package com.github.habiteria.core.domain.service.scheduler;
 
+import com.github.habiteria.core.domain.service.scheduler.exceptions.FutureScheduleRetreivingException;
 import com.github.habiteria.core.entities.CalendarRecord;
 import com.github.habiteria.core.entities.Habit;
 import com.github.habiteria.core.entities.User;

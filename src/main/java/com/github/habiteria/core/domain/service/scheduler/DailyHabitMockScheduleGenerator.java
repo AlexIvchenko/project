@@ -18,11 +18,11 @@ import java.util.Set;
  * @author Alex Ivchenko
  */
 @Service
-public class MockScheduleGenerator implements ScheduleGenerator {
+public class DailyHabitMockScheduleGenerator implements ScheduleGenerator {
     private final HabitRepository habitRepository;
     private final CalendarRecordRepository recordRepository;
 
-    public MockScheduleGenerator(HabitRepository habitRepository, CalendarRecordRepository recordRepository) {
+    public DailyHabitMockScheduleGenerator(HabitRepository habitRepository, CalendarRecordRepository recordRepository) {
         this.habitRepository = habitRepository;
         this.recordRepository = recordRepository;
     }

@@ -1,4 +1,4 @@
-package com.github.habiteria.core.domain.service.scheduler;
+package com.github.habiteria.core.domain.service.scheduler.exceptions;
 
 import com.github.habiteria.core.entities.CalendarRecord;
 import com.github.habiteria.core.entities.Habit;
