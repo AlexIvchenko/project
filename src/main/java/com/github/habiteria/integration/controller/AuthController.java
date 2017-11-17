@@ -1,6 +1,5 @@
 package com.github.habiteria.integration.controller;
 
-import com.github.habiteria.core.entities.User;
 import com.github.habiteria.dto.UserDto;
 import com.github.habiteria.integration.controller.annotations.Rest;
 import com.github.habiteria.integration.domain.assemblers.UserResAsm;

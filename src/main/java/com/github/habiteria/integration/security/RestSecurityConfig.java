@@ -17,6 +17,7 @@ public class RestSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .antMatcher("/api/**")
                 .authorizeRequests()
+                .antMatchers(HttpMethod.OPTIONS, "/api/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/users").permitAll()
                 .antMatchers("/api/users/{userId}/**")
@@ -24,7 +25,7 @@ public class RestSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/users/{userId}/habits/{habitId}")
                 .access("@userAuthService.isAuthorized(#userId, #habitId)")
                 .anyRequest().authenticated()
-                .and().httpBasic();
+                .and().httpBasic().and().cors();
 
     }
 }
