@@ -2,7 +2,9 @@ package com.github.habiteria.core.repository;
 
 import com.github.habiteria.core.entities.CalendarRecord;
 import com.github.habiteria.core.entities.Habit;
+import com.github.habiteria.core.entities.Status;
 import com.github.habiteria.core.entities.User;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -34,4 +36,7 @@ public interface CalendarRecordRepository extends CrudRepository<CalendarRecord,
     Set<CalendarRecord> findBetween(@Param("habit") Habit habit,
                                     @Param("start") LocalDateTime from,
                                     @Param("finish") LocalDateTime to);
+    @Modifying(clearAutomatically = true)
+    @Query("update CalendarRecord rec set rec.status=:status where rec.habit=:habit and rec.endVerifying < :time")
+    void setStatusAllRecordsBeforeEndVerifyingTime(@Param("habit") Habit habit, @Param("status") Status status, @Param("time") LocalDateTime endVerifying);
 }

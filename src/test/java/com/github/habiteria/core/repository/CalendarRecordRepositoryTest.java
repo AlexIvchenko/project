@@ -1,6 +1,7 @@
 package com.github.habiteria.core.repository;
 
-import com.github.habiteria.core.entities.*;
+import com.github.habiteria.core.entities.CalendarRecord;
+import com.github.habiteria.core.entities.Status;
 import com.github.habiteria.core.entities.builders.Habits;
 import com.github.habiteria.core.entities.builders.Users;
 import com.github.habiteria.core.entities.imps.HabitImpl;

@@ -39,8 +39,12 @@ public class DailyHabitMockScheduleGenerator implements ScheduleGenerator {
     @Override
     public void generate(Habit habit) {
         generate(habit, LocalDate.now());
+        failAllNotVerifiableRecords(habit);
     }
 
+    private void failAllNotVerifiableRecords(Habit habit) {
+        recordRepository.setStatusAllRecordsBeforeEndVerifyingTime(habit, Status.FAIL, LocalDateTime.now());
+    }
 
     private void generate(Habit habit, LocalDate to) {
         CalendarRecord last = recordRepository.getLastRecord(habit);
