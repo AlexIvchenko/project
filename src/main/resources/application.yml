@@ -1,9 +1,6 @@
 spring:
   profiles:
-    default: dev
+    default: dev-embedded-db
   output:
     ansi:
       enabled: always
-  data:
-    rest:
-      basePath: api

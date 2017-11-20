@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@ActiveProfiles({"db", "integration-test-database-defaults"})
+@ActiveProfiles({"real-db", "integration-test-database-defaults"})
 public class DataSourceIT {
     @Test
     public void contextLoads() {
