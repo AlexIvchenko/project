@@ -1,6 +1,8 @@
-package com.github.habiteria.core.entities;
+package com.github.habiteria.core.entities.imps;
 
-import com.github.habiteria.core.entities.imps.HabitImpl;
+import com.github.habiteria.core.entities.AbstractEntity;
+import com.github.habiteria.core.entities.Habit;
+import com.github.habiteria.core.entities.Schedule;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,6 +1,6 @@
 package com.github.habiteria.core.entities.builders;
 
-import com.github.habiteria.core.entities.ScheduleImpl;
+import com.github.habiteria.core.entities.imps.ScheduleImpl;
 import com.github.habiteria.core.entities.User;
 import com.github.habiteria.core.entities.imps.HabitImpl;
 

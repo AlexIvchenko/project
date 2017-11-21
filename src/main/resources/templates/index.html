@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="fragments/header :: header('Habiteria')"></head>
+<body>
+
+<div th:replace="fragments/header :: page-header"></div>
+
+<div class="container" id="app">
+
+    <div class="signUpBox col-md-4 centered" sec:authorize="!isAuthenticated()">
+        <div class="login-panel panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Sign Up</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <input v-model="user.username" class="form-control" placeholder="Username" name="username"
+                           type="text" autofocus=""/>
+                </div>
+                <div class="form-group">
+                    <input v-model="user.firstName" class="form-control" placeholder="First Name" name="firstName"
+                           type="text" value=""/>
+                </div>
+                <div class="form-group">
+                    <input v-model="user.lastName" class="form-control" placeholder="Last Name" name="lastName"
+                           type="text" value=""/>
+                </div>
+                <div class="form-group">
+                    <input v-model="user.email" class="form-control" placeholder="Email" name="email" type="email"
+                           value=""/>
+                </div>
+                <div class="form-group">
+                    <input v-model="user.password" class="form-control" placeholder="Password" name="password"
+                           type="password" value=""/>
+                </div>
+                <button class="btn btn-sm btn-success" v-on:click="doSignUp">Sign Up</button>
+
+            </div>
+            <pre>{{ $data | json }}</pre>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+<script th:inline="javascript">
+    var app = new Vue({
+        el: '#app',
+        data: {
+            /*<![CDATA[*/
+            api: /*[[${api}]]*/ null,
+            /*]]>*/
+
+            user: {
+                username: "",
+                firstName: "",
+                lastName: "",
+                email: "",
+                password: ""
+            }
+        },
+
+        methods: {
+            created: function () {
+                console.info("created")
+            },
+            doSignUp: function (event) {
+                axios.post("/api/users", this.user).then(function (response) {
+                    console.log(response);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            },
+            actions: function () {
+                axios.get(this.api).then(function (response) {
+                    console.info(response.data._links)
+                });
+            }
+        }
+    })
+</script>
+</html>
