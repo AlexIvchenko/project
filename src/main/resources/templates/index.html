@@ -7,7 +7,6 @@
 <div th:replace="fragments/header :: page-header"></div>
 
 <div class="container" id="app">
-
     <div class="signUpBox col-md-4 centered" sec:authorize="!isAuthenticated()">
         <div class="login-panel panel panel-default">
             <div class="panel-heading">
@@ -37,9 +36,9 @@
                 <button class="btn btn-sm btn-success" v-on:click="doSignUp">Sign Up</button>
 
             </div>
-            <pre>{{ $data | json }}</pre>
         </div>
     </div>
+    <pre>{{ $data | json }}</pre>
 </div>
 <div th:replace="fragments/footer :: footer"></div>
 </body>
@@ -50,31 +49,34 @@
             /*<![CDATA[*/
             api: /*[[${api}]]*/ null,
             /*]]>*/
-
             user: {
                 username: "",
                 firstName: "",
                 lastName: "",
                 email: "",
                 password: ""
-            }
-        },
-
-        methods: {
-            created: function () {
-                console.info("created")
             },
+            actions: null
+        },
+        created: function () {
+            console.log("vue created");
+            this.loadActions()
+        },
+        methods: {
             doSignUp: function (event) {
-                axios.post("/api/users", this.user).then(function (response) {
+                var createUserUrl = this.actions.signUp.href;
+                console.log('create user url = ' + createUserUrl);
+                axios.post(createUserUrl, this.user).then(function (response) {
                     console.log(response);
                 }).catch(function (error) {
                     console.log(error);
                 });
             },
-            actions: function () {
+            loadActions: function () {
+                console.log("load actions");
                 axios.get(this.api).then(function (response) {
-                    console.info(response.data._links)
-                });
+                    this.actions = response.data._links;
+                }.bind(this));
             }
         }
     })
