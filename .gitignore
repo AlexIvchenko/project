@@ -1,5 +1,4 @@
 .idea/
 *target/
 *.iml
-*.vpp.lck
-*.vpp.bak*
+diagram/
