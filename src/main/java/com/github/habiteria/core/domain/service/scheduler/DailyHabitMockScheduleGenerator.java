@@ -43,7 +43,7 @@ public class DailyHabitMockScheduleGenerator implements ScheduleGenerator {
     }
 
     private void failAllNotVerifiableRecords(Habit habit) {
-        recordRepository.setStatusAllRecordsBeforeEndVerifyingTime(habit, Status.FAIL, LocalDateTime.now());
+        recordRepository.setStatusAllRecordsEndVerifyingTimeExpired(habit, Status.FAIL, LocalDateTime.now());
     }
 
     private void generate(Habit habit, LocalDate to) {

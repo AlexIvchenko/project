@@ -49,7 +49,7 @@ public class CalendarRecordRepositoryIT {
 
         repository.save(rec);
 
-        repository.setStatusAllRecordsBeforeEndVerifyingTime(habit, Status.FAIL, LocalDateTime.now());
+        repository.setStatusAllRecordsEndVerifyingTimeExpired(habit, Status.FAIL, LocalDateTime.now());
 
         CalendarRecord found = repository.findOne(habit, 1);
 

@@ -38,5 +38,5 @@ public interface CalendarRecordRepository extends CrudRepository<CalendarRecord,
                                     @Param("finish") LocalDateTime to);
     @Modifying(clearAutomatically = true)
     @Query("update CalendarRecord rec set rec.status=:status where rec.habit=:habit and rec.endVerifying < :time")
-    void setStatusAllRecordsBeforeEndVerifyingTime(@Param("habit") Habit habit, @Param("status") Status status, @Param("time") LocalDateTime endVerifying);
+    void setStatusAllRecordsEndVerifyingTimeExpired(@Param("habit") Habit habit, @Param("status") Status status, @Param("time") LocalDateTime endVerifying);
 }
