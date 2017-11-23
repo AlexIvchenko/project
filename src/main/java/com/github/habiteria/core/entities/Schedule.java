@@ -7,4 +7,10 @@ import java.time.LocalDateTime;
  */
 public interface Schedule {
     LocalDateTime getStart();
+
+    Type getType();
+
+    enum Type {
+        DAILY
+    }
 }

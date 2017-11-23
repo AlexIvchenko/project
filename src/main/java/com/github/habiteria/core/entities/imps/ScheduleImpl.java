@@ -7,10 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
@@ -28,6 +25,10 @@ public class ScheduleImpl extends AbstractEntity implements Schedule {
 
     @Column(name = "start")
     private LocalDateTime start;
+
+    @Column(name = "type", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Schedule.Type type;
 
     public ScheduleImpl() {
     }

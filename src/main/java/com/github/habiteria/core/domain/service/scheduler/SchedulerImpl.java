@@ -1,27 +1,30 @@
 package com.github.habiteria.core.domain.service.scheduler;
 
-import com.github.habiteria.core.exceptions.client.FutureScheduleRetrievingException;
-import com.github.habiteria.core.exceptions.server.SequenceOfRepeatsBrokenException;
 import com.github.habiteria.core.entities.CalendarRecord;
 import com.github.habiteria.core.entities.Habit;
 import com.github.habiteria.core.entities.User;
+import com.github.habiteria.core.exceptions.client.FutureScheduleRetrievingException;
 import com.github.habiteria.core.repository.CalendarRecordRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
  * @author Alex Ivchenko
  */
+@Slf4j
 @Service
 public class SchedulerImpl implements Scheduler {
-    private final CalendarRecordRepository recordRepository;
-    private final ScheduleGenerator generator;
+    private final CalendarRecordRepository repository;
+    private final Generator generator;
 
-    public SchedulerImpl(CalendarRecordRepository recordRepository, ScheduleGenerator generator) {
-        this.recordRepository = recordRepository;
+    public SchedulerImpl(CalendarRecordRepository repository, Generator generator) {
+        this.repository = repository;
         this.generator = generator;
     }
 
@@ -30,29 +33,26 @@ public class SchedulerImpl implements Scheduler {
         if (repeat <= 0) {
             throw new IllegalArgumentException("repeat must be greater than 0");
         }
-        generator.generate(habit);
-        CalendarRecord record = recordRepository.findOne(habit, repeat);
-        if (record == null) {
-            CalendarRecord last = recordRepository.getLastRecord(habit);
-            if (last == null || last.getRepeat() < repeat) {
-                throw new FutureScheduleRetrievingException(habit, repeat);
-            } else {
-                throw new SequenceOfRepeatsBrokenException(habit, repeat, last);
-            }
-        }
-
-        return record;
+        CalendarRecord generated = generator.getOneRepeat(habit, repeat);
+        CalendarRecord loaded = repository.findOne(habit, repeat);
+        CalendarRecord result = merge(loaded, generated);
+        // TODO
+//        throw new FutureScheduleRetrievingException(habit, repeat);
+//        throw new SequenceOfRepeatsBrokenException(habit, repeat, last);
+        return result;
     }
 
     @Override
     public CalendarRecord update(CalendarRecord record) {
-        return recordRepository.save(record);
+        return repository.save(record);
     }
 
     @Override
     public Set<CalendarRecord> findVerifiable(User user) {
-        generator.generateAll(user);
-        return recordRepository.findVerifiableIn(user, LocalDateTime.now());
+        LocalDateTime now = LocalDateTime.now();
+        Set<CalendarRecord> generated = generator.getOnlyVerifiableIn(user, now);
+        Set<CalendarRecord> loaded = repository.findVerifiableIn(user, now);
+        return merge(loaded, generated);
     }
 
     @Override
@@ -66,7 +66,24 @@ public class SchedulerImpl implements Scheduler {
         if (to.isAfter(LocalDate.now())) {
             throw new FutureScheduleRetrievingException(habit, to);
         }
-        generator.generate(habit);
-        return recordRepository.findBetween(habit, from.atStartOfDay(), to.plusDays(1).atStartOfDay());
+        Set<CalendarRecord> generated = generator.getAllBetween(habit, from, to);
+        Set<CalendarRecord> loaded = repository.findBetweenByDoingTime(habit, from.atTime(LocalTime.MIN), to.atTime(LocalTime.MAX));
+        return merge(loaded, generated);
+    }
+
+    private Set<CalendarRecord> merge(Set<CalendarRecord> loaded, Set<CalendarRecord> generated) {
+        log.info("merging loaded size: {}, generated size: {}", loaded.size(), generated.size());
+        Set<CalendarRecord> result = new HashSet<>(loaded);
+        for (CalendarRecord rec : generated) {
+            if (!result.contains(rec)) {
+                result.add(rec);
+            }
+        }
+        log.info("merged size: " + result.size());
+        return result;
+    }
+
+    private CalendarRecord merge(CalendarRecord loaded, CalendarRecord generated) {
+        return loaded != null ? loaded : generated;
     }
 }
