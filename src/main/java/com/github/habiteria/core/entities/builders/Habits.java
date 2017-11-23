@@ -1,8 +1,9 @@
 package com.github.habiteria.core.entities.builders;
 
-import com.github.habiteria.core.entities.imps.ScheduleImpl;
+import com.github.habiteria.core.entities.Schedule;
 import com.github.habiteria.core.entities.User;
 import com.github.habiteria.core.entities.imps.HabitImpl;
+import com.github.habiteria.core.entities.imps.ScheduleImpl;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -15,10 +16,11 @@ public class Habits {
         return new Builder().withOwner(owner);
     }
 
-    private static class Builder implements OwnerStageBuilder, NameStageBuilder, DescriptionStageBuilder, StartStageBuilder {
+    private static class Builder implements OwnerStageBuilder, NameStageBuilder, DescriptionStageBuilder, StartStageBuilder, TypeStageBuilder {
         private User owner;
         private String name;
         private String description;
+        private LocalDateTime start;
 
         @Override
         public NameStageBuilder withOwner(User owner) {
@@ -42,12 +44,19 @@ public class Habits {
         }
 
         @Override
-        public HabitImpl withStart(LocalDateTime start) {
+        public TypeStageBuilder withStart(LocalDateTime start) {
             if (start == null) {
                 start = LocalDateTime.now();
             }
+            this.start = start;
+            return this;
+        }
+
+        @Override
+        public HabitImpl withType(Schedule.Type type) {
             ScheduleImpl schedule = new ScheduleImpl();
             schedule.setStart(start);
+            schedule.setType(type);
             HabitImpl habit = new HabitImpl(owner, name, description, schedule);
             schedule.setHabit(habit);
             return habit;
@@ -67,6 +76,10 @@ public class Habits {
     }
 
     public interface StartStageBuilder {
-        HabitImpl withStart(LocalDateTime start);
+        TypeStageBuilder withStart(LocalDateTime start);
+    }
+
+    public interface TypeStageBuilder {
+        HabitImpl withType(Schedule.Type type);
     }
 }

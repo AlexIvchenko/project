@@ -32,7 +32,8 @@ public class HabitServiceImpl implements HabitService {
         HabitImpl habit = Habits.withOwner(user)
                 .withName(dto.getName())
                 .withDescription(dto.getDescription())
-                .withStart(dto.getSchedule().getStart());
+                .withStart(dto.getSchedule().getStart())
+                .withType(dto.getSchedule().getType());
 
         return repository.save(habit);
     }

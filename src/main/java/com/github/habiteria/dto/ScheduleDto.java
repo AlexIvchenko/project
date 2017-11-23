@@ -1,5 +1,6 @@
 package com.github.habiteria.dto;
 
+import com.github.habiteria.core.entities.Schedule;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,4 +13,6 @@ import java.time.LocalDateTime;
 @Setter
 public class ScheduleDto {
     private LocalDateTime start;
+    // TODO make other class
+    private Schedule.Type type;
 }

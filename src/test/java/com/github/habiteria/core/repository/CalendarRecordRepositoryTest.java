@@ -1,6 +1,7 @@
 package com.github.habiteria.core.repository;
 
 import com.github.habiteria.core.entities.CalendarRecord;
+import com.github.habiteria.core.entities.Schedule;
 import com.github.habiteria.core.entities.Status;
 import com.github.habiteria.core.entities.builders.Habits;
 import com.github.habiteria.core.entities.builders.Users;
@@ -47,7 +48,8 @@ public class CalendarRecordRepositoryTest {
         habit = Habits.withOwner(user)
                 .withName("habit")
                 .withDescription("habit")
-                .withStart(LocalDateTime.now());
+                .withStart(LocalDateTime.now())
+                .withType(Schedule.Type.DAILY);
 
         habitRepository.save(habit);
 
