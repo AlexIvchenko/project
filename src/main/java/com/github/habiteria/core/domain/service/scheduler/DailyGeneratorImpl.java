@@ -29,6 +29,10 @@ public class DailyGeneratorImpl extends AbstractGenerator {
         log.info("getting all between {} and {}", from, to);
         int repeat = 1;
         Set<CalendarRecord> generated = new HashSet<>();
+        LocalDate habitStarts = habit.getSchedule().getStart().toLocalDate();
+        if (habitStarts.isAfter(from)) {
+            from = habitStarts;
+        }
         for (LocalDate date : new LocalDateRange(from, to)) {
             CalendarRecord record = new CalendarRecord();
             record.setHabit(habit);
