@@ -18,6 +18,11 @@ public class WelcomeController {
         return "index";
     }
 
+    @RequestMapping("/habits")
+    public String habits() {
+        return "habits";
+    }
+
     @ModelAttribute("api")
     public String api() {
         return linkTo(methodOn(RootController.class).api()).toUri().toASCIIString();

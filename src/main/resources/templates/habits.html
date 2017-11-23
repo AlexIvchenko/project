@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/header :: header('Habiteria')"></head>
+<body>
+
+<div th:replace="fragments/header :: page-header"></div>
+
+<div class="container" id="app">
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createHabitModal">
+        Create habit
+    </button>
+
+
+    <div class="modal fade" id="createHabitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create Habit</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input v-model="habit.name" class="form-control" placeholder="Name" name="name"
+                               type="text" autofocus=""/>
+                    </div>
+                    <div class="form-group">
+                        <input v-model="habit.description" class="form-control" placeholder="Description" name="description"
+                               type="text" value=""/>
+                    </div>
+                    <div class="form-gorup">
+                        <label>
+                            <select class="form-control" v-model="habit.schedule.type">
+                                <option v-for="type in habitScheduleTypes" v-bind:value="type.value">
+                                    {{ type.text }}
+                                </option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" v-on:click="doCreateHabit">Create Habit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <pre>{{ $data | json }}</pre>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+<script th:inline="javascript">
+    var app = new Vue({
+        el: '#app',
+        data: {
+            /*<![CDATA[*/
+            api: /*[[${api}]]*/ null,
+            /*]]>*/
+            habit: {
+                name: "",
+                description: "",
+                schedule: {
+                    type: ""
+                }
+            },
+            habitScheduleTypes: [
+                {text: "Daily", value: "Daily"},
+                {text: "Weekday", value: "Weekday"},
+                {text: "Weekend", value: "Weekend"}
+            ],
+            actions: null
+        },
+        created: function () {
+            console.log("vue created");
+            this.loadActions()
+        },
+        methods: {
+            doCreateHabit: function (event) {
+                var createHabitUrl = this.actions.createHabit.href;
+                console.log('create habit url = ' + createHabitUrl);
+                axios.post(createHabitUrl, this.habit).then(function (response) {
+                    console.log(response);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            },
+            loadActions: function () {
+                console.log("load actions");
+                axios.get(this.api).then(function (response) {
+                    this.actions = response.data._links;
+                }.bind(this));
+            }
+        }
+    })
+</script>
+</html>

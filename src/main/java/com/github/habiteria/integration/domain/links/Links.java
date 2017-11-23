@@ -22,7 +22,7 @@ public class Links {
 
     public static Link createHabit(Long userId) {
         return linkTo(methodOn(HabitController.class).create(userId, null))
-                .withRel("create");
+                .withRel("createHabit");
     }
 
     public static Link getCurrentHabitList(Long userId) {

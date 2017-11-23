@@ -20,7 +20,7 @@ public class TrackingController {
         this.service = service;
     }
 
-    @GetMapping(path = "/users/{userId}/habits/")
+    @GetMapping(path = "/users/{userId}/habits")
     public HttpEntity<Resources<ScheduledHabitResource>> getCurrentHabitList(
             @PathVariable("userId") final Long userId) {
         return new HttpEntity<>(service.getCurrentHabitList(userId));
