@@ -27,12 +27,12 @@ public class DailyGeneratorImpl extends AbstractGenerator {
     @Override
     public Set<CalendarRecord> getAllBetween(Habit habit, LocalDate from, LocalDate to) {
         log.info("getting all between {} and {}", from, to);
-        int repeat = 1;
         Set<CalendarRecord> generated = new HashSet<>();
         LocalDate habitStarts = habit.getSchedule().getStart().toLocalDate();
         if (habitStarts.isAfter(from)) {
             from = habitStarts;
         }
+        int repeat = 1 + habitStarts.until(from).getDays();
         for (LocalDate date : new LocalDateRange(from, to)) {
             CalendarRecord record = new CalendarRecord();
             record.setHabit(habit);

@@ -48,6 +48,13 @@ public class DailyGeneratorImplTest {
     }
 
     @Test
+    public void shouldGenerateRightRepeats() throws Exception {
+        Set<CalendarRecord> all = generator.getAllBetween(habit, LocalDate.now(), LocalDate.now());
+        assertThat(all).hasSize(1).extracting(CalendarRecord::getRepeat)
+                .contains(8);
+    }
+
+    @Test
     public void shouldGenerateRightRepeat() throws Exception {
         CalendarRecord record = generator.getOneRepeat(habit, 2);
         assertThat(record.getRepeat()).isEqualTo(2);
