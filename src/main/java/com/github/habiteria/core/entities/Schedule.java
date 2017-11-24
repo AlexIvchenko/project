@@ -11,6 +11,6 @@ public interface Schedule {
     Type getType();
 
     enum Type {
-        DAILY
+        DAILY, WEEKEND, WEEKDAY
     }
 }

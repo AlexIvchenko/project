@@ -2,6 +2,7 @@ package com.github.habiteria.core.domain.service.scheduler;
 
 import com.github.habiteria.core.entities.CalendarRecord;
 import com.github.habiteria.core.entities.Habit;
+import com.github.habiteria.core.entities.Schedule;
 import com.github.habiteria.core.entities.User;
 import com.github.habiteria.core.exceptions.client.FutureScheduleRetrievingException;
 import com.github.habiteria.core.exceptions.server.SequenceOfRepeatsBrokenException;
@@ -51,12 +52,15 @@ public abstract class AbstractGenerator implements Generator {
         Set<Habit> habits = habitRepository.findByOwner(user);
         Set<CalendarRecord> verifiable = new HashSet<>();
         for (Habit habit : habits) {
-            getAllBetween(habit, habit.getSchedule().getStart().toLocalDate(), time.plusDays(1).toLocalDate())
-                    .stream()
-                    .filter(record -> !record.getStartVerifying().isAfter(time) && !record.getEndVerifying().isBefore(time))
-                    .forEach(verifiable::add);
-
+            if (isSupported(habit.getSchedule())) {
+                getAllBetween(habit, habit.getSchedule().getStart().toLocalDate(), time.plusDays(1).toLocalDate())
+                        .stream()
+                        .filter(record -> !record.getStartVerifying().isAfter(time) && !record.getEndVerifying().isBefore(time))
+                        .forEach(verifiable::add);
+            }
         }
         return verifiable;
     }
+
+    protected abstract boolean isSupported(Schedule schedule);
 }
