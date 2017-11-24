@@ -12,8 +12,8 @@
         Create habit
     </button>
 
-
-    <div class="modal fade" id="createHabitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="createHabitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -24,16 +24,17 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <input v-model="habit.name" class="form-control" placeholder="Name" name="name"
+                        <input v-model="newHabit.name" class="form-control" placeholder="Name" name="name"
                                type="text" autofocus=""/>
                     </div>
                     <div class="form-group">
-                        <input v-model="habit.description" class="form-control" placeholder="Description" name="description"
+                        <input v-model="newHabit.description" class="form-control" placeholder="Description"
+                               name="description"
                                type="text" value=""/>
                     </div>
                     <div class="form-gorup">
                         <label>
-                            <select class="form-control" v-model="habit.schedule.type">
+                            <select class="form-control" v-model="newHabit.schedule.type">
                                 <option v-for="type in habitScheduleTypes" v-bind:value="type.value">
                                     {{ type.text }}
                                 </option>
@@ -43,13 +44,30 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" v-on:click="doCreateHabit">Create Habit</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click="doCreateHabit">Create
+                        Habit
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <pre>{{ $data | json }}</pre>
+    <div class="col-md-4" v-for="(habit, index) in habits">
+        <div class="card">
+            <h4 class="card-header">{{ habit.name }}</h4>
+            <div class="card-body">
+                <h4 class="card-title">{{ habit.description }}</h4>
+                <p>{{ habit.required }}</p>
+                <p>{{ habit.status }}</p>
+                <p>{{ habit.verifiable }}</p>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <button class="btn btn-primary" v-if="habit._links.perform" v-on:click="doPerformHabit(index)">Perform
+                </button>
+                <button class="btn btn-danger" v-if="habit._links.fail" v-on:click="doFailHabit(index)">Fail</button>
+                <button class="btn btn-warning" v-if="habit._links.undo" v-on:click="doUndoHabit(index)">Undo</button>
+            </div>
+        </div>
+    </div>
 </div>
 <div th:replace="fragments/footer :: footer"></div>
 </body>
@@ -60,7 +78,7 @@
             /*<![CDATA[*/
             api: /*[[${api}]]*/ null,
             /*]]>*/
-            habit: {
+            newHabit: {
                 name: "",
                 description: "",
                 schedule: {
@@ -68,31 +86,88 @@
                 }
             },
             habitScheduleTypes: [
-                {text: "Daily", value: "Daily"},
-                {text: "Weekday", value: "Weekday"},
-                {text: "Weekend", value: "Weekend"}
+                {text: "Daily", value: "DAILY"},
+                {text: "Weekday", value: "WEEKDAY"},
+                {text: "Weekend", value: "WEEKEND"}
             ],
-            actions: null
+            actions: null,
+            habits: []
         },
         created: function () {
             console.log("vue created");
-            this.loadActions()
+            this.createLoadActionsRequest()
+                .then(function (response) {
+                    this.handleLoadActionsRequest(response);
+                    return this.createGetCurrentHabitListRequest();
+                }.bind(this))
+                .then(function (response) {
+                    this.handleGetCurrentHabitListRequest(response);
+                    console.log(this.habits);
+                }.bind(this));
         },
         methods: {
             doCreateHabit: function (event) {
                 var createHabitUrl = this.actions.createHabit.href;
                 console.log('create habit url = ' + createHabitUrl);
-                axios.post(createHabitUrl, this.habit).then(function (response) {
+                axios.post(createHabitUrl, this.newHabit).then(function (response) {
                     console.log(response);
-                }).catch(function (error) {
+                    return this.createGetCurrentHabitListRequest();
+                }.bind(this)).then(function (response) {
+                    this.handleGetCurrentHabitListRequest(response);
+                }.bind(this)).catch(function (error) {
                     console.log(error);
                 });
             },
-            loadActions: function () {
-                console.log("load actions");
-                axios.get(this.api).then(function (response) {
-                    this.actions = response.data._links;
-                }.bind(this));
+
+            doPerformHabit: function (habitIdx) {
+                var habit = this.habits[habitIdx];
+                var performUrl = habit._links.perform.href;
+                console.log("perform url: " + performUrl);
+                this.setHabit(habitIdx, axios.post(performUrl));
+            },
+
+            doFailHabit: function (habitIdx) {
+                var habit = this.habits[habitIdx];
+                var failUrl = habit._links.fail.href;
+                console.log("fail url: " + failUrl);
+                this.setHabit(habitIdx, axios.post(failUrl));
+            },
+
+            doUndoHabit: function (habitIdx) {
+                var habit = this.habits[habitIdx];
+                var undoUrl = habit._links.undo.href;
+                console.log("undo url: " + undoUrl);
+                this.setHabit(habitIdx, axios.post(undoUrl));
+            },
+
+            setHabit: function (habitIdx, request) {
+                request.then(function (response) {
+                    console.log(response);
+                    Vue.set(this.habits, habitIdx, response.data);
+                }.bind(this))
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+
+            createGetCurrentHabitListRequest: function () {
+                var getCurrentHabitListUrl = this.actions.getCurrentHabitList.href;
+                console.log("get current habit list url: " + getCurrentHabitListUrl);
+                return axios.get(getCurrentHabitListUrl);
+            },
+
+            handleGetCurrentHabitListRequest: function (response) {
+                this.habits = response.data._embedded.scheduledHabitResourceList;
+            },
+
+            createLoadActionsRequest: function () {
+                console.log("api url: " + this.api);
+                return axios.get(this.api);
+            },
+
+            handleLoadActionsRequest: function (response) {
+                this.actions = response.data._links;
+                console.log("actions: " + this.actions);
             }
         }
     })

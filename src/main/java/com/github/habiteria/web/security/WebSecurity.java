@@ -15,12 +15,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/signUp*").permitAll()
-                .antMatchers("/user/**").hasAnyRole("ROLE_USER")
+                .antMatchers("/", "/signUp", "/signIn").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/").loginProcessingUrl("/login")
-                .and().logout().logoutUrl("/logout")
-                .and().logout().permitAll();
+                .formLogin().loginPage("/signIn")
+                .and().logout().logoutUrl("/logout");
     }
 }

@@ -7,34 +7,37 @@
 <div th:replace="fragments/header :: page-header"></div>
 
 <div class="container" id="app">
-    <div class="signUpBox col-md-4 centered" sec:authorize="!isAuthenticated()">
-        <div class="login-panel panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Sign Up</h3>
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-md-8">
+                <h3>Description</h3>
             </div>
-            <div class="panel-body">
-                <div class="form-group">
-                    <input v-model="user.username" class="form-control" placeholder="Username" name="username"
-                           type="text" autofocus=""/>
+            <div class="col-md-4 ml-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input v-model="user.username" type="text" class="form-control" id="username"
+                                       placeholder="Enter username"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input v-model="user.email" type="email" class="form-control" id="email"
+                                       placeholder="Enter email"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input v-model="user.password" type="password" class="form-control" id="password"
+                                       aria-describedby="passwordHelp" placeholder="Password"/>
+                                <small id="passwordHelp" class="form-text text-muted">Use at least one letter, one
+                                    numeral, and seven characters.
+                                </small>
+                            </div>
+                            <button class="btn btn-primary btn-lg" v-on:click="doSignUp">Sign Up for Habiteria</button>
+                        </form>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <input v-model="user.firstName" class="form-control" placeholder="First Name" name="firstName"
-                           type="text" value=""/>
-                </div>
-                <div class="form-group">
-                    <input v-model="user.lastName" class="form-control" placeholder="Last Name" name="lastName"
-                           type="text" value=""/>
-                </div>
-                <div class="form-group">
-                    <input v-model="user.email" class="form-control" placeholder="Email" name="email" type="email"
-                           value=""/>
-                </div>
-                <div class="form-group">
-                    <input v-model="user.password" class="form-control" placeholder="Password" name="password"
-                           type="password" value=""/>
-                </div>
-                <button class="btn btn-sm btn-success" v-on:click="doSignUp">Sign Up</button>
-
             </div>
         </div>
     </div>
@@ -51,8 +54,6 @@
             /*]]>*/
             user: {
                 username: "",
-                firstName: "",
-                lastName: "",
                 email: "",
                 password: ""
             },

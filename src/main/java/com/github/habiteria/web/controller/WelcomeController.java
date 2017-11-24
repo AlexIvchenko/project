@@ -18,6 +18,16 @@ public class WelcomeController {
         return "index";
     }
 
+    @RequestMapping("/signIn")
+    public String signIn() {
+        return "signIn";
+    }
+
+    @RequestMapping("/signUp")
+    public String signUp() {
+        return "signUp";
+    }
+
     @RequestMapping("/habits")
     public String habits() {
         return "habits";

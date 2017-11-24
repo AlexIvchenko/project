@@ -37,6 +37,7 @@ public class DatabaseUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(
                     "No user found with username: "+ username);
         }
+        log.info("username: {}, password: {}", user.getUsername(), user.getPassword());
         visitorService.visit(user);
         return  org.springframework.security.core.userdetails.User
                 .withUsername(user.getUsername())
