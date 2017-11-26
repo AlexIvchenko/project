@@ -1,3 +1,4 @@
 spring:
   profiles:
     include: real-db
+JDBC_DRIVER_CLASS_NAME: org.postgresql.Driver
