@@ -20,13 +20,13 @@ public class TrackingController {
         this.service = service;
     }
 
-    @GetMapping(path = "/users/{userId}/habits")
+    @GetMapping(path = "/users/{userId}/habits/tracking")
     public HttpEntity<Resources<ScheduledHabitResource>> getCurrentHabitList(
             @PathVariable("userId") final Long userId) {
         return new HttpEntity<>(service.getCurrentHabitList(userId));
     }
 
-    @PostMapping(path = "/users/{userId}/habits/{habitId}/{repeat}/perform")
+    @PostMapping(path = "/users/{userId}/habits/tracking/{habitId}/{repeat}/perform")
     public HttpEntity<ScheduledHabitResource> perform(
             @PathVariable("userId") final Long userId,
             @PathVariable("habitId") final Long habitId,
@@ -34,7 +34,7 @@ public class TrackingController {
         return new HttpEntity<>(service.perform(habitId, repeat));
     }
 
-    @PostMapping(path = "/users/{userId}/habits/{habitId}/{repeat}/fail")
+    @PostMapping(path = "/users/{userId}/habits/tracking/{habitId}/{repeat}/fail")
     public HttpEntity<ScheduledHabitResource> fail(
             @PathVariable("userId") final Long userId,
             @PathVariable("habitId") final Long habitId,
@@ -43,7 +43,7 @@ public class TrackingController {
     }
 
 
-    @PostMapping(path = "/users/{userId}/habits/{habitId}/{repeat}/undo")
+    @PostMapping(path = "/users/{userId}/habits/tracking/{habitId}/{repeat}/undo")
     public HttpEntity<ScheduledHabitResource> undo(@PathVariable("userId") final Long userId,
                                                    @PathVariable("habitId") final Long habitId,
                                                    @PathVariable("repeat") final int repeat) {

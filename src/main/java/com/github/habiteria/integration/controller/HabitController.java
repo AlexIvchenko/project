@@ -27,7 +27,7 @@ public class HabitController {
         return new HttpEntity<>(service.create(userId, habit));
     }
 
-    @PostMapping(path = "/users/{userId}/habits/{habitId}/card")
+    @PostMapping(path = "/users/{userId}/habits/{habitId}")
     public HttpEntity<HabitResource> getHabitCard(
             @PathVariable("userId") final Long userId,
             @PathVariable("habitId") final Long habitId) {
