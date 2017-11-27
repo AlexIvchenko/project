@@ -16,7 +16,7 @@ public class HabitResAsm implements ResourceAssembler<Habit, HabitResource> {
         HabitResource resource = new HabitResource(entity.getName(), entity.getDescription());
         Long userId = entity.getOwner().getId();
         Long habitId = entity.getId();
-        resource.add(Links.getCalendarForLastMonth(userId, habitId));
+        resource.add(Links.getCalendar(userId, habitId));
         return resource;
     }
 }

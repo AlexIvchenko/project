@@ -10,6 +10,8 @@ import com.github.habiteria.core.repository.UserRepository;
 import com.github.habiteria.dto.HabitDto;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 /**
  * @author Alex Ivchenko
  */
@@ -41,5 +43,11 @@ public class HabitServiceImpl implements HabitService {
     @Override
     public Habit get(Long habitId) {
         return fetcher.fetchHabit(habitId);
+    }
+
+    @Override
+    public Set<Habit> getHabits(Long userId) {
+        User user = fetcher.fetchUser(userId);
+        return repository.findByOwner(user);
     }
 }

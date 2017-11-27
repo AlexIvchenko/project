@@ -10,4 +10,6 @@ import java.time.LocalDate;
  */
 public interface CalendarService {
     Calendar getCalendar(Long habitId, LocalDate from, LocalDate to) throws FutureScheduleRetrievingException;
+
+    Calendar getCalendar(Long habitId);
 }

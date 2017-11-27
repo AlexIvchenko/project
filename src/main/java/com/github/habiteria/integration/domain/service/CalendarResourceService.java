@@ -9,4 +9,6 @@ import java.time.LocalDate;
  */
 public interface CalendarResourceService {
     CalendarResource getCalendar(Long habitId, LocalDate from, LocalDate to);
+
+    CalendarResource getCalendar(Long habitId);
 }

@@ -30,4 +30,13 @@ public class CalendarServiceImpl implements CalendarService {
         Set<CalendarRecord> records = scheduler.getRecords(habit, from, to);
         return new Calendar(habit, from, to, records);
     }
+
+    @Override
+    public Calendar getCalendar(Long habitId) {
+        Habit habit = fetcher.fetchHabit(habitId);
+        LocalDate from = habit.getSchedule().getStart().toLocalDate();
+        LocalDate to = LocalDate.now();
+        Set<CalendarRecord> records = scheduler.getRecords(habit, from, to);
+        return new Calendar(habit, from, to, records);
+    }
 }

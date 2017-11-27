@@ -2,6 +2,7 @@ package com.github.habiteria.core.domain.service.scheduler;
 
 import com.github.habiteria.core.entities.CalendarRecord;
 import com.github.habiteria.core.entities.Habit;
+import com.github.habiteria.core.entities.Status;
 import com.github.habiteria.core.entities.User;
 import com.github.habiteria.core.exceptions.client.FutureScheduleRetrievingException;
 import com.github.habiteria.core.repository.CalendarRecordRepository;
@@ -44,7 +45,12 @@ public class SchedulerImpl implements Scheduler {
 
     @Override
     public CalendarRecord update(CalendarRecord record) {
-        return repository.save(record);
+        if (record.getStatus() == Status.UNVERIFIED) {
+            repository.delete(record);
+            return record;
+        } else {
+            return repository.save(record);
+        }
     }
 
     @Override

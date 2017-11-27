@@ -24,4 +24,9 @@ public class CalendarResourceServiceImpl implements CalendarResourceService {
     public CalendarResource getCalendar(Long habitId, LocalDate from, LocalDate to) {
         return assembler.toResource(service.getCalendar(habitId, from, to));
     }
+
+    @Override
+    public CalendarResource getCalendar(Long habitId) {
+        return assembler.toResource(service.getCalendar(habitId));
+    }
 }
