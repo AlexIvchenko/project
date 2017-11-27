@@ -28,7 +28,7 @@ public class ScheduledHabitResAsm implements ResourceAssembler<ScheduledHabit, S
             }
         }
 
-        resource.add(Links.getHabitCard(userId, habitId));
+        resource.add(Links.getHabit(userId, habitId));
 
         return resource;
     }

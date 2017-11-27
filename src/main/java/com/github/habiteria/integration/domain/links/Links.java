@@ -53,8 +53,8 @@ public class Links {
                 .withRel("getCalendarForLastMonth");
     }
 
-    public static Link getHabitCard(Long userId, Long habitId) {
-        return linkTo(methodOn(HabitController.class).getHabitCard(userId, habitId))
-                .withRel("getCard");
+    public static Link getHabit(Long userId, Long habitId) {
+        return linkTo(methodOn(HabitController.class).getHabit(userId, habitId))
+                .withRel("getHabit");
     }
 }

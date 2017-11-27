@@ -35,7 +35,7 @@ public class CalendarResAsm implements ResourceAssembler<Calendar, CalendarResou
             recordsMap.get(date).add(record);
         }
         CalendarResource resource = new CalendarResource(entity.getStart(), entity.getEnd(), recordsMap);
-        resource.add(Links.getHabitCard(userId, habitId));
+        resource.add(Links.getHabit(userId, habitId));
         return resource;
     }
 }

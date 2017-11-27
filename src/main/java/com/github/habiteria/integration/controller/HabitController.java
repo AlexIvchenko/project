@@ -28,7 +28,7 @@ public class HabitController {
     }
 
     @PostMapping(path = "/users/{userId}/habits/{habitId}")
-    public HttpEntity<HabitResource> getHabitCard(
+    public HttpEntity<HabitResource> getHabit(
             @PathVariable("userId") final Long userId,
             @PathVariable("habitId") final Long habitId) {
         return new HttpEntity<>(service.getHabit(userId, habitId));
