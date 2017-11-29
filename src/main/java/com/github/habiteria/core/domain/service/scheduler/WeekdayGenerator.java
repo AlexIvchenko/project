@@ -5,6 +5,7 @@ import com.github.habiteria.core.entities.Habit;
 import com.github.habiteria.core.entities.Schedule;
 import com.github.habiteria.core.repository.HabitRepository;
 import com.github.habiteria.utils.LocalDateRange;
+import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ import java.util.Set;
 /**
  * @author Alex Ivchenko
  */
+@Service("weekdayGenerator")
 public class WeekdayGenerator extends AbstractGenerator {
     public WeekdayGenerator(HabitRepository habitRepository) {
         super(habitRepository);

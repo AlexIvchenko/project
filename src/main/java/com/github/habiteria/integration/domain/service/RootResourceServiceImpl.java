@@ -31,6 +31,7 @@ public class RootResourceServiceImpl implements RootResourceService {
 
     private void fillLinksForAuthenticatedUser(User user, ResourceSupport links) {
         Long userId = user.getId();
+        links.add(Links.getHabits(userId));
         links.add(Links.createHabit(userId));
         links.add(Links.getCurrentHabitList(userId));
     }

@@ -50,4 +50,9 @@ public class ScheduledHabitResource extends ResourceSupport {
     public Status getStatus() {
         return status;
     }
+
+    @JsonProperty
+    public int getRepeat() {
+        return repeat;
+    }
 }

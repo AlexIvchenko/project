@@ -1,7 +1,9 @@
 package com.github.habiteria.core.entities.builders;
 
+import com.github.habiteria.core.entities.imps.KarmaImpl;
 import com.github.habiteria.core.entities.imps.UserImpl;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -44,7 +46,12 @@ public class Users {
         public UserImpl withName(String firstName, String lastName) {
             this.firstName = firstName;
             this.lastName = lastName;
-            return new UserImpl(username, firstName, lastName, email, password);
+            KarmaImpl karma = new KarmaImpl();
+            UserImpl user = new UserImpl(username, firstName, lastName, email, password, karma);
+            karma.setOwner(user);
+            karma.setValue(100);
+            karma.setActualTime(LocalDateTime.now());
+            return user;
         }
     }
 

@@ -16,14 +16,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class RootSecurityConfig {
     @Autowired
-    public void configureGlobalSecurity(AuthenticationManagerBuilder builder) {
-        builder.authenticationProvider(authenticationProvider());
+    public void configureGlobalSecurity(AuthenticationManagerBuilder builder, UserDetailsService service) {
+        builder.authenticationProvider(authenticationProvider(service));
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider() {
+    public AuthenticationProvider authenticationProvider(UserDetailsService service) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userDetailsService());
+        provider.setUserDetailsService(service);
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
@@ -31,10 +31,5 @@ public class RootSecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new DatabaseUserDetailsService();
     }
 }

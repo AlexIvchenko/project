@@ -53,4 +53,9 @@ public class Links {
         return linkTo(methodOn(HabitController.class).getHabit(userId, habitId))
                 .withRel("getHabit");
     }
+
+    public static Link getHabits(Long userId) {
+        return linkTo(methodOn(HabitController.class).getHabits(userId))
+                .withRel("getHabits");
+    }
 }

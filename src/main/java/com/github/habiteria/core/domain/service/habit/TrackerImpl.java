@@ -10,7 +10,6 @@ import com.github.habiteria.core.entities.User;
 import com.github.habiteria.core.exceptions.client.IllegalCalendarRecordStateTransitionException;
 import com.github.habiteria.core.exceptions.client.ResourceNotFoundException;
 import com.github.habiteria.core.exceptions.client.TryToVerifyNotVerifiableHabitException;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,7 +19,6 @@ import java.util.Set;
 /**
  * @author Alex Ivchenko
  */
-@Slf4j
 @Service
 public class TrackerImpl implements Tracker {
     private final StrictFetcher fetcher;
@@ -40,7 +38,6 @@ public class TrackerImpl implements Tracker {
         for (CalendarRecord record : records) {
             scheduled.add(build(record.getHabit(), record));
         }
-        log.info("current size: " + scheduled.size());
         return scheduled;
     }
 
@@ -78,7 +75,6 @@ public class TrackerImpl implements Tracker {
 
     private ScheduledHabit build(Habit habit, CalendarRecord record) {
         LocalDateTime now = LocalDateTime.now();
-        log.info("now: {}, start verifying: {}, end verifying {}", now, record.getStartVerifying(), record.getEndVerifying());
         boolean verifiable = !now.isBefore(record.getStartVerifying()) && !now.isAfter(record.getEndVerifying());
         return new ScheduledHabit(habit, record.isRequired(), verifiable, record.getStatus(), record.getRepeat());
     }

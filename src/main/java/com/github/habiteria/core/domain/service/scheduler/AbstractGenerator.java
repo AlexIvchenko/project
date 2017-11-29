@@ -7,7 +7,6 @@ import com.github.habiteria.core.entities.User;
 import com.github.habiteria.core.exceptions.client.FutureScheduleRetrievingException;
 import com.github.habiteria.core.exceptions.server.SequenceOfRepeatsBrokenException;
 import com.github.habiteria.core.repository.HabitRepository;
-import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,7 +16,6 @@ import java.util.Set;
 /**
  * @author Alex Ivchenko
  */
-@Slf4j
 public abstract class AbstractGenerator implements Generator {
     private HabitRepository habitRepository;
 

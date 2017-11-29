@@ -3,6 +3,7 @@ package com.github.habiteria.core.entities.imps;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.habiteria.core.entities.AbstractEntity;
+import com.github.habiteria.core.entities.Karma;
 import com.github.habiteria.core.entities.User;
 import lombok.*;
 
@@ -36,6 +37,9 @@ public class UserImpl extends AbstractEntity implements User {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @OneToOne(targetEntity = KarmaImpl.class, mappedBy = "owner", cascade = CascadeType.ALL)
+    private Karma karma;
 
     @JsonProperty
     public void setPassword(String password) {

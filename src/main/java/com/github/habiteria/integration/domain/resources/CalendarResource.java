@@ -6,7 +6,6 @@ import org.springframework.hateoas.ResourceSupport;
 
 import java.time.LocalDate;
 import java.util.Collections;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -16,9 +15,9 @@ import java.util.Set;
 public class CalendarResource extends ResourceSupport {
     private final LocalDate start;
     private final LocalDate end;
-    private final Map<LocalDate, Set<CalendarRecordResource>> records;
+    private final Set<CalendarRecordResource> records;
 
-    public CalendarResource(LocalDate start, LocalDate end, Map<LocalDate, Set<CalendarRecordResource>> records) {
+    public CalendarResource(LocalDate start, LocalDate end, Set<CalendarRecordResource> records) {
         this.start = start;
         this.end = end;
         this.records = records;
@@ -35,7 +34,7 @@ public class CalendarResource extends ResourceSupport {
     }
 
     @JsonProperty
-    public Map<LocalDate, Set<CalendarRecordResource>> getRecords() {
-        return Collections.unmodifiableMap(records);
+    public Set<CalendarRecordResource> getRecords() {
+        return Collections.unmodifiableSet(records);
     }
 }

@@ -22,13 +22,16 @@ import java.util.Set;
 public class GeneratorImpl implements Generator {
     private final Generator daily;
     private final Generator weekend;
+    private final Generator weekday;
     private final HabitRepository habitRepository;
 
     public GeneratorImpl(@Qualifier("dailyGenerator") Generator daily,
                          @Qualifier("weekendGenerator") Generator weekend,
+                         @Qualifier("weekdayGenerator") Generator weekday,
                          HabitRepository habitRepository) {
         this.daily = daily;
         this.weekend = weekend;
+        this.weekday = weekday;
         this.habitRepository = habitRepository;
     }
 
@@ -45,23 +48,30 @@ public class GeneratorImpl implements Generator {
     @Override
     public Set<CalendarRecord> getOnlyVerifiableIn(User user, LocalDateTime time) {
         for (Habit habit : habitRepository.findByOwner(user)) {
-            if (habit.getSchedule().getType() != Schedule.Type.DAILY && habit.getSchedule().getType() != Schedule.Type.WEEKEND) {
-                throw new IllegalArgumentException("cannot generate " + habit.getSchedule().getType() + " type");
+            Schedule.Type type = habit.getSchedule().getType();
+            if (type != Schedule.Type.DAILY &&
+                    type != Schedule.Type.WEEKEND &&
+                    type != Schedule.Type.WEEKDAY) {
+                throw new IllegalArgumentException("cannot generate " + type + " type");
             }
         }
         HashSet<CalendarRecord> result = new HashSet<>();
         result.addAll(daily.getOnlyVerifiableIn(user, time));
         result.addAll(weekend.getOnlyVerifiableIn(user, time));
+        result.addAll(weekday.getOnlyVerifiableIn(user, time));
         return result;
     }
 
     private Generator findGeneratorFor(Habit habit) {
-        if (habit.getSchedule().getType() == Schedule.Type.DAILY) {
+        Schedule.Type type = habit.getSchedule().getType();
+        if (type == Schedule.Type.DAILY) {
             return daily;
-        } else if (habit.getSchedule().getType() == Schedule.Type.WEEKEND) {
+        } else if (type == Schedule.Type.WEEKEND) {
             return weekend;
+        } else if (type == Schedule.Type.WEEKDAY) {
+            return weekday;
         } else {
-            throw new IllegalArgumentException("cannot generate " + habit.getSchedule().getType() + " type");
+            throw new IllegalArgumentException("cannot generate " + type + " type");
         }
     }
 }

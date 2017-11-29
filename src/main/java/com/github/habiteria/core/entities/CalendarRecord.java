@@ -24,24 +24,25 @@ public class CalendarRecord extends AbstractEntity {
     @JoinColumn(name = "habit_id")
     private Habit habit;
 
+    @Column(name = "repeat", updatable = false, nullable = false)
     private int repeat;
 
-    @Column(name = "start_doing")
+    @Column(name = "start_doing", updatable = false, nullable = false)
     private LocalDateTime startDoing;
 
-    @Column(name = "end_doing")
+    @Column(name = "end_doing", updatable = false, nullable = false)
     private LocalDateTime endDoing;
 
-    @Column(name = "start_verifying")
+    @Column(name = "start_verifying", updatable = false, nullable = false)
     private LocalDateTime startVerifying;
 
-    @Column(name = "end_verifying")
+    @Column(name = "end_verifying", updatable = false, nullable = false)
     private LocalDateTime endVerifying;
 
-    @Column(name = "required")
+    @Column(name = "required", updatable = false, nullable = false)
     private boolean required;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
     private Status status;
 }

@@ -7,7 +7,6 @@ import com.github.habiteria.core.entities.imps.UserImpl;
 import com.github.habiteria.core.repository.HabitRepository;
 import com.github.habiteria.core.repository.UserRepository;
 import com.github.habiteria.dto.UserDto;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Service;
  * @author Alex Ivchenko
  */
 @Service(value = "userAuthService")
-@Slf4j
 public class UserAuthServiceImpl implements UserAuthService {
     private final UserRepository userRepository;
     private final HabitRepository habitRepository;
@@ -33,14 +31,12 @@ public class UserAuthServiceImpl implements UserAuthService {
 
     @Override
     public boolean isAuthorized(Authentication auth, Long userId) {
-        log.info("checking authorities: " + userId + " " + auth);
         User object = object(userId);
         User subject = subject(auth);
         boolean ret = false;
         if (object != null && subject != null) {
             ret = object.equals(subject);
         }
-        log.info("authorization {}", ret ? "success" : "failed");
         return ret;
     }
 
@@ -54,17 +50,14 @@ public class UserAuthServiceImpl implements UserAuthService {
 
     @Override
     public boolean isAuthorized(Long userId, Long habitId) {
-        log.info("checking authorities: " + userId + " " + habitId);
         User user = object(userId);
         Habit habit = habitRepository.findOne(habitId);
         boolean ret = habit.getOwner().equals(user);
-        log.info("authorization {}", ret ? "success" : "failed");
         return ret;
     }
 
     @Override
     public User signUp(UserDto dto) {
-        log.info("signing up: " + dto.toString());
         checkIdentity(dto);
         UserImpl user = Users.withUsername(dto.getUsername())
                 .withPassword(passwordEncoder.encode(dto.getPassword()))
