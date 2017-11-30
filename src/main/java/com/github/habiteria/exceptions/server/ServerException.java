@@ -1,4 +1,4 @@
-package com.github.habiteria.core.exceptions.server;
+package com.github.habiteria.exceptions.server;
 
 /**
  * @author Alex Ivchenko

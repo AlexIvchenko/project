@@ -47,6 +47,10 @@ public class CalendarRecord extends AbstractEntity {
     @Column(name = "status", nullable = false)
     private Status status;
 
+    public boolean isUnverified() {
+        return status == Status.UNVERIFIED;
+    }
+
     public LocalDate getDate() {
         return startDoing.toLocalDate();
     }

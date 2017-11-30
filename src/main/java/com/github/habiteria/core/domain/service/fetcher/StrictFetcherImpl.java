@@ -2,7 +2,7 @@ package com.github.habiteria.core.domain.service.fetcher;
 
 import com.github.habiteria.core.entities.Habit;
 import com.github.habiteria.core.entities.User;
-import com.github.habiteria.core.exceptions.client.ResourceNotFoundException;
+import com.github.habiteria.exceptions.client.ResourceNotFoundException;
 import com.github.habiteria.core.repository.HabitRepository;
 import com.github.habiteria.core.repository.UserRepository;
 import org.springframework.stereotype.Service;

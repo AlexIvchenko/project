@@ -3,7 +3,7 @@ package com.github.habiteria.core.domain.service.calendar;
 import com.github.habiteria.core.domain.model.Calendar;
 import com.github.habiteria.core.domain.service.fetcher.StrictFetcher;
 import com.github.habiteria.core.domain.service.scheduler.Scheduler;
-import com.github.habiteria.core.exceptions.client.FutureScheduleRetrievingException;
+import com.github.habiteria.exceptions.client.FutureScheduleRetrievingException;
 import com.github.habiteria.core.entities.CalendarRecord;
 import com.github.habiteria.core.entities.Habit;
 import org.springframework.stereotype.Service;

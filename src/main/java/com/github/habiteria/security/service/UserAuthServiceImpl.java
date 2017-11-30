@@ -9,7 +9,7 @@ import com.github.habiteria.core.repository.HabitRepository;
 import com.github.habiteria.core.repository.KarmaRepository;
 import com.github.habiteria.core.repository.UserRepository;
 import com.github.habiteria.dto.UserDto;
-import com.github.habiteria.security.UsernameAlreadyUsedException;
+import com.github.habiteria.exceptions.client.fields.UsernameAlreadyUsedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -85,7 +85,7 @@ public class UserAuthServiceImpl implements UserAuthService {
     private void checkIdentity(UserDto user) {
         User loaded = userRepository.findByUsername(user.getUsername());
         if (loaded != null) {
-            throw new UsernameAlreadyUsedException("username " + user.getUsername() + " already used");
+            throw new UsernameAlreadyUsedException(user.getUsername());
         }
     }
 }

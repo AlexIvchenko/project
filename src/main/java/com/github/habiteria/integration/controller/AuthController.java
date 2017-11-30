@@ -9,6 +9,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.validation.Valid;
+
 /**
  * @author Alex Ivchenko
  */
@@ -23,7 +25,7 @@ public class AuthController {
     }
 
     @PostMapping(path = "/users")
-    public HttpEntity<UserResource> create(@RequestBody final UserDto user) {
+    public HttpEntity<UserResource> create(@RequestBody @Valid final UserDto user) {
         return new HttpEntity<>(assembler.toResource(userAuthService.signUp(user)));
     }
 }

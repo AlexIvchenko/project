@@ -1,7 +1,7 @@
 package com.github.habiteria.core.domain.service.habit;
 
 import com.github.habiteria.core.entities.Habit;
-import com.github.habiteria.core.exceptions.client.ResourceNotFoundException;
+import com.github.habiteria.exceptions.client.ResourceNotFoundException;
 import com.github.habiteria.dto.HabitDto;
 
 import java.util.Set;

@@ -7,9 +7,9 @@ import com.github.habiteria.core.entities.CalendarRecord;
 import com.github.habiteria.core.entities.Habit;
 import com.github.habiteria.core.entities.Status;
 import com.github.habiteria.core.entities.User;
-import com.github.habiteria.core.exceptions.client.IllegalCalendarRecordStateTransitionException;
-import com.github.habiteria.core.exceptions.client.ResourceNotFoundException;
-import com.github.habiteria.core.exceptions.client.TryToVerifyNotVerifiableHabitException;
+import com.github.habiteria.exceptions.client.actions.IllegalCalendarRecordStateTransitionException;
+import com.github.habiteria.exceptions.client.ResourceNotFoundException;
+import com.github.habiteria.exceptions.client.TryToVerifyNotVerifiableHabitException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -46,11 +46,13 @@ public class TrackerImpl implements Tracker {
             TryToVerifyNotVerifiableHabitException, IllegalCalendarRecordStateTransitionException {
         Habit habit = fetcher.fetchHabit(habitId);
         CalendarRecord record = scheduler.getRecord(habit, repeat);
-        // TODO validation
-        record.setStatus(Status.SUCCESS);
-        scheduler.update(record);
-        // TODO change person state or publish event
-        return build(habit, record);
+        if (record.isUnverified()) {
+            record.setStatus(Status.SUCCESS);
+            scheduler.update(record);
+            return build(habit, record);
+        } else {
+            throw IllegalCalendarRecordStateTransitionException.performWhenAlreadyVerified(record);
+        }
     }
 
     @Override
@@ -58,9 +60,13 @@ public class TrackerImpl implements Tracker {
             TryToVerifyNotVerifiableHabitException, IllegalCalendarRecordStateTransitionException {
         Habit habit = fetcher.fetchHabit(habitId);
         CalendarRecord record = scheduler.getRecord(habit, repeat);
-        record.setStatus(Status.FAIL);
-        scheduler.update(record);
-        return build(habit, record);
+        if (record.isUnverified()) {
+            record.setStatus(Status.FAIL);
+            scheduler.update(record);
+            return build(habit, record);
+        } else {
+            throw IllegalCalendarRecordStateTransitionException.failWhenAlreadyVerified(record);
+        }
     }
 
     @Override
@@ -68,9 +74,13 @@ public class TrackerImpl implements Tracker {
             TryToVerifyNotVerifiableHabitException, IllegalCalendarRecordStateTransitionException {
         Habit habit = fetcher.fetchHabit(habitId);
         CalendarRecord record = scheduler.getRecord(habit, repeat);
-        record.setStatus(Status.UNVERIFIED);
-        scheduler.update(record);
-        return build(habit, record);
+        if (!record.isUnverified()) {
+            record.setStatus(Status.UNVERIFIED);
+            scheduler.update(record);
+            return build(habit, record);
+        } else {
+            throw IllegalCalendarRecordStateTransitionException.undoWhenUnverified(record);
+        }
     }
 
     private ScheduledHabit build(Habit habit, CalendarRecord record) {

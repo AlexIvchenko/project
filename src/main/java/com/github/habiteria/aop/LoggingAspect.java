@@ -1,5 +1,6 @@
 package com.github.habiteria.aop;
 
+import com.github.habiteria.exceptions.client.ClientException;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -44,8 +45,12 @@ public class LoggingAspect {
     }
 
     @AfterThrowing(value = "coreDomainLogic() || integrationDomainLogic() || security()", throwing = "thr")
-    public void logAfterReturning(JoinPoint jp, Throwable thr) {
-        log.error("method {} thrown: {}", lazyFormatMethodSignature(jp), thr);
+    public void logAfterThrowing(JoinPoint jp, Throwable thr) {
+        if (thr instanceof ClientException) {
+            log.info("method {} thrown client exception: {}", lazyFormatMethodSignature(jp), thr.getMessage());
+        } else {
+            log.error("method {} thrown: {}", lazyFormatMethodSignature(jp), thr);
+        }
     }
 
     private Object lazyFormatMethodSignature(JoinPoint jp) {

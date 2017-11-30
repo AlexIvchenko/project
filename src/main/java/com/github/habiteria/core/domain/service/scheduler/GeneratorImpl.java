@@ -4,8 +4,8 @@ import com.github.habiteria.core.entities.CalendarRecord;
 import com.github.habiteria.core.entities.Habit;
 import com.github.habiteria.core.entities.Schedule;
 import com.github.habiteria.core.entities.Status;
-import com.github.habiteria.core.exceptions.client.FutureScheduleRetrievingException;
-import com.github.habiteria.core.exceptions.server.SequenceOfRepeatsBrokenException;
+import com.github.habiteria.exceptions.client.FutureScheduleRetrievingException;
+import com.github.habiteria.exceptions.server.SequenceOfRepeatsBrokenException;
 import com.github.habiteria.utils.LocalDateRange;
 import org.springframework.stereotype.Service;
 

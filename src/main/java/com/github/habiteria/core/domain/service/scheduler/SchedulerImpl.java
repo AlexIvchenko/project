@@ -4,7 +4,7 @@ import com.github.habiteria.core.entities.CalendarRecord;
 import com.github.habiteria.core.entities.Habit;
 import com.github.habiteria.core.entities.Status;
 import com.github.habiteria.core.entities.User;
-import com.github.habiteria.core.exceptions.client.FutureScheduleRetrievingException;
+import com.github.habiteria.exceptions.client.FutureScheduleRetrievingException;
 import com.github.habiteria.core.repository.CalendarRecordRepository;
 import com.github.habiteria.core.repository.HabitRepository;
 import lombok.extern.slf4j.Slf4j;

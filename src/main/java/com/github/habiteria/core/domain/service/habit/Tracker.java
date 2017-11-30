@@ -1,9 +1,9 @@
 package com.github.habiteria.core.domain.service.habit;
 
 import com.github.habiteria.core.domain.model.ScheduledHabit;
-import com.github.habiteria.core.exceptions.client.IllegalCalendarRecordStateTransitionException;
-import com.github.habiteria.core.exceptions.client.ResourceNotFoundException;
-import com.github.habiteria.core.exceptions.client.TryToVerifyNotVerifiableHabitException;
+import com.github.habiteria.exceptions.client.actions.IllegalCalendarRecordStateTransitionException;
+import com.github.habiteria.exceptions.client.ResourceNotFoundException;
+import com.github.habiteria.exceptions.client.TryToVerifyNotVerifiableHabitException;
 
 import java.util.Set;
 
