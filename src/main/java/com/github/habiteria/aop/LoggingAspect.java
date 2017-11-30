@@ -28,7 +28,7 @@ public class LoggingAspect {
 
     }
 
-    @Pointcut("execution(public * com.github.habiteria.security..*.*(..))")
+    @Pointcut("execution(public * com.github.habiteria.security.service..*.*(..))")
     public void security() {
 
     }

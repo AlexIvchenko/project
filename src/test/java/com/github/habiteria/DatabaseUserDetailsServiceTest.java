@@ -4,7 +4,7 @@ import com.github.habiteria.core.domain.service.visitor.VisitorService;
 import com.github.habiteria.core.entities.User;
 import com.github.habiteria.core.entities.builders.Users;
 import com.github.habiteria.core.repository.UserRepository;
-import com.github.habiteria.security.DatabaseUserDetailsService;
+import com.github.habiteria.security.service.DatabaseUserDetailsService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

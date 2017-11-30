@@ -1,4 +1,4 @@
-package com.github.habiteria.security;
+package com.github.habiteria.security.service;
 
 import com.github.habiteria.core.entities.User;
 import com.github.habiteria.dto.UserDto;

@@ -1,4 +1,4 @@
-package com.github.habiteria.security;
+package com.github.habiteria.security.service;
 
 import com.github.habiteria.core.entities.Habit;
 import com.github.habiteria.core.entities.User;
@@ -9,6 +9,7 @@ import com.github.habiteria.core.repository.HabitRepository;
 import com.github.habiteria.core.repository.KarmaRepository;
 import com.github.habiteria.core.repository.UserRepository;
 import com.github.habiteria.dto.UserDto;
+import com.github.habiteria.security.UsernameAlreadyUsedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

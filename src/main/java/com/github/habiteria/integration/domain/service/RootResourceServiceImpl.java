@@ -2,7 +2,7 @@ package com.github.habiteria.integration.domain.service;
 
 import com.github.habiteria.core.entities.User;
 import com.github.habiteria.integration.domain.links.Links;
-import com.github.habiteria.security.UserAuthService;
+import com.github.habiteria.security.service.UserAuthService;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.stereotype.Service;
 

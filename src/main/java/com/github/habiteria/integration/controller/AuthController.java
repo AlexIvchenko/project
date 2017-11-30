@@ -4,7 +4,7 @@ import com.github.habiteria.dto.UserDto;
 import com.github.habiteria.integration.controller.annotations.Rest;
 import com.github.habiteria.integration.domain.assemblers.UserResAsm;
 import com.github.habiteria.integration.domain.resources.UserResource;
-import com.github.habiteria.security.UserAuthService;
+import com.github.habiteria.security.service.UserAuthService;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
