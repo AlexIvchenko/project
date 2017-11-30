@@ -1,6 +1,5 @@
 package com.github.habiteria;
 
-import com.github.habiteria.core.domain.service.visitor.VisitorService;
 import com.github.habiteria.core.entities.User;
 import com.github.habiteria.core.entities.builders.Users;
 import com.github.habiteria.core.repository.UserRepository;
@@ -25,15 +24,12 @@ public class DatabaseUserDetailsServiceTest {
     @MockBean
     private UserRepository userRepository;
 
-    @MockBean
-    private VisitorService visitorService;
-
 
     private UserDetailsService userDetailsService;
 
     @Before
     public void setUp() throws Exception {
-        userDetailsService = new DatabaseUserDetailsService(userRepository, visitorService);
+        userDetailsService = new DatabaseUserDetailsService(userRepository);
         User user = Users.withUsername("test")
                 .withPassword("test")
                 .withEmail("test")

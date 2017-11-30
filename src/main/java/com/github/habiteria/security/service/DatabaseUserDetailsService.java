@@ -1,6 +1,5 @@
 package com.github.habiteria.security.service;
 
-import com.github.habiteria.core.domain.service.visitor.VisitorService;
 import com.github.habiteria.core.entities.User;
 import com.github.habiteria.core.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,11 +15,9 @@ import java.util.Collections;
 @Service
 public class DatabaseUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
-    private final VisitorService visitorService;
 
-    public DatabaseUserDetailsService(UserRepository userRepository, VisitorService visitorService) {
+    public DatabaseUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.visitorService = visitorService;
     }
 
     @Override
@@ -30,7 +27,6 @@ public class DatabaseUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(
                     "No user found with username: "+ username);
         }
-        visitorService.visit(user);
         return  org.springframework.security.core.userdetails.User
                 .withUsername(user.getUsername())
                 .password(user.getPassword())
