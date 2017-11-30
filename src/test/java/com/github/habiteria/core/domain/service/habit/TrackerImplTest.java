@@ -40,6 +40,7 @@ public class TrackerImplTest {
         CalendarRecord rec = mock(CalendarRecord.class);
         when(scheduler.getRecord(habit, 1)).thenReturn(rec);
         when(rec.getStatus()).thenReturn(Status.UNVERIFIED);
+        when(rec.isUnverified()).thenReturn(true);
         when(rec.getStartVerifying()).thenReturn(LocalDateTime.now().minusMinutes(1));
         when(rec.getEndVerifying()).thenReturn(LocalDateTime.now().plusMinutes(1));
         when(fetcher.fetchHabit(0L)).thenReturn(habit);
