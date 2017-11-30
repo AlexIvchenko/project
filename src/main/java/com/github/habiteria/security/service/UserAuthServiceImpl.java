@@ -70,11 +70,12 @@ public class UserAuthServiceImpl implements UserAuthService {
                 .withEmail(dto.getEmail())
                 .withName(dto.getFirstName(), dto.getLastName());
         KarmaImpl karma = new KarmaImpl();
+        userRepository.save(user);
         karma.setOwner(user);
         karma.setValue(100);
         karma.setActualTime(LocalDateTime.now());
         karmaRepository.save(karma);
-        return userRepository.save(user);
+        return user;
     }
 
     @Override

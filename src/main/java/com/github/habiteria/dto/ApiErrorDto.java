@@ -1,14 +1,12 @@
 package com.github.habiteria.dto;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Alex Ivchenko
  */
 public class ApiErrorDto {
-    private List<FieldErrorDto> fieldErrors = new ArrayList<>();
+    private Map<String, String> fieldErrors = new HashMap<>();
     private List<ResourceErrorDto> resourceErrors = new ArrayList<>();
     private List<String> errors = new ArrayList<>();
 
@@ -17,7 +15,7 @@ public class ApiErrorDto {
     }
 
     public void addFieldError(String field, String message) {
-        fieldErrors.add(new FieldErrorDto(field, message));
+        fieldErrors.putIfAbsent(field, message);
     }
 
     public void addResourceError(String resource, String message) {
@@ -28,8 +26,8 @@ public class ApiErrorDto {
         return Collections.unmodifiableList(errors);
     }
 
-    public List<FieldErrorDto> getFieldErrors() {
-        return Collections.unmodifiableList(fieldErrors);
+    public Map<String, String> getFieldErrors() {
+        return Collections.unmodifiableMap(fieldErrors);
     }
 
     public List<ResourceErrorDto> getResourceErrors() {
