@@ -6,6 +6,7 @@ import com.github.habiteria.core.entities.Status;
 import com.github.habiteria.core.entities.User;
 import com.github.habiteria.core.exceptions.client.FutureScheduleRetrievingException;
 import com.github.habiteria.core.repository.CalendarRecordRepository;
+import com.github.habiteria.core.repository.HabitRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +23,12 @@ import java.util.Set;
 @Service
 public class SchedulerImpl implements Scheduler {
     private final CalendarRecordRepository repository;
+    private final HabitRepository habitRepository;
     private final Generator generator;
 
-    public SchedulerImpl(CalendarRecordRepository repository, Generator generator) {
+    public SchedulerImpl(CalendarRecordRepository repository, HabitRepository habitRepository, Generator generator) {
         this.repository = repository;
+        this.habitRepository = habitRepository;
         this.generator = generator;
     }
 
@@ -56,7 +59,8 @@ public class SchedulerImpl implements Scheduler {
     @Override
     public Set<CalendarRecord> findVerifiable(User user) {
         LocalDateTime now = LocalDateTime.now();
-        Set<CalendarRecord> generated = generator.getOnlyVerifiableIn(user, now);
+        Set<Habit> habits = habitRepository.findByOwner(user);
+        Set<CalendarRecord> generated = generator.getOnlyVerifiableIn(habits, now);
         Set<CalendarRecord> loaded = repository.findVerifiableIn(user, now);
         return merge(loaded, generated);
     }

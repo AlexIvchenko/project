@@ -1,9 +1,6 @@
 package com.github.habiteria.integration.domain.links;
 
-import com.github.habiteria.integration.controller.AuthController;
-import com.github.habiteria.integration.controller.CalendarController;
-import com.github.habiteria.integration.controller.HabitController;
-import com.github.habiteria.integration.controller.TrackingController;
+import com.github.habiteria.integration.controller.*;
 import org.springframework.hateoas.Link;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -57,5 +54,10 @@ public class Links {
     public static Link getHabits(Long userId) {
         return linkTo(methodOn(HabitController.class).getHabits(userId))
                 .withRel("getHabits");
+    }
+
+    public static Link updateKarma(Long userId) {
+        return linkTo(methodOn(KarmaController.class).getKarma(userId))
+                .withRel("update");
     }
 }

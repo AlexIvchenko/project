@@ -14,7 +14,5 @@ public interface User {
 
     String getLastName();
 
-    Karma getKarma();
-
     void changePassword(String password);
 }

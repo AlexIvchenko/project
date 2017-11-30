@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "karma")
 public class KarmaImpl extends AbstractEntity implements Karma {
-    @JoinColumn(name = "owner_id", nullable = false)
+    @JoinColumn(name = "owner_id", nullable = false, updatable = false)
     @OneToOne(targetEntity = UserImpl.class)
     private User owner;
 

@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -45,4 +46,8 @@ public class CalendarRecord extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private Status status;
+
+    public LocalDate getDate() {
+        return startDoing.toLocalDate();
+    }
 }

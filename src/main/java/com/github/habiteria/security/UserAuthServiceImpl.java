@@ -3,8 +3,10 @@ package com.github.habiteria.security;
 import com.github.habiteria.core.entities.Habit;
 import com.github.habiteria.core.entities.User;
 import com.github.habiteria.core.entities.builders.Users;
+import com.github.habiteria.core.entities.imps.KarmaImpl;
 import com.github.habiteria.core.entities.imps.UserImpl;
 import com.github.habiteria.core.repository.HabitRepository;
+import com.github.habiteria.core.repository.KarmaRepository;
 import com.github.habiteria.core.repository.UserRepository;
 import com.github.habiteria.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 /**
  * @author Alex Ivchenko
  */
@@ -20,12 +24,14 @@ import org.springframework.stereotype.Service;
 public class UserAuthServiceImpl implements UserAuthService {
     private final UserRepository userRepository;
     private final HabitRepository habitRepository;
+    private final KarmaRepository karmaRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserAuthServiceImpl(UserRepository userRepository, HabitRepository habitRepository, PasswordEncoder passwordEncoder) {
+    public UserAuthServiceImpl(UserRepository userRepository, HabitRepository habitRepository, KarmaRepository karmaRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.habitRepository = habitRepository;
+        this.karmaRepository = karmaRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -52,8 +58,7 @@ public class UserAuthServiceImpl implements UserAuthService {
     public boolean isAuthorized(Long userId, Long habitId) {
         User user = object(userId);
         Habit habit = habitRepository.findOne(habitId);
-        boolean ret = habit.getOwner().equals(user);
-        return ret;
+        return habit.getOwner().equals(user);
     }
 
     @Override
@@ -63,6 +68,11 @@ public class UserAuthServiceImpl implements UserAuthService {
                 .withPassword(passwordEncoder.encode(dto.getPassword()))
                 .withEmail(dto.getEmail())
                 .withName(dto.getFirstName(), dto.getLastName());
+        KarmaImpl karma = new KarmaImpl();
+        karma.setOwner(user);
+        karma.setValue(100);
+        karma.setActualTime(LocalDateTime.now());
+        karmaRepository.save(karma);
         return userRepository.save(user);
     }
 
