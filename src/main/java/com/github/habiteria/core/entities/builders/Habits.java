@@ -57,9 +57,7 @@ public class Habits {
             ScheduleImpl schedule = new ScheduleImpl();
             schedule.setStart(start);
             schedule.setType(type);
-            HabitImpl habit = new HabitImpl(owner, name, description, schedule);
-            schedule.setHabit(habit);
-            return habit;
+            return new HabitImpl(owner, name, description, schedule);
         }
     }
 

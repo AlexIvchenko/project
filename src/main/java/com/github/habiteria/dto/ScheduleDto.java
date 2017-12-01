@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Setter
 public class ScheduleDto {
     private LocalDateTime start;
+    private LocalDateTime end;
     // TODO make other class
     private Schedule.Type type;
 }
