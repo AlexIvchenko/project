@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -57,8 +58,8 @@ public class LoggingAspect {
 
     @AfterThrowing(value = "anyService() || controllers()", throwing = "thr")
     public void logAfterThrowing(JoinPoint jp, Throwable thr) {
-        if (thr instanceof ClientException) {
-            log.info("method {} thrown client exception: {}", lazyFormatMethodSignature(jp), thr.getMessage());
+        if (thr instanceof ClientException || thr instanceof UsernameNotFoundException) {
+            log.info("method {} thrown exception: {}", lazyFormatMethodSignature(jp), thr.getMessage());
         } else {
             log.error("method {} thrown: {}", lazyFormatMethodSignature(jp), thr);
         }
