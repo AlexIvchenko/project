@@ -13,7 +13,7 @@ import static org.springframework.hateoas.MediaTypes.HAL_JSON_VALUE;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@RequestMapping(path = "/api", produces = HAL_JSON_VALUE)
+@RequestMapping(produces = HAL_JSON_VALUE)
 @RestController
 public @interface Rest {
 }

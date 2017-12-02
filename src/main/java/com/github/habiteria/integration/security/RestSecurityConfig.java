@@ -15,14 +15,13 @@ public class RestSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .antMatcher("/api/**")
                 .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS, "/api/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/api").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/users").permitAll()
-                .antMatchers("/api/users/{userId}/**")
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/").permitAll()
+                .antMatchers(HttpMethod.POST, "/users").permitAll()
+                .antMatchers("/users/{userId}/**")
                 .access("@userAuthService.isAuthorized(authentication, #userId)")
-                .antMatchers("/api/users/{userId}/habits/{habitId}")
+                .antMatchers("/users/{userId}/habits/{habitId}")
                 .access("@userAuthService.isAuthorized(#userId, #habitId)")
                 .anyRequest().authenticated()
                 .and().httpBasic().and().cors();
