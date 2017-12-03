@@ -24,8 +24,7 @@ public class IntegrationTrackerImpl implements IntegrationTracker {
 
     @Override
     public Resources<ScheduledHabitResource> getCurrentHabitList(Long userId) {
-        Resources<ScheduledHabitResource> habits = ResourceUtils.toResources(service.getCurrentHabitList(userId), habitAsm);
-        return new Resources<>(habits);
+        return ResourceUtils.toResources(service.getCurrentHabitList(userId), habitAsm);
     }
 
     @Override

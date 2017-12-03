@@ -1,27 +1,28 @@
 package com.github.habiteria.integration.domain.resources;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.ToString;
 import org.springframework.hateoas.ResourceSupport;
+
+import java.time.LocalDate;
 
 /**
  * @author Alex Ivchenko
  */
+@Getter
+@ToString
 public class HabitResource extends ResourceSupport {
     private final String name;
     private final String description;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
+    private final Integer progress;
 
-    public HabitResource(String name, String description) {
+    public HabitResource(String name, String description, LocalDate startDate, LocalDate endDate, Integer progress) {
         this.name = name;
         this.description = description;
-    }
-
-    @JsonProperty
-    public String getName() {
-        return name;
-    }
-
-    @JsonProperty
-    public String getDescription() {
-        return description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.progress = progress;
     }
 }

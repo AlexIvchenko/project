@@ -3,6 +3,7 @@ package com.github.habiteria.integration.domain.service;
 import com.github.habiteria.integration.domain.resources.ScheduledHabitResource;
 import org.springframework.hateoas.Resources;
 
+
 /**
  * @author Alex Ivchenko
  */

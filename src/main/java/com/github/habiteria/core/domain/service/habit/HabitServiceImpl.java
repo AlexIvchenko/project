@@ -10,6 +10,9 @@ import com.github.habiteria.core.repository.UserRepository;
 import com.github.habiteria.dto.HabitDto;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Set;
 
 /**
@@ -31,10 +34,21 @@ public class HabitServiceImpl implements HabitService {
     public Habit create(Long userId, HabitDto dto) {
         User user = userRepository.findOne(userId);
 
+        LocalDateTime start = null;
+        if (dto.getSchedule().getStart().equals(LocalDate.now())) {
+            start = LocalDateTime.now();
+        } else {
+            start = LocalDateTime.of(dto.getSchedule().getStart(), LocalTime.MIN);
+        }
+
+        LocalDateTime end = LocalDateTime.of(dto.getSchedule().getStart(), LocalTime.MAX);
+
+
         HabitImpl habit = Habits.withOwner(user)
                 .withName(dto.getName())
                 .withDescription(dto.getDescription())
-                .withStart(dto.getSchedule().getStart())
+                .withStart(start)
+                .withEnd(end)
                 .withType(dto.getSchedule().getType());
 
         return repository.save(habit);

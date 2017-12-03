@@ -49,6 +49,7 @@ public class CalendarRecordRepositoryTest {
                 .withName("habit")
                 .withDescription("habit")
                 .withStart(LocalDateTime.now())
+                .withEnd(LocalDateTime.now().plusDays(10))
                 .withType(Schedule.Type.DAILY);
 
         habitRepository.save(habit);

@@ -42,18 +42,21 @@ public class GeneratorImplTest {
                 .withName("daily")
                 .withDescription("daily habit, starts week ago")
                 .withStart(startTime)
+                .withEnd(startTime.plusDays(30))
                 .withType(Schedule.Type.DAILY);
 
         weekday = Habits.withOwner(user)
                 .withName("weekday")
                 .withDescription("weekday habit, starts week ago")
                 .withStart(startTime)
+                .withEnd(startTime.plusDays(30))
                 .withType(Schedule.Type.WEEKDAY);
 
         weekend = Habits.withOwner(user)
                 .withName("weekend")
                 .withDescription("weekend habit, starts week ago")
                 .withStart(startTime)
+                .withEnd(startTime.plusDays(30))
                 .withType(Schedule.Type.WEEKEND);
 
     }

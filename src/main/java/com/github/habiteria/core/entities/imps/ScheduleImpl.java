@@ -21,6 +21,9 @@ public class ScheduleImpl implements Schedule {
     @Column(name = "start")
     private LocalDateTime start;
 
+    @Column(name = "`end`")
+    private LocalDateTime end;
+
     @Column(name = "type", nullable = false)
     @Enumerated(EnumType.STRING)
     private Schedule.Type type;

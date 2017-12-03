@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 public interface Schedule {
     LocalDateTime getStart();
 
+    LocalDateTime getEnd();
+
     Type getType();
 
     enum Type {

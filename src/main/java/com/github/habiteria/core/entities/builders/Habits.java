@@ -16,11 +16,12 @@ public class Habits {
         return new Builder().withOwner(owner);
     }
 
-    private static class Builder implements OwnerStageBuilder, NameStageBuilder, DescriptionStageBuilder, StartStageBuilder, TypeStageBuilder {
+    private static class Builder implements OwnerStageBuilder, NameStageBuilder, DescriptionStageBuilder, StartStageBuilder, TypeStageBuilder, EndStageBuilder {
         private User owner;
         private String name;
         private String description;
         private LocalDateTime start;
+        private LocalDateTime end;
 
         @Override
         public NameStageBuilder withOwner(User owner) {
@@ -44,7 +45,7 @@ public class Habits {
         }
 
         @Override
-        public TypeStageBuilder withStart(LocalDateTime start) {
+        public EndStageBuilder withStart(LocalDateTime start) {
             if (start == null) {
                 start = LocalDateTime.now();
             }
@@ -53,9 +54,16 @@ public class Habits {
         }
 
         @Override
+        public TypeStageBuilder withEnd(LocalDateTime end) {
+            this.end = end;
+            return this;
+        }
+
+        @Override
         public HabitImpl withType(Schedule.Type type) {
             ScheduleImpl schedule = new ScheduleImpl();
             schedule.setStart(start);
+            schedule.setEnd(end);
             schedule.setType(type);
             return new HabitImpl(owner, name, description, schedule);
         }
@@ -74,7 +82,11 @@ public class Habits {
     }
 
     public interface StartStageBuilder {
-        TypeStageBuilder withStart(LocalDateTime start);
+        EndStageBuilder withStart(LocalDateTime start);
+    }
+
+    public interface EndStageBuilder {
+        TypeStageBuilder withEnd(LocalDateTime end);
     }
 
     public interface TypeStageBuilder {
