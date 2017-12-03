@@ -1,16 +1,14 @@
 package com.github.habiteria.exceptions.client.fields;
 
-import com.github.habiteria.dto.UserDto;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * @author Alex Ivchenko
  */
-public class UsernameAlreadyUsedException extends IllegalFieldValueException {
-    private static final String FIELD = "username";
-    private static final String CONSTRAINT = "unique";
-    private static final FieldCode CODE = new FieldCode(UserDto.class, FIELD, CONSTRAINT);
-
+@ResponseStatus(HttpStatus.BAD_REQUEST)
+public class UsernameAlreadyUsedException extends RuntimeException {
     public UsernameAlreadyUsedException(String username) {
-        super("username " + username + " already used", CODE, username);
+        super("username " + username + " already used");
     }
 }

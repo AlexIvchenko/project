@@ -2,7 +2,6 @@ package com.github.habiteria.integration.controller.error;
 
 import com.github.habiteria.dto.ApiErrorDto;
 import com.github.habiteria.exceptions.client.actions.IllegalActionException;
-import com.github.habiteria.exceptions.client.fields.IllegalFieldValueException;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
@@ -35,15 +34,6 @@ public class RestErrorController {
         BindingResult bindingResult = ex.getBindingResult();
         List<FieldError> fieldErrors = bindingResult.getFieldErrors();
         return processFieldErrors(fieldErrors);
-    }
-
-    @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(IllegalFieldValueException.class)
-    public ApiErrorDto processIllegalFieldValueException(IllegalFieldValueException ex) {
-        ApiErrorDto errors = new ApiErrorDto();
-        errors.addFieldError(ex.getField(), resolveErrorMessage(ex.getCode().text(), ex.getArgs()));
-        return errors;
     }
 
     @ResponseBody
