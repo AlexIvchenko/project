@@ -15,7 +15,14 @@ public class ScheduledHabitResAsm implements ResourceAssembler<ScheduledHabit, S
     @Override
     public ScheduledHabitResource toResource(ScheduledHabit entity) {
         Habit habit = entity.getHabit();
-        final ScheduledHabitResource resource = new ScheduledHabitResource(habit.getName(), habit.getDescription(), entity.isVerifiable(), entity.isRequired(), entity.getStatus(), entity.getRepeat());
+        final ScheduledHabitResource resource = new ScheduledHabitResource(
+                habit.getName(),
+                habit.getDescription(),
+                entity.isVerifiable(),
+                entity.isRequired(),
+                entity.getStatus(),
+                entity.getRepeat(),
+                entity.getDate());
         final Long userId = habit.getOwner().getId();
         final Long habitId = habit.getId();
 

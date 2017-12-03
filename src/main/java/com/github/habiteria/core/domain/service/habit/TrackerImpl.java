@@ -86,7 +86,7 @@ public class TrackerImpl implements Tracker {
     private ScheduledHabit build(Habit habit, CalendarRecord record) {
         LocalDateTime now = LocalDateTime.now();
         boolean verifiable = !now.isBefore(record.getStartVerifying()) && !now.isAfter(record.getEndVerifying());
-        return new ScheduledHabit(habit, record.isRequired(), verifiable, record.getStatus(), record.getRepeat());
+        return new ScheduledHabit(habit, record.isRequired(), verifiable, record.getStatus(), record.getRepeat(), record.getDate());
     }
 
     private void assertVerifiable(CalendarRecord record) throws TryToVerifyNotVerifiableHabitException {
