@@ -15,14 +15,12 @@ public class HabitResource extends ResourceSupport {
     private final String name;
     private final String description;
     private final LocalDate startDate;
-    private final LocalDate endDate;
-    private final Integer progress;
+    private final int progress;
 
-    public HabitResource(String name, String description, LocalDate startDate, LocalDate endDate, Integer progress) {
+    public HabitResource(String name, String description, LocalDate startDate, int progress) {
         this.name = name;
         this.description = description;
         this.startDate = startDate;
-        this.endDate = endDate;
         this.progress = progress;
     }
 }

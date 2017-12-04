@@ -1,5 +1,6 @@
 package com.github.habiteria.integration.domain.assemblers;
 
+import com.github.habiteria.core.domain.service.progress.ProgressComputer;
 import com.github.habiteria.core.entities.Habit;
 import com.github.habiteria.integration.domain.links.Links;
 import com.github.habiteria.integration.domain.resources.HabitResource;
@@ -13,11 +14,17 @@ import java.time.LocalDate;
  */
 @Component
 public class HabitResAsm implements ResourceAssembler<Habit, HabitResource> {
+    private final ProgressComputer progressComputer;
+
+    public HabitResAsm(ProgressComputer progressComputer) {
+        this.progressComputer = progressComputer;
+    }
+
     @Override
     public HabitResource toResource(Habit entity) {
         LocalDate startDate = entity.getSchedule().getStart().toLocalDate();
-        LocalDate endDate = entity.getSchedule().getEnd().toLocalDate();
-        HabitResource resource = new HabitResource(entity.getName(), entity.getDescription(), startDate, endDate, 34);
+        int progress = progressComputer.compute(entity);
+        HabitResource resource = new HabitResource(entity.getName(), entity.getDescription(), startDate, progress);
         Long userId = entity.getOwner().getId();
         Long habitId = entity.getId();
         resource.add(Links.getCalendar(userId, habitId));

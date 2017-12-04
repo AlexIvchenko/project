@@ -34,15 +34,14 @@ public class HabitServiceImpl implements HabitService {
     public Habit create(Long userId, HabitDto dto) {
         User user = userRepository.findOne(userId);
 
-        LocalDateTime start = null;
+        LocalDateTime start;
         if (dto.getSchedule().getStart().equals(LocalDate.now())) {
             start = LocalDateTime.now();
         } else {
             start = LocalDateTime.of(dto.getSchedule().getStart(), LocalTime.MIN);
         }
 
-        LocalDateTime end = LocalDateTime.of(dto.getSchedule().getStart(), LocalTime.MAX);
-
+        LocalDateTime end = LocalDateTime.of(dto.getSchedule().getEnd(), LocalTime.MAX);
 
         HabitImpl habit = Habits.withOwner(user)
                 .withName(dto.getName())
