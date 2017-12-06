@@ -1,6 +1,7 @@
 package com.github.habiteria.integration.domain.service;
 
 import com.github.habiteria.dto.HabitDto;
+import com.github.habiteria.dto.PatchHabitDto;
 import com.github.habiteria.integration.domain.resources.HabitResource;
 import org.springframework.hateoas.Resources;
 
@@ -13,4 +14,6 @@ public interface HabitResourceService {
     HabitResource getHabit(Long userId, Long habitId);
 
     Resources<HabitResource> getHabits(Long userId);
+
+    HabitResource patch(Long userId, Long habitId, PatchHabitDto patch);
 }

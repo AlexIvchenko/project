@@ -2,6 +2,7 @@ package com.github.habiteria.integration.domain.service;
 
 import com.github.habiteria.core.domain.service.habit.HabitService;
 import com.github.habiteria.dto.HabitDto;
+import com.github.habiteria.dto.PatchHabitDto;
 import com.github.habiteria.integration.domain.assemblers.HabitResAsm;
 import com.github.habiteria.integration.domain.resources.HabitResource;
 import org.springframework.hateoas.Resources;
@@ -35,5 +36,10 @@ public class HabitResourceServiceImpl implements HabitResourceService {
     @Override
     public Resources<HabitResource> getHabits(Long userId) {
         return toResources(service.getHabits(userId), habitAsm);
+    }
+
+    @Override
+    public HabitResource patch(Long userId, Long habitId, PatchHabitDto patch) {
+        return habitAsm.toResource(service.patch(habitId, patch));
     }
 }

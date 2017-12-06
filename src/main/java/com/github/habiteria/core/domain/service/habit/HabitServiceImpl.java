@@ -8,6 +8,7 @@ import com.github.habiteria.core.entities.imps.HabitImpl;
 import com.github.habiteria.core.repository.HabitRepository;
 import com.github.habiteria.core.repository.UserRepository;
 import com.github.habiteria.dto.HabitDto;
+import com.github.habiteria.dto.PatchHabitDto;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -62,5 +63,17 @@ public class HabitServiceImpl implements HabitService {
     public Set<Habit> getHabits(Long userId) {
         User user = fetcher.fetchUser(userId);
         return repository.findByOwner(user);
+    }
+
+    @Override
+    public Habit patch(Long habitId, PatchHabitDto patch) {
+        HabitImpl habit = repository.findOne(habitId);
+        if (patch.getName() != null) {
+            habit.setName(patch.getName());
+        }
+        if (patch.getDescription() != null) {
+            habit.setDescription(patch.getDescription());
+        }
+        return repository.save(habit);
     }
 }
