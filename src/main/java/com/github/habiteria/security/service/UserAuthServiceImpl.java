@@ -1,12 +1,11 @@
 package com.github.habiteria.security.service;
 
+import com.github.habiteria.core.domain.service.user.UserService;
 import com.github.habiteria.core.entities.Habit;
 import com.github.habiteria.core.entities.User;
 import com.github.habiteria.core.entities.builders.Users;
-import com.github.habiteria.core.entities.imps.KarmaImpl;
 import com.github.habiteria.core.entities.imps.UserImpl;
 import com.github.habiteria.core.repository.HabitRepository;
-import com.github.habiteria.core.repository.KarmaRepository;
 import com.github.habiteria.core.repository.UserRepository;
 import com.github.habiteria.dto.UserDto;
 import com.github.habiteria.exceptions.client.fields.UsernameAlreadyUsedException;
@@ -16,8 +15,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-
 /**
  * @author Alex Ivchenko
  */
@@ -25,14 +22,14 @@ import java.time.LocalDateTime;
 public class UserAuthServiceImpl implements UserAuthService {
     private final UserRepository userRepository;
     private final HabitRepository habitRepository;
-    private final KarmaRepository karmaRepository;
+    private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserAuthServiceImpl(UserRepository userRepository, HabitRepository habitRepository, KarmaRepository karmaRepository, PasswordEncoder passwordEncoder) {
+    public UserAuthServiceImpl(UserRepository userRepository, HabitRepository habitRepository, UserService userService, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.habitRepository = habitRepository;
-        this.karmaRepository = karmaRepository;
+        this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -65,17 +62,20 @@ public class UserAuthServiceImpl implements UserAuthService {
     @Override
     public User signUp(UserDto dto) {
         checkIdentity(dto);
-        UserImpl user = Users.withUsername(dto.getUsername())
-                .withPassword(passwordEncoder.encode(dto.getPassword()))
-                .withEmail(dto.getEmail())
-                .withName(dto.getFirstName(), dto.getLastName());
-        KarmaImpl karma = new KarmaImpl();
+        UserImpl user = buildUser(dto);
+        persistUser(user);
+        return userService.setUpUserEnv(user);
+    }
+
+    private void persistUser(UserImpl user) {
         userRepository.save(user);
-        karma.setOwner(user);
-        karma.setValue(100);
-        karma.setActualTime(LocalDateTime.now());
-        karmaRepository.save(karma);
-        return user;
+    }
+
+    private UserImpl buildUser(UserDto dto) {
+        return Users.withUsername(dto.getUsername())
+                    .withPassword(passwordEncoder.encode(dto.getPassword()))
+                    .withEmail(dto.getEmail())
+                    .withName(dto.getFirstName(), dto.getLastName());
     }
 
     @Override

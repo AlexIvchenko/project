@@ -31,6 +31,15 @@ public class KarmaServiceImpl implements KarmaService {
     }
 
     @Override
+    public Karma create(User user) {
+        KarmaImpl karma = new KarmaImpl();
+        karma.setOwner(user);
+        karma.setValue(100);
+        karma.setActualTime(LocalDateTime.now());
+        return karmaRepository.save(karma);
+    }
+
+    @Override
     public Karma current(Long userId) {
         User user = userRepository.findOne(userId);
         KarmaImpl karma = karmaRepository.getByOwner(user);
