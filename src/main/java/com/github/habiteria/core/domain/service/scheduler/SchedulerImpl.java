@@ -71,10 +71,10 @@ public class SchedulerImpl implements Scheduler {
             throw new IllegalArgumentException("\"from\" date must not be after than \"to\" date");
         }
         if (from.isAfter(LocalDate.now())) {
-            throw new FutureScheduleRetrievingException(habit, from);
+            throw new FutureScheduleRetrievingException(from);
         }
         if (to.isAfter(LocalDate.now())) {
-            throw new FutureScheduleRetrievingException(habit, to);
+            throw new FutureScheduleRetrievingException(to);
         }
         Set<CalendarRecord> generated = generator.getAllBetween(habit, from, to);
         Set<CalendarRecord> loaded = repository.findBetweenByDoingTime(habit, from.atTime(LocalTime.MIN), to.atTime(LocalTime.MAX));

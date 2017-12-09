@@ -59,12 +59,14 @@ public class GeneratorImpl implements Generator {
 
     @Override
     public Set<CalendarRecord> getOnlyVerifiableIn(Set<Habit> habits, LocalDateTime time) {
+        if (time.isAfter(LocalDateTime.now())) {
+            throw new FutureScheduleRetrievingException(time);
+        }
         Set<CalendarRecord> verifiable = new HashSet<>();
         for (Habit habit : habits) {
-                getAllBetween(habit, habit.getSchedule().getStart().toLocalDate(), time.plusDays(1).toLocalDate())
-                        .stream()
-                        .filter(record -> !record.getStartVerifying().isAfter(time) && !record.getEndVerifying().isBefore(time))
-                        .forEach(verifiable::add);
+            generate(habit).stream()
+                    .filter(rec -> rec.isVerifiableIn(time))
+                    .forEach(verifiable::add);
         }
         return verifiable;
     }
@@ -85,10 +87,14 @@ public class GeneratorImpl implements Generator {
 
     private Predicate<LocalDate> getFilterForType(Schedule.Type type) {
         switch (type) {
-            case DAILY: return DAILY_FILTER;
-            case WEEKDAY: return WEEKDAY_FILTER;
-            case WEEKEND: return WEEKEND_FILTER;
-            default: throw new IllegalArgumentException("filter for " + type.name() + " not found");
+            case DAILY:
+                return DAILY_FILTER;
+            case WEEKDAY:
+                return WEEKDAY_FILTER;
+            case WEEKEND:
+                return WEEKEND_FILTER;
+            default:
+                throw new IllegalArgumentException("filter for " + type.name() + " not found");
         }
     }
 

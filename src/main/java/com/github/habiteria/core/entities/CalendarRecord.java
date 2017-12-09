@@ -54,4 +54,8 @@ public class CalendarRecord extends AbstractEntity {
     public LocalDate getDate() {
         return startDoing.toLocalDate();
     }
+
+    public boolean isVerifiableIn(LocalDateTime time) {
+        return !getStartVerifying().isAfter(time) && !getEndVerifying().isBefore(time);
+    }
 }
