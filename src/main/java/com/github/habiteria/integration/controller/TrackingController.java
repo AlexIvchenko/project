@@ -1,6 +1,7 @@
 package com.github.habiteria.integration.controller;
 
 import com.github.habiteria.integration.controller.annotations.Rest;
+import com.github.habiteria.integration.domain.resources.CalendarRecordResource;
 import com.github.habiteria.integration.domain.resources.ScheduledHabitResource;
 import com.github.habiteria.integration.domain.service.IntegrationTracker;
 import org.springframework.hateoas.Resources;
@@ -26,25 +27,31 @@ public class TrackingController {
         return new HttpEntity<>(service.getCurrentHabitList(userId));
     }
 
-    @PostMapping(path = "/users/{userId}/habits/tracking/{habitId}/{repeat}/perform")
-    public HttpEntity<ScheduledHabitResource> perform(
+    @GetMapping(path = "/users/{userId}/habits/{habitId}/tracking")
+    public HttpEntity<Resources<CalendarRecordResource>> getHabitTracking(
+            @PathVariable("userId") final Long userId,
+            @PathVariable("habitId") final Long habitId) {
+        return new HttpEntity<>(service.getHabitTracking(habitId));
+    }
+
+    @PostMapping(path = "/users/{userId}/habits/tracking/{habitId}/repeats/{repeat}/perform")
+    public HttpEntity<CalendarRecordResource> perform(
             @PathVariable("userId") final Long userId,
             @PathVariable("habitId") final Long habitId,
             @PathVariable("repeat") final int repeat) {
         return new HttpEntity<>(service.perform(habitId, repeat));
     }
 
-    @PostMapping(path = "/users/{userId}/habits/tracking/{habitId}/{repeat}/fail")
-    public HttpEntity<ScheduledHabitResource> fail(
+    @PostMapping(path = "/users/{userId}/habits/tracking/{habitId}/repeats/{repeat}/fail")
+    public HttpEntity<CalendarRecordResource> fail(
             @PathVariable("userId") final Long userId,
             @PathVariable("habitId") final Long habitId,
             @PathVariable("repeat") final int repeat) {
         return new HttpEntity<>(service.fail(habitId, repeat));
     }
 
-
-    @PostMapping(path = "/users/{userId}/habits/tracking/{habitId}/{repeat}/undo")
-    public HttpEntity<ScheduledHabitResource> undo(@PathVariable("userId") final Long userId,
+    @PostMapping(path = "/users/{userId}/habits/tracking/{habitId}/repeats/{repeat}/undo")
+    public HttpEntity<CalendarRecordResource> undo(@PathVariable("userId") final Long userId,
                                                    @PathVariable("habitId") final Long habitId,
                                                    @PathVariable("repeat") final int repeat) {
         return new HttpEntity<>(service.undo(habitId, repeat));

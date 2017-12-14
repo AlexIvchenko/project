@@ -20,6 +20,11 @@ public class Links {
                 .withRel("createHabit");
     }
 
+    public static Link getHabitTracking(Long userId, Long habitId) {
+        return linkTo(methodOn(TrackingController.class).getHabitTracking(userId, habitId))
+                .withRel("getTracking");
+    }
+
     public static Link getCurrentHabitList(Long userId) {
         return linkTo(methodOn(TrackingController.class).getCurrentHabitList(userId))
                 .withRel("getCurrentHabitList");

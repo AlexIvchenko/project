@@ -63,6 +63,14 @@ public class SchedulerImpl implements Scheduler {
     }
 
     @Override
+    public Set<CalendarRecord> findVerifiable(Habit habit) {
+        LocalDateTime now = LocalDateTime.now();
+        Set<CalendarRecord> generated = generator.getOnlyVerifiableIn(habit, now);
+        Set<CalendarRecord> loaded = repository.findVerifiableIn(habit, now);
+        return merge(loaded, generated);
+    }
+
+    @Override
     public Set<CalendarRecord> getRecords(Habit habit, LocalDate from, LocalDate to) throws FutureScheduleRetrievingException {
         if (from.isAfter(to)) {
             throw new IllegalArgumentException("\"from\" date must not be after than \"to\" date");

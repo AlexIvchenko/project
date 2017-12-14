@@ -18,5 +18,7 @@ public interface Scheduler {
 
     Set<CalendarRecord> findVerifiable(User user);
 
+    Set<CalendarRecord> findVerifiable(Habit habit);
+
     Set<CalendarRecord> getRecords(Habit habit, LocalDate from, LocalDate to) throws FutureScheduleRetrievingException;
 }

@@ -6,6 +6,7 @@ import com.github.habiteria.exceptions.client.FutureScheduleRetrievingException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.Set;
 
 /**
@@ -17,4 +18,8 @@ public interface Generator {
     CalendarRecord getOneRepeat(Habit habit, int repeat) throws FutureScheduleRetrievingException;
 
     Set<CalendarRecord> getOnlyVerifiableIn(Set<Habit> habits, LocalDateTime time) throws FutureScheduleRetrievingException;
+
+    default Set<CalendarRecord> getOnlyVerifiableIn(Habit habit, LocalDateTime time) throws FutureScheduleRetrievingException {
+        return getOnlyVerifiableIn(Collections.singleton(habit), time);
+    }
 }

@@ -30,6 +30,11 @@ public class TrackerImpl implements Tracker {
     }
 
     @Override
+    public Set<CalendarRecord> getHabitTracking(Long habitId) {
+        return scheduler.findVerifiable(fetcher.fetchHabit(habitId));
+    }
+
+    @Override
     public Set<ScheduledHabit> getCurrentHabitList(Long userId)
             throws ResourceNotFoundException, TryToVerifyNotVerifiableHabitException {
         User user = fetcher.fetchUser(userId);
@@ -42,7 +47,7 @@ public class TrackerImpl implements Tracker {
     }
 
     @Override
-    public ScheduledHabit perform(Long habitId, int repeat) throws ResourceNotFoundException,
+    public CalendarRecord perform(Long habitId, int repeat) throws ResourceNotFoundException,
             TryToVerifyNotVerifiableHabitException, IllegalCalendarRecordStateTransitionException {
         Habit habit = fetcher.fetchHabit(habitId);
         CalendarRecord record = scheduler.getRecord(habit, repeat);
@@ -50,14 +55,14 @@ public class TrackerImpl implements Tracker {
         if (record.isUnverified()) {
             record.setStatus(Status.SUCCESS);
             scheduler.update(record);
-            return build(habit, record);
+            return record;
         } else {
             throw IllegalCalendarRecordStateTransitionException.performWhenAlreadyVerified(record);
         }
     }
 
     @Override
-    public ScheduledHabit fail(Long habitId, int repeat) throws ResourceNotFoundException,
+    public CalendarRecord fail(Long habitId, int repeat) throws ResourceNotFoundException,
             TryToVerifyNotVerifiableHabitException, IllegalCalendarRecordStateTransitionException {
         Habit habit = fetcher.fetchHabit(habitId);
         CalendarRecord record = scheduler.getRecord(habit, repeat);
@@ -65,14 +70,14 @@ public class TrackerImpl implements Tracker {
         if (record.isUnverified()) {
             record.setStatus(Status.FAIL);
             scheduler.update(record);
-            return build(habit, record);
+            return record;
         } else {
             throw IllegalCalendarRecordStateTransitionException.failWhenAlreadyVerified(record);
         }
     }
 
     @Override
-    public ScheduledHabit undo(Long habitId, int repeat) throws ResourceNotFoundException,
+    public CalendarRecord undo(Long habitId, int repeat) throws ResourceNotFoundException,
             TryToVerifyNotVerifiableHabitException, IllegalCalendarRecordStateTransitionException {
         Habit habit = fetcher.fetchHabit(habitId);
         CalendarRecord record = scheduler.getRecord(habit, repeat);
@@ -80,7 +85,7 @@ public class TrackerImpl implements Tracker {
         if (!record.isUnverified()) {
             record.setStatus(Status.UNVERIFIED);
             scheduler.update(record);
-            return build(habit, record);
+            return record;
         } else {
             throw IllegalCalendarRecordStateTransitionException.undoWhenUnverified(record);
         }
