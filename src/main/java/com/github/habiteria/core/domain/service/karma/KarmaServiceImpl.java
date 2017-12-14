@@ -1,11 +1,11 @@
 package com.github.habiteria.core.domain.service.karma;
 
+import com.github.habiteria.core.domain.service.fetcher.StrictFetcher;
 import com.github.habiteria.core.domain.service.scheduler.Scheduler;
 import com.github.habiteria.core.entities.*;
 import com.github.habiteria.core.entities.imps.KarmaImpl;
 import com.github.habiteria.core.repository.HabitRepository;
 import com.github.habiteria.core.repository.KarmaRepository;
-import com.github.habiteria.core.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +19,13 @@ import java.util.Set;
 @Service
 public class KarmaServiceImpl implements KarmaService {
     private final KarmaRepository karmaRepository;
-    private final UserRepository userRepository;
+    private final StrictFetcher fetcher;
     private final HabitRepository habitRepository;
     private final Scheduler scheduler;
 
-    public KarmaServiceImpl(KarmaRepository karmaRepository, UserRepository userRepository, HabitRepository habitRepository, Scheduler scheduler) {
+    public KarmaServiceImpl(KarmaRepository karmaRepository, StrictFetcher fetcher, HabitRepository habitRepository, Scheduler scheduler) {
         this.karmaRepository = karmaRepository;
-        this.userRepository = userRepository;
+        this.fetcher = fetcher;
         this.habitRepository = habitRepository;
         this.scheduler = scheduler;
     }
@@ -41,7 +41,7 @@ public class KarmaServiceImpl implements KarmaService {
 
     @Override
     public Karma current(Long userId) {
-        User user = userRepository.findOne(userId);
+        User user = fetcher.fetchUser(userId);
         KarmaImpl karma = karmaRepository.getByOwner(user);
         LocalDateTime old = karma.getActualTime();
         LocalDateTime updated = LocalDateTime.now();
@@ -50,11 +50,14 @@ public class KarmaServiceImpl implements KarmaService {
         for (Habit habit : habits) {
             Set<CalendarRecord> records = scheduler.getRecords(habit, old.toLocalDate(), updated.toLocalDate());
             for (CalendarRecord record : records) {
-                if (record.getEndVerifying().isBefore(old)) {
-                    if (record.getStatus() == Status.FAIL) {
-                        delta -= 2;
-                    } else if (record.getStatus() == Status.SUCCESS) {
-                        delta += 1;
+                /* all of explicit records we have already computed */
+                if (!record.isExplicit()) {
+                    if (record.getEndVerifying().isBefore(old)) {
+                        if (record.getStatus() == Status.FAIL) {
+                            delta -= 2;
+                        } else if (record.getStatus() == Status.SUCCESS) {
+                            delta += 1;
+                        }
                     }
                 }
             }

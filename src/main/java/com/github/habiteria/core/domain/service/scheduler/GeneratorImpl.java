@@ -28,7 +28,7 @@ public class GeneratorImpl implements Generator {
     private static final Predicate<LocalDate> WEEKEND_FILTER = date -> date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY;
 
     @Override
-    public Set<CalendarRecord> getAllBetween(Habit habit, LocalDate from, LocalDate to) {
+    public Set<CalendarRecord> getAllBetween(Habit habit, LocalDate from, LocalDate to) throws FutureScheduleRetrievingException {
         Set<CalendarRecord> generated = generate(habit);
         return generated.stream()
                 .filter(record -> !record.getDate().isBefore(from) && !record.getDate().isAfter(to))
@@ -36,7 +36,7 @@ public class GeneratorImpl implements Generator {
     }
 
     @Override
-    public CalendarRecord getOneRepeat(Habit habit, int repeat) {
+    public CalendarRecord getOneRepeat(Habit habit, int repeat) throws FutureScheduleRetrievingException {
         Set<CalendarRecord> all = getAllBetween(habit, habit.getSchedule().getStart().toLocalDate(), LocalDate.now());
         CalendarRecord last = null;
         CalendarRecord found = null;
@@ -58,7 +58,7 @@ public class GeneratorImpl implements Generator {
     }
 
     @Override
-    public Set<CalendarRecord> getOnlyVerifiableIn(Set<Habit> habits, LocalDateTime time) {
+    public Set<CalendarRecord> getOnlyVerifiableIn(Set<Habit> habits, LocalDateTime time) throws FutureScheduleRetrievingException {
         if (time.isAfter(LocalDateTime.now())) {
             throw new FutureScheduleRetrievingException(time);
         }

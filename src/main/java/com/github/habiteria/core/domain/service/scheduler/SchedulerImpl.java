@@ -40,9 +40,6 @@ public class SchedulerImpl implements Scheduler {
         CalendarRecord generated = generator.getOneRepeat(habit, repeat);
         CalendarRecord loaded = repository.findOne(habit, repeat);
         CalendarRecord result = merge(loaded, generated);
-        // TODO
-//        throw new FutureScheduleRetrievingException(habit, repeat);
-//        throw new SequenceOfRepeatsBrokenException(habit, repeat, last);
         return result;
     }
 
@@ -83,6 +80,8 @@ public class SchedulerImpl implements Scheduler {
 
     private Set<CalendarRecord> merge(Set<CalendarRecord> loaded, Set<CalendarRecord> generated) {
         log.info("merging loaded size: {}, generated size: {}", loaded.size(), generated.size());
+        generated.forEach(record -> record.setExplicit(false));
+        generated.forEach(record -> record.setExplicit(true));
         Set<CalendarRecord> result = new HashSet<>(loaded);
         for (CalendarRecord rec : generated) {
             if (!result.contains(rec)) {
@@ -94,6 +93,10 @@ public class SchedulerImpl implements Scheduler {
     }
 
     private CalendarRecord merge(CalendarRecord loaded, CalendarRecord generated) {
+        if (loaded != null) {
+            loaded.setExplicit(true);
+        }
+        generated.setExplicit(false);
         return loaded != null ? loaded : generated;
     }
 }

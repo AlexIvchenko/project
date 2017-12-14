@@ -47,6 +47,9 @@ public class CalendarRecord extends AbstractEntity {
     @Column(name = "status", nullable = false)
     private Status status;
 
+    @Transient
+    private boolean explicit = false;
+
     public boolean isUnverified() {
         return status == Status.UNVERIFIED;
     }

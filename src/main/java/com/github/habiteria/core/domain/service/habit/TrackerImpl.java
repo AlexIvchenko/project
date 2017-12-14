@@ -46,6 +46,7 @@ public class TrackerImpl implements Tracker {
             TryToVerifyNotVerifiableHabitException, IllegalCalendarRecordStateTransitionException {
         Habit habit = fetcher.fetchHabit(habitId);
         CalendarRecord record = scheduler.getRecord(habit, repeat);
+        assertVerifiable(record);
         if (record.isUnverified()) {
             record.setStatus(Status.SUCCESS);
             scheduler.update(record);
@@ -60,6 +61,7 @@ public class TrackerImpl implements Tracker {
             TryToVerifyNotVerifiableHabitException, IllegalCalendarRecordStateTransitionException {
         Habit habit = fetcher.fetchHabit(habitId);
         CalendarRecord record = scheduler.getRecord(habit, repeat);
+        assertVerifiable(record);
         if (record.isUnverified()) {
             record.setStatus(Status.FAIL);
             scheduler.update(record);
@@ -74,6 +76,7 @@ public class TrackerImpl implements Tracker {
             TryToVerifyNotVerifiableHabitException, IllegalCalendarRecordStateTransitionException {
         Habit habit = fetcher.fetchHabit(habitId);
         CalendarRecord record = scheduler.getRecord(habit, repeat);
+        assertVerifiable(record);
         if (!record.isUnverified()) {
             record.setStatus(Status.UNVERIFIED);
             scheduler.update(record);
@@ -91,7 +94,7 @@ public class TrackerImpl implements Tracker {
 
     private void assertVerifiable(CalendarRecord record) throws TryToVerifyNotVerifiableHabitException {
         LocalDateTime now = LocalDateTime.now();
-        if (now.isBefore(record.getStartVerifying()) || now.isAfter(record.getEndVerifying())) {
+        if (!record.isVerifiableIn(now)) {
             throw new TryToVerifyNotVerifiableHabitException(record);
         }
     }
