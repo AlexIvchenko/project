@@ -14,7 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class RestSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http.cors().and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/").permitAll()
@@ -24,7 +24,7 @@ public class RestSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/{userId}/habits/{habitId}")
                 .access("@userAuthService.isAuthorized(#userId, #habitId)")
                 .anyRequest().authenticated()
-                .and().httpBasic().and().cors();
+                .and().httpBasic();
 
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
  * @author Alex Ivchenko
  */
 @Rest
+@CrossOrigin
 public class HabitController {
     private final HabitResourceService service;
 
@@ -33,7 +34,7 @@ public class HabitController {
         return new HttpEntity<>(service.getHabits(userId));
     }
 
-    @PostMapping(path = "/users/{userId}/habits/{habitId}")
+    @GetMapping(path = "/users/{userId}/habits/{habitId}")
     public HttpEntity<HabitResource> getHabit(
             @PathVariable("userId") final Long userId,
             @PathVariable("habitId") final Long habitId) {
@@ -41,9 +42,9 @@ public class HabitController {
     }
 
     @PatchMapping(path = "/users/{userId}/habits/{habitId}")
-    public HabitResource patchHabit(@PathVariable("userId") final Long userId,
+    public HttpEntity<HabitResource> patchHabit(@PathVariable("userId") final Long userId,
                                     @PathVariable("habitId") final Long habitId,
                                     @RequestBody final PatchHabitDto patch) {
-        return service.patch(userId, habitId, patch);
+        return new HttpEntity<>(service.patch(userId, habitId, patch));
     }
 }

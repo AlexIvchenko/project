@@ -65,4 +65,9 @@ public class Links {
         return linkTo(methodOn(KarmaController.class).getKarma(userId))
                 .withRel("update");
     }
+
+    public static Link updateHabitDetails(Long userId, Long habitId) {
+        return linkTo(methodOn(HabitController.class).patchHabit(userId, habitId, null))
+                .withRel("update");
+    }
 }

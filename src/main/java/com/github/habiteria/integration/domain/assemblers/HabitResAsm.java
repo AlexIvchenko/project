@@ -28,13 +28,14 @@ public class HabitResAsm implements ResourceAssembler<Habit, HabitResource> {
     public HabitResource toResource(Habit entity) {
         LocalDate startDate = entity.getSchedule().getStart().toLocalDate();
         int progress = progressComputer.compute(entity);
-        HabitResource resource = new HabitResource(entity.getName(), entity.getDescription(), startDate, progress);
+        HabitResource resource = new HabitResource(entity.getId(), entity.getName(), entity.getDescription(), startDate, progress);
         Long userId = entity.getOwner().getId();
         Long habitId = entity.getId();
         resource.add(linkTo(methodOn(HabitController.class).getHabit(userId, habitId))
                 .withSelfRel());
         resource.add(Links.getCalendar(userId, habitId));
         resource.add(Links.getHabitTracking(userId, habitId));
+        resource.add(Links.updateHabitDetails(userId, habitId));
         return resource;
     }
 }
