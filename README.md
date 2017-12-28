@@ -33,11 +33,14 @@ mvn clean install -P full
 # Running
 Once application is built
 
+VM options: 
+- server.port=8888
+
 Run it as follow if you want to use embedded database
 ```bash
-java -jar target/habiteria.jar
+java -jar -Dserver.port=8888 target/habiteria.jar
 ```
-If you want to use postgres database, you should define the following environment variables and run it as in previous section
+If you want to use postgres database, you should create database (/sql/habiteria.sql), define the following environment variables and run it as in the previous section
 ```
 SPRING_PROFILES_ACTIVE=prod
 JDBC_DATABASE_URL={for example: jdbc:postgresql://localhost:5432/yourdb}
