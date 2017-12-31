@@ -13,7 +13,6 @@ deploy:
   api-key:
     secure: $HEROKU_API_KEY
   app:
-    master: habiteria
-    dev: habiteria-dev
+    master: habiteria-api
 notifications:
   slack: netcracker-2017-team:Ofl5gqjMXYz2h1VW4595QjhA
