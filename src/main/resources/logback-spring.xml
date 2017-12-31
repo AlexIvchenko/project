@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <withJansi>true</withJansi>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{15}) - %highlight(%msg%n)</pattern>
+        </encoder>
+    </appender>
+    <logger name="com.github.habiteria" level="DEBUG" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+    <springProfile name="dev-embedded-db, dev-real-db, test">
+        <root level="INFO">
+            <appender-ref ref="STDOUT" />
+        </root>
+        <!-- logging sql using log4jdbc -->
+        <logger name="jdbc.sqlonly" level="INFO" additivity="false">
+            <appender-ref ref="STDOUT"/>
+        </logger>
+        <logger name="jdbc.resultset" level="OFF"/>
+        <logger name="jdbc.connection" level="OFF"/>
+        <logger name="jdbc.audit" level="OFF"/>
+        <logger name="jdbc.sqltiming" level="OFF"/>
+    </springProfile>
+
+    <springProfile name="prod">
+        <root level="WARN">
+            <appender-ref ref="STDOUT" />
+        </root>
+    </springProfile>
+</configuration>

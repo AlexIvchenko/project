@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    default: dev-embedded-db
+  output:
+    ansi:
+      enabled: always
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+  mvc:
+    logResolvedException: false
+server:
+  context-path: /api
